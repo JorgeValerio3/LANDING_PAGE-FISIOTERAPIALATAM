@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { Mail, MapPin, Send, Facebook, Instagram, Linkedin, Loader2, CheckCircle2 } from 'lucide-react';
+import { Mail, Send, Facebook, Instagram, Loader2, CheckCircle2 } from 'lucide-react';
 
 export function Contacto() {
     const [formData, setFormData] = useState({
@@ -183,14 +183,14 @@ export function Contacto() {
                                     </div>
                                     <div>
                                         <h4 className="text-lg font-bold text-ufaal-text mb-1">Correo Electrónico</h4>
-                                        <a href="mailto:contacto@ufaal.org" className="text-gray-600 hover:text-ufaal-blue transition-colors font-light">
-                                            contacto@ufaal.org
+                                        <a href="mailto:ufaal2020@gmail.com" className="text-gray-600 hover:text-ufaal-blue transition-colors font-light">
+                                            ufaal2020@gmail.com
                                         </a>
                                         <p className="text-gray-500 text-sm mt-1">Lunes a Viernes - Horario hábil</p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-start gap-4">
+                                {/* <div className="flex items-start gap-4">
                                     <div className="p-3 bg-white rounded-full text-ufaal-blue shadow-sm border border-gray-100 shrink-0">
                                         <MapPin className="w-6 h-6" />
                                     </div>
@@ -202,20 +202,17 @@ export function Contacto() {
                                             (Con coordinaciones activas en toda la región)
                                         </p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div>
                                 <h4 className="text-lg font-bold text-ufaal-text mb-6">Redes Sociales</h4>
                                 <div className="flex gap-4">
-                                    <a href="#" className="p-3 bg-white rounded-full text-gray-500 hover:text-white hover:bg-[#1877F2] transition-colors shadow-sm border border-gray-100">
+                                    <a href="#" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full text-gray-500 hover:text-white hover:bg-[#1877F2] transition-colors shadow-sm border border-gray-100">
                                         <Facebook className="w-6 h-6" />
                                     </a>
-                                    <a href="#" className="p-3 bg-white rounded-full text-gray-500 hover:text-white hover:bg-[#E4405F] transition-colors shadow-sm border border-gray-100">
+                                    <a href="#" target="_blank" rel="noopener noreferrer" className="p-3 bg-white rounded-full text-gray-500 hover:text-white hover:bg-[#E4405F] transition-colors shadow-sm border border-gray-100">
                                         <Instagram className="w-6 h-6" />
-                                    </a>
-                                    <a href="#" className="p-3 bg-white rounded-full text-gray-500 hover:text-white hover:bg-[#0A66C2] transition-colors shadow-sm border border-gray-100">
-                                        <Linkedin className="w-6 h-6" />
                                     </a>
                                 </div>
                             </div>

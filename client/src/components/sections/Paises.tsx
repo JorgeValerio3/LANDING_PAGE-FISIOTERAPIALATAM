@@ -63,9 +63,15 @@ export function Paises() {
                                         }}
                                     >
                                         <Popup>
-                                            <div className="text-center font-sans">
-                                                <span className="text-xl ml-1">{country.flag}</span>
-                                                <p className="font-bold text-ufaal-blue mt-1">{country.name}</p>
+                                            <div className="text-center font-sans p-1">
+                                                <div className="w-10 h-6 mx-auto mb-2 rounded shadow-sm border border-gray-200 overflow-hidden">
+                                                    <img 
+                                                        src={`https://flagcdn.com/w80/${country.id}.png`} 
+                                                        alt="" 
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                                <p className="font-bold text-ufaal-blue mt-1 leading-tight">{country.name}</p>
                                                 <p className="text-xs text-ufaal-text font-semibold">{country.rep.name}</p>
                                                 <p className="text-[10px] text-gray-500 mt-1 cursor-pointer underline hover:text-ufaal-blue-light" onClick={() => setSelectedCountry(country)}>Ver perfil en panel</p>
                                             </div>
@@ -79,22 +85,53 @@ export function Paises() {
                     {/* Ficha del País Acordeón */}
                     <div className="w-full lg:w-1/2 flex flex-col pt-4">
                         <FadeIn delay={0.4} direction="right">
-                            <div className="bg-ufaal-gray rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-ufaal-blue/5 rounded-bl-full -z-0"></div>
+                            <div className="bg-ufaal-gray rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group">
+                                {/* Bandera Estilizada de Fondo (Technical Business style) */}
+                                <div className="absolute -top-4 -right-4 w-48 h-32 transition-all duration-700 group-hover:scale-110 group-hover:-rotate-3 opacity-20 lg:opacity-30">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent z-10 rounded-3xl"></div>
+                                    <img 
+                                        src={`https://flagcdn.com/w320/${selectedCountry.id}.png`} 
+                                        alt="" 
+                                        className="w-full h-full object-cover rounded-3xl blur-[2px]"
+                                    />
+                                </div>
 
                                 <div className="relative z-10">
-                                    <div className="flex items-center gap-4 mb-8">
-                                        <span className="text-5xl drop-shadow-sm">{selectedCountry.flag}</span>
-                                        <h3 className="text-3xl font-bold text-ufaal-blue">{selectedCountry.name}</h3>
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-8 rounded shadow-sm border border-white/50 overflow-hidden shrink-0">
+                                                <img 
+                                                    src={`https://flagcdn.com/w80/${selectedCountry.id}.png`} 
+                                                    alt={`Bandera de ${selectedCountry.name}`} 
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <h3 className="text-3xl font-bold text-ufaal-blue tracking-tight">{selectedCountry.name}</h3>
+                                        </div>
+                                        
+                                        {/* Insignia Técnica (Empresarial) */}
+                                        <div className="hidden sm:flex flex-col items-end">
+                                            <span className="text-[10px] uppercase tracking-widest font-bold text-ufaal-blue-light/60 mb-1">Miembro Regional</span>
+                                            <div className="h-0.5 w-12 bg-gradient-to-r from-transparent to-ufaal-blue-light/40"></div>
+                                        </div>
                                     </div>
 
                                     <div className="flex flex-col md:flex-row gap-6 mb-8 items-start">
-                                        <img
-                                            src={selectedCountry.rep.photo}
-                                            alt={selectedCountry.rep.name}
-                                            className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md flex-shrink-0 bg-white"
-                                            loading="lazy"
-                                        />
+                                        <div className="relative shrink-0">
+                                            <img
+                                                src={selectedCountry.rep.photo}
+                                                alt={selectedCountry.rep.name}
+                                                className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white"
+                                                loading="lazy"
+                                            />
+                                            <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-ufaal-blue rounded-xl flex items-center justify-center border-2 border-white shadow-lg z-20">
+                                                <img 
+                                                    src={`https://flagcdn.com/w40/${selectedCountry.id}.png`} 
+                                                    className="w-6 h-4 object-cover rounded-[1px]" 
+                                                    alt=""
+                                                />
+                                            </div>
+                                        </div>
                                         <div>
                                             <h4 className="text-xl font-bold text-ufaal-text mb-1">{selectedCountry.rep.name}</h4>
                                             <p className="text-sm font-medium text-ufaal-blue-light mb-4">Representante Nacional</p>
@@ -153,7 +190,12 @@ export function Paises() {
                                                         ? 'bg-ufaal-blue text-white shadow-md'
                                                         : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
                                             >
-                                                {c.flag} {c.name}
+                                                <img 
+                                                    src={`https://flagcdn.com/w40/${c.id}.png`} 
+                                                    className="w-5 h-3.5 object-cover rounded-[1px] shadow-sm" 
+                                                    alt=""
+                                                />
+                                                {c.name}
                                             </button>
                                         ))}
                                     </div>
