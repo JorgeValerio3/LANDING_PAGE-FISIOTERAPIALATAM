@@ -13,7 +13,6 @@ import { InvestigacionForm } from './sections/InvestigacionForm';
 import { GaleriaForm } from './sections/GaleriaForm';
 import { NoticiasForm } from './sections/NoticiasForm';
 import { AfiliacionForm } from './sections/AfiliacionForm';
-import { ContactoForm } from './sections/ContactoForm';
 
 export function Dashboard() {
     const [content, setContent] = useState<any>(null);
@@ -89,8 +88,7 @@ export function Dashboard() {
         { id: 'investigacion', label: 'Investigación', icon: Search },
         { id: 'galeria', label: 'Galería', icon: ImageIcon },
         { id: 'noticias', label: 'Noticias', icon: Newspaper },
-        { id: 'afiliacion', label: 'Afiliación', icon: UserPlus },
-        { id: 'contacto', label: 'Contacto', icon: Phone },
+        { id: 'afiliacion', label: 'Afiliacion', icon: UserPlus },
     ];
 
     const currentSectionData = content[activeTab];
@@ -170,13 +168,12 @@ export function Dashboard() {
                     {activeTab === 'investigacion' && <InvestigacionForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, investigacion: newData })} />}
                     {activeTab === 'galeria' && <GaleriaForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, galeria: newData })} />}
                     {activeTab === 'noticias' && <NoticiasForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, noticias: newData })} />}
-                    {activeTab === 'afiliacion' && <AfiliacionForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, afiliacion: newData })} />}
-                    {activeTab === 'contacto' && <ContactoForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, contacto: newData })} />}
+                    { activeTab === 'afiliacion' && <AfiliacionForm data={currentSectionData} onChange={(newData: any) => setContent({ ...content, afiliacion: newData })} />}
 
                     {/* Fallback para los que aún no tienen componente */}
                     {![
                         'hero', 'quienes_somos', 'organizacion', 'paises', 'actividades',
-                        'formacion', 'investigacion', 'galeria', 'noticias', 'afiliacion', 'contacto'
+                        'formacion', 'investigacion', 'galeria', 'noticias', 'afiliacion'
                     ].includes(activeTab) && (
                         <div className="text-gray-500 italic">Componente de formulario para "{activeTab}" en desarrollo... Se puede editar el JSON directamente.</div>
                     )}

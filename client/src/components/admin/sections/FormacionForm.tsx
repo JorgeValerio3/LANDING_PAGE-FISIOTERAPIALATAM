@@ -18,7 +18,7 @@ export function FormacionForm({ data, onChange }: FormacionFormProps) {
 
     const addNivel = () => {
         const id = "nuevo_" + Date.now();
-        const newNiveles = [...data.niveles, { id, titulo: "", descripcion: "", duracion: "", requisitos: "" }];
+        const newNiveles = [...data.niveles, { id, titulo: "", descripcion: "", duracion: "", requisitos: "", icono: "book" }];
         handleChange('niveles', newNiveles);
     };
 
@@ -62,9 +62,13 @@ export function FormacionForm({ data, onChange }: FormacionFormProps) {
                                         <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Duración</label>
                                         <input type="text" value={nivel.duracion} onChange={(e) => handleNivelChange(idx, 'duracion', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                     </div>
-                                    <div className="flex-[2]">
+                                    <div className="flex-1">
                                         <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Requisitos</label>
                                         <input type="text" value={nivel.requisitos} onChange={(e) => handleNivelChange(idx, 'requisitos', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Icono (laptop, award, book, landmark)</label>
+                                        <input type="text" value={nivel.icono} onChange={(e) => handleNivelChange(idx, 'icono', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" placeholder="Ej. laptop" />
                                     </div>
                                 </div>
                                 <div>

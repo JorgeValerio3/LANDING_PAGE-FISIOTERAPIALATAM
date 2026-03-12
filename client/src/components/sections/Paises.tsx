@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Mail, ImageIcon, X } from 'lucide-react';
+import { getUploadUrl } from '../../services/api';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -12,23 +14,26 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const randomCountryImages = [
-    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=300",
-    "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=300",
-    "https://images.unsplash.com/photo-1519340241574-2c61ce34d3d3?auto=format&fit=crop&q=80&w=300",
-    "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=300",
-    "https://images.unsplash.com/photo-1600881333168-2ef49b341f30?auto=format&fit=crop&q=80&w=300",
-];
-
 export function Paises({ data }: { data: any }) {
     const paisesLista = data?.paises_lista || [];
     const [selectedCountry, setSelectedCountry] = useState<any>(null);
+    const [fullscreenImg, setFullscreenImg] = useState<string | null>(null);
 
     useEffect(() => {
         if (paisesLista.length > 0 && !selectedCountry) {
             setSelectedCountry(paisesLista[0]);
         }
     }, [paisesLista, selectedCountry]);
+
+    // Prevenir scroll cuando el modal está abierto
+    useEffect(() => {
+        if (fullscreenImg) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [fullscreenImg]);
 
     if (!data || paisesLista.length === 0 || !selectedCountry) return null;
 
@@ -126,10 +131,11 @@ export function Paises({ data }: { data: any }) {
                                     <div className="flex flex-col md:flex-row gap-6 mb-8 items-start">
                                         <div className="relative shrink-0">
                                             <img
-                                                src={selectedCountry.imagen || `https://ui-avatars.com/api/?name=${selectedCountry.representante}&background=random`}
+                                                src={getUploadUrl(selectedCountry.imagen) || `https://ui-avatars.com/api/?name=${selectedCountry.representante}&background=random`}
                                                 alt={selectedCountry.representante}
-                                                className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white"
+                                                className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white cursor-zoom-in hover:scale-105 transition-transform"
                                                 loading="lazy"
+                                                onClick={() => setFullscreenImg(getUploadUrl(selectedCountry.imagen) || `https://ui-avatars.com/api/?name=${selectedCountry.representante}&background=random`)}
                                             />
                                             <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-ufaal-blue rounded-xl flex items-center justify-center border-2 border-white shadow-lg z-20">
                                                 <img
@@ -139,24 +145,46 @@ export function Paises({ data }: { data: any }) {
                                                 />
                                             </div>
                                         </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold text-ufaal-text mb-1">{selectedCountry.representante}</h4>
-                                            <p className="text-sm font-medium text-ufaal-blue-light mb-4">{selectedCountry.cargo}</p>
+                                        <div className="flex-1">
+                                            <h4 className="text-xl font-bold text-ufaal-text mb-1">{selectedCountry.representante || "Representante por definir"}</h4>
+                                            <p className="text-sm font-medium text-ufaal-blue-light mb-2">{selectedCountry.cargo}</p>
+                                            {selectedCountry.contacto && (
+                                                <a 
+                                                    href={`mailto:${selectedCountry.contacto}`} 
+                                                    className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-ufaal-blue transition-colors group/mail mb-4"
+                                                >
+                                                    <Mail className="w-4 h-4 text-ufaal-blue-light group-hover/mail:text-ufaal-blue" />
+                                                    {selectedCountry.contacto}
+                                                </a>
+                                            )}
+                                            {selectedCountry.descripcion && (
+                                                <p className="text-sm text-gray-600 leading-relaxed italic border-l-2 border-ufaal-blue/20 pl-4 py-1">
+                                                    "{selectedCountry.descripcion}"
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
-                                    {/* 5 placeholder images below */}
+                                    {/* Gallery of dynamic activities (Max 5) */}
                                     <div className="mb-4">
                                         <h5 className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">Actividades en {selectedCountry.nombre}</h5>
                                         <div className="grid grid-cols-5 gap-2">
-                                            {randomCountryImages.map((img, i) => (
-                                                <img
-                                                    key={i}
-                                                    src={`${img}&seed=${selectedCountry.id}-${i}`}
-                                                    className="w-full h-16 md:h-20 object-cover rounded-lg shadow-sm hover:scale-105 transition-transform"
-                                                    alt={`Actividad ${i + 1}`}
-                                                />
-                                            ))}
+                                            {selectedCountry.galeria && selectedCountry.galeria.filter(Boolean).length > 0 ? (
+                                                selectedCountry.galeria.filter(Boolean).slice(0, 5).map((img: string, i: number) => (
+                                                    <img
+                                                        key={i}
+                                                        src={getUploadUrl(img)}
+                                                        className="w-full h-16 md:h-20 object-cover rounded-lg shadow-sm hover:scale-105 transition-transform bg-gray-100 cursor-zoom-in"
+                                                        alt={`Actividad ${i + 1}`}
+                                                        onClick={() => setFullscreenImg(getUploadUrl(img))}
+                                                    />
+                                                ))
+                                            ) : (
+                                                <div className="col-span-5 py-8 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center bg-gray-50/50">
+                                                    <ImageIcon className="w-6 h-6 text-gray-300 mb-2" />
+                                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Sin registro de actividades</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -191,6 +219,31 @@ export function Paises({ data }: { data: any }) {
 
                 </div>
             </div>
+
+            {/* Lightbox Modal */}
+            {fullscreenImg && (
+                <div 
+                    className="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-300"
+                    onClick={() => setFullscreenImg(null)}
+                >
+                    <button 
+                        className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors bg-white/10 p-3 rounded-full hover:bg-white/20 z-[10000]"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setFullscreenImg(null);
+                        }}
+                    >
+                        <X className="w-8 h-8" />
+                    </button>
+                    
+                    <img 
+                        src={fullscreenImg} 
+                        alt="Zoom" 
+                        className="max-w-full max-h-full object-contain rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 ring-4 ring-white/10"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                </div>
+            )}
         </section>
     );
 }

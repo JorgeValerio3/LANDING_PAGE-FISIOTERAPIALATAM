@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { getUploadUrl } from '../../services/api';
 
 export function Galeria({ data }: { data: any }) {
     if (!data) return null;
 
     const rawImages = data.imagenes || [];
     const images = rawImages.map((img: any) => ({
-        src: img.url.startsWith('http') || img.url.startsWith('/') ? img.url : `http://localhost:5000${img.url}`,
-        alt: img.alt || "Imagen de galería",
+        src: getUploadUrl(img.url),
+        alt: img.alt || img.titulo || "Imagen de galería",
         type: img.tipo || "square"
     }));
 

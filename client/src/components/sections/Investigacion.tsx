@@ -1,28 +1,8 @@
 import { FadeIn } from '../ui/FadeIn';
-import { FileText, Download, FileArchive, Search, Network, CheckCircle, File } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 
 export function Investigacion({ data }: { data: any }) {
     if (!data) return null;
-
-    const categorias = data.categorias || [];
-
-    const getIcon = (iconName: string) => {
-        const i = String(iconName).toLowerCase();
-        if (i.includes('archive') || i.includes('tecnico')) return <FileArchive className="w-6 h-6 text-ufaal-blue" />;
-        if (i.includes('search') || i.includes('publica')) return <Search className="w-6 h-6 text-ufaal-blue" />;
-        if (i.includes('text') || i.includes('guia')) return <FileText className="w-6 h-6 text-ufaal-blue" />;
-        return <File className="w-6 h-6 text-ufaal-blue" />;
-    };
-
-    const handleDownload = (item: any) => {
-        const url = item.archivo || item.enlace;
-        if (url) {
-            const finalUrl = url.startsWith('http') || url.startsWith('/') ? url : `http://localhost:5000${url}`;
-            window.open(finalUrl, '_blank', 'noopener,noreferrer');
-        } else {
-            alert('El documento no tiene un enlace configurado.');
-        }
-    };
 
     return (
         <section id="investigacion" className="py-24 bg-ufaal-gray">
@@ -38,50 +18,52 @@ export function Investigacion({ data }: { data: any }) {
                             </p>
                         </FadeIn>
                     </div>
-
-                    <FadeIn delay={0.2} direction="left" className="shrink-0 flex gap-4 hidden md:flex">
-                        <div className="bg-white px-6 py-3 rounded-full shadow-sm text-sm font-medium text-ufaal-blue border border-gray-100 flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-green-500" />
-                            Declaraciones Oficiales
-                        </div>
-                        <div className="bg-white px-6 py-3 rounded-full shadow-sm text-sm font-medium text-ufaal-blue border border-gray-100 flex items-center gap-2">
-                            <Network className="w-4 h-4 text-ufaal-blue-light" />
-                            Red de Colaboradores
-                        </div>
-                    </FadeIn>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {categorias.map((resourceGroup: any, index: number) => (
-                        <FadeIn key={resourceGroup.nombre || index} delay={0.3 + (index * 0.1)} direction="up" className="h-full">
-                            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col hover:border-ufaal-blue-light/30 transition-colors">
-
-                                <div className="p-6 border-b border-gray-50 flex items-center gap-4 bg-gray-50/50">
-                                    <div className="bg-white p-2 rounded-lg shadow-sm">
-                                        {getIcon(resourceGroup.icono || resourceGroup.nombre)}
-                                    </div>
-                                    <h3 className="text-lg font-bold text-ufaal-text">{resourceGroup.nombre}</h3>
-                                </div>
-
-                                <div className="p-6 flex-grow flex flex-col gap-4">
-                                    {resourceGroup.items?.map((item: any, idx: number) => (
-                                        <div key={idx} className="group border border-gray-100 rounded-xl p-4 hover:bg-ufaal-blue/5 transition-colors cursor-pointer" onClick={() => handleDownload(item)}>
-                                            <h4 className="text-sm font-medium text-gray-800 leading-snug mb-3 group-hover:text-ufaal-blue transition-colors title-min-h-small">
-                                                {item.titulo}
-                                            </h4>
-                                            <div className="flex items-center justify-between mt-auto">
-                                                <span className="text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-600 rounded truncate max-w-[80px]">
-                                                    {item.tipo || 'Enlace'}
-                                                </span>
-                                                <div className="flex items-center gap-2 text-xs text-gray-400 group-hover:text-ufaal-blue transition-colors">
-                                                    {item.tamaño || item.tamano || 'N/A'}
-                                                    <Download className="w-3.5 h-3.5 shrink-0" />
-                                                </div>
-                                            </div>
+                    {data.articulos?.map((articulo: any, index: number) => (
+                        <FadeIn key={articulo.id || index} delay={0.3 + (index * 0.1)} direction="up" className="h-full">
+                            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col hover:border-ufaal-blue-light/30 transition-all group">
+                                <div className="p-8 flex flex-col h-full">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="p-3 bg-ufaal-gray rounded-xl text-ufaal-blue group-hover:bg-ufaal-blue group-hover:text-white transition-all">
+                                            <FileText className="w-6 h-6" />
                                         </div>
-                                    ))}
-                                </div>
+                                        <div>
+                                            <p className="text-xs font-bold text-ufaal-blue-light uppercase tracking-wider">{articulo.revista || 'Publicación'}</p>
+                                            <p className="text-xs text-gray-400">{articulo.fecha}</p>
+                                        </div>
+                                    </div>
 
+                                    <h3 className="text-xl font-bold text-ufaal-text mb-4 leading-snug group-hover:text-ufaal-blue transition-colors title-min-h-small">
+                                        {articulo.titulo}
+                                    </h3>
+
+                                    <p className="text-sm text-gray-500 font-light mb-6">
+                                        <span className="font-semibold text-gray-700">Autores:</span> {articulo.autores}
+                                    </p>
+
+                                    <div className="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
+                                        {articulo.doi && (
+                                            <span className="text-[10px] font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">
+                                                DOI: {articulo.doi}
+                                            </span>
+                                        )}
+                                        {articulo.pdf_url && (
+                                            <button 
+                                                onClick={() => {
+                                                    const url = articulo.pdf_url;
+                                                    const finalUrl = url.startsWith('http') || url.startsWith('/') ? url : `http://localhost:5000${url}`;
+                                                    window.open(finalUrl, '_blank');
+                                                }}
+                                                className="flex items-center gap-2 text-ufaal-blue font-bold text-sm hover:text-ufaal-blue-light transition-colors"
+                                            >
+                                                <Download className="w-4 h-4" />
+                                                PDF
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </FadeIn>
                     ))}

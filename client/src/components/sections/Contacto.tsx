@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { Mail, Send, Facebook, Instagram, Loader2, CheckCircle2, MapPin } from 'lucide-react';
+import { Mail, Send, Facebook, Instagram, Loader2, CheckCircle2 } from 'lucide-react';
 
 export function Contacto({ data }: { data: any }) {
     const [formData, setFormData] = useState({
@@ -193,20 +193,6 @@ export function Contacto({ data }: { data: any }) {
                                         <p className="text-gray-500 text-sm mt-1">Lunes a Viernes - Horario hábil</p>
                                     </div>
                                 </div>
-
-                                {data.direccion && (
-                                    <div className="flex items-start gap-4">
-                                        <div className="p-3 bg-white rounded-full text-ufaal-blue shadow-sm border border-gray-100 shrink-0">
-                                            <MapPin className="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-lg font-bold text-ufaal-text mb-1">Sede Administrativa</h4>
-                                            <p className="text-gray-600 font-light leading-relaxed whitespace-pre-wrap">
-                                                {data.direccion}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
 
                             <div>

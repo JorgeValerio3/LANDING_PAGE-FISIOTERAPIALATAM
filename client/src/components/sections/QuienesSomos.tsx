@@ -1,110 +1,90 @@
 import { FadeIn } from '../ui/FadeIn';
 import { Target, Eye, Heart, Globe, TestTube, Users, ShieldCheck, Lightbulb, HandHeart } from 'lucide-react';
 
+const iconMap: Record<string, React.ReactNode> = {
+    Globe: <Globe className="w-6 h-6 text-ufaal-blue" />,
+    TestTube: <TestTube className="w-6 h-6 text-ufaal-blue" />,
+    ShieldCheck: <ShieldCheck className="w-6 h-6 text-ufaal-blue" />,
+    Lightbulb: <Lightbulb className="w-6 h-6 text-ufaal-blue" />,
+    HandHeart: <HandHeart className="w-6 h-6 text-ufaal-blue" />,
+    Users: <Users className="w-6 h-6 text-ufaal-blue" />,
+};
+
 export function QuienesSomos({ data }: { data: any }) {
     if (!data) return null;
 
-    const valores = [
-        {
-            icon: <Globe className="w-6 h-6 text-ufaal-blue" />,
-            title: "Colaboración intercultural",
-            desc: "Promovemos la cooperación entre profesionales, instituciones y países de América Latina, valorando la diversidad cultural y el intercambio de conocimientos."
-        },
-        {
-            icon: <TestTube className="w-6 h-6 text-ufaal-blue" />,
-            title: "Excelencia académica y científica",
-            desc: "Impulsamos la formación continua, la investigación y la actualización profesional para garantizar prácticas terapéuticas fundamentadas en evidencia científica."
-        },
-        {
-            icon: <ShieldCheck className="w-6 h-6 text-ufaal-blue" />,
-            title: "Compromiso bioético",
-            desc: "Actuamos con responsabilidad ética, respeto por los principios de la bioética y compromiso con el bienestar de los pacientes y las comunidades."
-        },
-        {
-            icon: <Lightbulb className="w-6 h-6 text-ufaal-blue" />,
-            title: "Innovación terapéutica",
-            desc: "Fomentamos el desarrollo de nuevas estrategias, metodologías y tecnologías aplicadas a la fisioterapia acuática para mejorar los resultados clínicos."
-        },
-        {
-            icon: <HandHeart className="w-6 h-6 text-ufaal-blue" />,
-            title: "Respeto por la dignidad humana",
-            desc: "Reconocemos el valor intrínseco de cada persona, promoviendo una atención centrada en el paciente, inclusiva y humanizada."
-        },
-        {
-            icon: <Users className="w-6 h-6 text-ufaal-blue" />,
-            title: "Transparencia y responsabilidad",
-            desc: "Promovemos una gestión institucional clara, ética y responsable, basada en la confianza, la integridad y el compromiso profesional."
-        }
-    ];
-
     return (
-        <section id="quienes-somos" className="py-24 bg-gradient-to-b from-white to-gray-50">
+        <section id="quienes-somos" className="py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
 
-                {/* Main Intro: Quiénes Somos & Filosofía */}
-                <div className="mb-24">
+                {/* Main Intro: Quiénes Somos */}
+                <div className="mb-24 relative">
+                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
                     <FadeIn direction="up">
                         <div className="text-center max-w-4xl mx-auto">
-                            <h2 className="text-4xl md:text-6xl font-extrabold text-ufaal-blue tracking-tight mb-8">{data.titulo}</h2>
-                            <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed mb-6 whitespace-pre-line">
-                                {data.historia}
-                            </p>
-                            <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed mb-6 whitespace-pre-line">
-                                {data.mision}
-                            </p>
-                            <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed whitespace-pre-line">
-                                {data.vision}
-                            </p>
-                        </div>
-                    </FadeIn>
-                </div>
-
-                <div className="mb-32">
-                    <FadeIn direction="up" delay={0.2}>
-                        <div className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 max-w-5xl mx-auto">
-                            <h3 className="text-3xl md:text-4xl font-bold text-ufaal-blue mb-8 text-center tracking-tight">Filosofía Institucional</h3>
-                            <div className="space-y-6 text-gray-600 font-light text-lg leading-relaxed columns-1 md:columns-2 gap-12">
-                                <p>
-                                    La Unión de Fisioterapia Acuática de América Latina (UFAAL) sustenta su filosofía en el principio de que el agua constituye un medio terapéutico de alto valor científico y humano para la rehabilitación, la prevención y la optimización de la función física.
-                                </p>
-                                <p>
-                                    Nuestra visión filosófica se fundamenta en la integración del conocimiento científico, la práctica clínica basada en evidencia y la cooperación regional, promoviendo una fisioterapia acuática desarrollada bajo principios de excelencia profesional, ética, responsabilidad social y compromiso con la salud de las poblaciones.
-                                </p>
-                                <p>
-                                    La UFAAL concibe la diversidad cultural, social y sanitaria de América Latina como una fuente de enriquecimiento para el intercambio de conocimientos y el crecimiento de la disciplina, fomentando el diálogo académico, la innovación terapéutica y la formación continua de los profesionales de la rehabilitación.
-                                </p>
-                                <p>
-                                    A través del trabajo colaborativo entre países, instituciones académicas y profesionales de la salud, la Unión impulsa el fortalecimiento de la fisioterapia acuática como un campo especializado de la fisioterapia contemporánea, orientado a mejorar la funcionalidad, la calidad de vida y el bienestar de las personas en toda la región latinoamericana.
-                                </p>
-                                <p className="font-medium text-ufaal-blue break-inside-avoid">
-                                    Nuestra filosofía se expresa en el compromiso permanente con la excelencia científica, la práctica ética y el desarrollo sostenible de la fisioterapia acuática, consolidando una comunidad profesional que trabaja de manera integrada para avanzar en la rehabilitación y la salud en América Latina.
-                                </p>
+                            <span className="text-ufaal-blue font-semibold tracking-widest uppercase text-sm mb-4 block">UFAAL Institucional</span>
+                            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-10">
+                                {data.titulo}
+                            </h2>
+                            <div className="space-y-6 text-lg md:text-xl text-slate-600 font-light leading-relaxed whitespace-pre-line">
+                                {data.descripcion}
                             </div>
                         </div>
                     </FadeIn>
                 </div>
+
+                {/* Filosofía Section */}
+                {data.filosofia && (
+                    <div className="mb-32">
+                        <FadeIn direction="up" delay={0.2}>
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-ufaal-blue to-blue-600 rounded-[3rem] blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+                                <div className="relative bg-white p-10 md:p-16 rounded-[3rem] shadow-sm border border-slate-100 max-w-5xl mx-auto">
+                                    <div className="flex flex-col items-center mb-12">
+                                        <div className="bg-blue-50 p-4 rounded-2xl mb-6">
+                                            <Heart className="w-8 h-8 text-ufaal-blue" />
+                                        </div>
+                                        <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-center">
+                                            {data.filosofia.titulo}
+                                        </h3>
+                                    </div>
+                                    <div className="space-y-8 text-slate-600 font-light text-lg leading-relaxed columns-1 md:columns-2 gap-12">
+                                        {data.filosofia.contenido.split('\n\n').map((paragraph: string, i: number) => (
+                                            <p key={i} className={i === 4 ? "font-medium text-ufaal-blue break-inside-avoid" : ""}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                )}
 
                 {/* Misión y Visión Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 max-w-5xl mx-auto">
                     <FadeIn direction="left" delay={0.3} className="h-full">
-                        <div className="bg-gradient-to-br from-ufaal-blue to-blue-800 p-10 rounded-[2.5rem] h-full text-white shadow-xl hover:-translate-y-2 transition-transform duration-500">
-                            <div className="bg-white/10 p-4 rounded-2xl w-fit mb-8 backdrop-blur-md">
-                                <Target className="w-10 h-10 text-white" />
+                        <div className="group relative h-full">
+                            <div className="absolute -inset-1 bg-gradient-to-br from-ufaal-blue to-blue-800 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                            <div className="relative bg-gradient-to-br from-ufaal-blue to-blue-900 p-10 rounded-[2.5rem] h-full text-white shadow-xl flex flex-col">
+                                <div className="bg-white/10 p-4 rounded-2xl w-fit mb-8 backdrop-blur-md border border-white/10">
+                                    <Target className="w-10 h-10 text-white" />
+                                </div>
+                                <h3 className="text-3xl font-bold mb-6 tracking-tight">Misión</h3>
+                                <p className="text-blue-50/90 leading-relaxed font-light text-lg flex-grow">
+                                    {data.mision}
+                                </p>
                             </div>
-                            <h3 className="text-3xl font-bold mb-6 tracking-tight">Misión</h3>
-                            <p className="text-white/90 leading-relaxed font-light text-lg whitespace-pre-line">
-                                {data.mision}
-                            </p>
                         </div>
                     </FadeIn>
 
                     <FadeIn direction="right" delay={0.4} className="h-full">
-                        <div className="bg-white p-10 rounded-[2.5rem] h-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 hover:-translate-y-2 transition-transform duration-500">
+                        <div className="bg-white p-10 rounded-[2.5rem] h-full shadow-sm border border-slate-100 hover:border-blue-100 transition-colors duration-500 flex flex-col">
                             <div className="bg-blue-50 p-4 rounded-2xl w-fit mb-8">
                                 <Eye className="w-10 h-10 text-ufaal-blue" />
                             </div>
-                            <h3 className="text-3xl font-bold text-ufaal-blue mb-6 tracking-tight">Visión</h3>
-                            <p className="text-gray-600 leading-relaxed font-light text-lg whitespace-pre-line">
+                            <h3 className="text-3xl font-bold text-slate-900 mb-6 tracking-tight">Visión</h3>
+                            <p className="text-slate-600 leading-relaxed font-light text-lg flex-grow">
                                 {data.vision}
                             </p>
                         </div>
@@ -112,30 +92,40 @@ export function QuienesSomos({ data }: { data: any }) {
                 </div>
 
                 {/* Valores */}
-                <div className="max-w-6xl mx-auto">
-                    <FadeIn direction="up">
-                        <div className="text-center mb-16">
-                            <Heart className="w-12 h-12 text-ufaal-blue mx-auto mb-6" />
-                            <h3 className="text-3xl md:text-5xl font-bold text-ufaal-blue tracking-tight">Nuestros Valores</h3>
-                        </div>
-                    </FadeIn>
+                {data.valores && (
+                    <div className="max-w-6xl mx-auto">
+                        <FadeIn direction="up">
+                            <div className="text-center mb-20">
+                                <span className="inline-block px-4 py-1.5 bg-blue-50 text-ufaal-blue text-xs font-bold tracking-widest uppercase rounded-full mb-4">Ética y Compromiso</span>
+                                <h3 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
+                                    {data.valores.titulo}
+                                </h3>
+                            </div>
+                        </FadeIn>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {valores.map((card, index) => (
-                            <FadeIn key={card.title} delay={0.1 + (index * 0.1)} direction="up" className="h-full">
-                                <div className="bg-white p-8 rounded-3xl h-full border border-gray-100 hover:shadow-lg transition-all duration-300 hover:border-blue-100 group">
-                                    <div className="p-4 bg-gray-50 rounded-2xl inline-block mb-6 group-hover:bg-blue-50 transition-colors">
-                                        {card.icon}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {data.valores.items.map((card: any, index: number) => (
+                                <FadeIn key={card.titulo} delay={0.1 + (index * 0.1)} direction="up" className="h-full">
+                                    <div className="bg-white p-8 rounded-[2rem] h-full border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all duration-500 group relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50/50 rounded-bl-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700"></div>
+                                        <div className="relative">
+                                            <div className="p-4 bg-slate-50 rounded-2xl inline-block mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                                                {iconMap[card.icono] || <Heart className="w-6 h-6" />}
+                                                {/* If icon is swapped to white on hover, we need to handle the svg stroke */}
+                                            </div>
+                                            <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-ufaal-blue transition-colors">
+                                                {card.titulo}
+                                            </h4>
+                                            <p className="text-slate-600 font-light leading-relaxed text-base">
+                                                {card.descripcion}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <h4 className="text-xl font-bold text-gray-900 mb-4">{card.title}</h4>
-                                    <p className="text-gray-600 font-light leading-relaxed text-sm">
-                                        {card.desc}
-                                    </p>
-                                </div>
-                            </FadeIn>
-                        ))}
+                                </FadeIn>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
             </div>
         </section>

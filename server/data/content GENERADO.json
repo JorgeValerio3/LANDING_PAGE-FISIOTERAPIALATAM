@@ -157,12 +157,8 @@
         "cargo": "Delegada Nacional",
         "contacto": "fabianagiannini@gmail.com",
         "descripcion": "Lider regional en fisioterapia acuatica, comprometida con la excelencia y la formacion continua.",
-        "imagen": "/uploads/1773285650588-265982634.png",
-        "galeria": [
-          null,
-          null,
-          "/uploads/1773285659842-814705322.png"
-        ]
+        "imagen": "/uploads/1773285487913-335970994.png",
+        "galeria": []
       },
       {
         "id": "bo",
@@ -344,8 +340,7 @@
         "categoria": "Eventos",
         "descripcion": "El encuentro más grande de especialistas en medio acuático, con talleres pre-congreso y ponencias internacionales.",
         "fecha": "Próxima edición: 2024",
-        "icono": "calendario",
-        "pais": "RD"
+        "icono": "calendario"
       },
       {
         "id": 2,
@@ -445,6 +440,13 @@
         "categoria": "formacion"
       },
       {
+        "id": 2,
+        "url": "https://images.unsplash.com/photo-1576089332561-267566085a86?q=80&w=1000&auto=format&fit=crop",
+        "titulo": "Congreso Regional",
+        "descripcion": "3er Encuentro Latinoamericano en Bogotá",
+        "categoria": "eventos"
+      },
+      {
         "id": 3,
         "url": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1000&auto=format&fit=crop",
         "titulo": "Trabajo en Equipo",
@@ -459,65 +461,51 @@
         "categoria": "investigacion"
       },
       {
+        "id": 5,
+        "url": "https://images.unsplash.com/photo-1620608678099-2a2ec96ee463?q=80&w=1000&auto=format&fit=crop",
+        "titulo": "Asamblea Anual",
+        "descripcion": "Reunión de delegados regionales",
+        "categoria": "eventos"
+      },
+      {
         "id": 6,
         "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop",
         "titulo": "Certificación Halliwick",
         "descripcion": "Nuevo grupo de profesionales certificados",
         "categoria": "formacion"
-      },
-      {
-        "id": 1773286602030,
-        "url": "/uploads/1773286672019-351357625.png",
-        "titulo": "Prueba Galeria",
-        "descripcion": "",
-        "categoria": "eventos"
-      },
-      {
-        "id": 1773286926174,
-        "url": "/uploads/1773286945063-928162300.png",
-        "titulo": "n b bvbkjbjk",
-        "descripcion": "",
-        "categoria": ""
-      },
-      {
-        "id": 1773286928292,
-        "url": "/uploads/1773286937378-607756003.png",
-        "titulo": "hohkhlkl",
-        "descripcion": "",
-        "categoria": ""
       }
     ]
   },
   "noticias": {
     "titulo": "Últimas Noticias",
     "descripcion": "Mantente informado sobre las novedades de la Fisioterapia Acuática en la región",
-    "articulos": [
+    "items": [
       {
         "id": 1,
         "titulo": "Apertura de Convocatoria para el Congreso UFAAL 2024",
         "fecha": "15 Mayo, 2024",
-        "extracto": "Se abre el plazo para la presentación de resúmenes de investigación para nuestro próximo encuentro bi-anual. Los tópicos principales este año incluirán neuro-rehabilitación pediátrica y abordaje temprano en lesionados medulares.",
+        "resumen": "Se abre el plazo para la presentación de resúmenes de investigación para nuestro próximo encuentro bi-anual. Los tópicos principales este año incluirán neuro-rehabilitación pediátrica y abordaje temprano en lesionados medulares.",
         "imagen": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop",
         "autor": "Comité Organizador",
-        "url_externa": "#"
+        "enlace": "#"
       },
       {
         "id": 2,
         "titulo": "Nuevo Convenio de Colaboración Internacional",
         "fecha": "02 Abril, 2024",
-        "extracto": "La UFAAL ha firmado un histórico acuerdo marco con las principales asociaciones europeas para el intercambio de docentes y acceso preferencial a certificaciones internacionales para todos los miembros activos.",
+        "resumen": "La UFAAL ha firmado un histórico acuerdo marco con las principales asociaciones europeas para el intercambio de docentes y acceso preferencial a certificaciones internacionales para todos los miembros activos.",
         "imagen": "https://images.unsplash.com/photo-1552502808-7bb79e5e78ea?q=80&w=800&auto=format&fit=crop",
         "autor": "Secretaría General",
-        "url_externa": "#"
+        "enlace": "#"
       },
       {
         "id": 3,
         "titulo": "Resultados del Primer Censo Latinoamericano de Instalaciones",
         "fecha": "20 Marzo, 2024",
-        "extracto": "Publicamos los resultados de nuestra investigación demográfica sobre la distribución e infraestructura de piscinas con fines terapéuticos en la región andina y el cono sur, identificando áreas críticas de desarrollo.",
+        "resumen": "Publicamos los resultados de nuestra investigación demográfica sobre la distribución e infraestructura de piscinas con fines terapéuticos en la región andina y el cono sur, identificando áreas críticas de desarrollo.",
         "imagen": "https://images.unsplash.com/photo-1576089155708-3165b6eb9319?q=80&w=800&auto=format&fit=crop",
         "autor": "Dpto. de Investigación",
-        "url_externa": "#"
+        "enlace": "#"
       }
     ]
   },

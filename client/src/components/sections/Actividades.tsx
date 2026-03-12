@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { Calendar, MapPin, TrendingUp, Award, Users, BookOpen, Presentation, Video, Globe } from 'lucide-react';
+import { getUploadUrl } from '../../services/api';
 
 export function Actividades({ data }: { data: any }) {
     if (!data) return null;
@@ -68,7 +69,7 @@ export function Actividades({ data }: { data: any }) {
                                 <div className="relative h-56 overflow-hidden bg-ufaal-blue">
                                     <div className="absolute inset-0 bg-ufaal-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
                                     <img 
-                                        src={`https://images.unsplash.com/photo-1540317580384-e5d43867caa6?auto=format&fit=crop&q=80&w=800&seed=${activity.id || index}`} 
+                                        src={activity.imagen ? getUploadUrl(activity.imagen) : `https://images.unsplash.com/photo-1540317580384-e5d43867caa6?auto=format&fit=crop&q=80&w=800&seed=${activity.id || index}`} 
                                         alt={activity.titulo} 
                                         className="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700" 
                                         loading="lazy" 

@@ -8,6 +8,7 @@ const navItems = [
     { label: 'Quiénes Somos', href: '#quienes-somos' },
     { label: 'Organización', href: '#organizacion' },
     { label: 'Países Miembros', href: '#paises' },
+    { label: 'Galería', href: '#galeria' },
     { label: 'Actividades', href: '#actividades' },
     { label: 'Formación', href: '#formacion' },
     { label: 'Investigación', href: '#investigacion' },
@@ -45,7 +46,7 @@ export function Navbar() {
                 <div className="hidden lg:flex items-center justify-center w-full gap-8 z-10">
                     {/* Left Items */}
                     <div className="flex flex-1 justify-end items-center gap-6">
-                        {navItems.slice(0, 5).map((item) => (
+                        {navItems.slice(0, 6).map((item) => (
                             <a
                                 key={item.label}
                                 href={item.href}
@@ -77,7 +78,7 @@ export function Navbar() {
 
                     {/* Right Items */}
                     <div className="flex flex-1 justify-start items-center gap-6">
-                        {navItems.slice(5).map((item) => (
+                        {navItems.slice(6).map((item) => (
                             <a
                                 key={item.label}
                                 href={item.href}

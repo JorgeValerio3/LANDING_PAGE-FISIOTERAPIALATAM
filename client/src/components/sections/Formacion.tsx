@@ -4,7 +4,7 @@ import { BookOpen, Laptop, Landmark } from 'lucide-react';
 export function Formacion({ data }: { data: any }) {
     if (!data) return null;
 
-    const items = data.items || [];
+    const items = data.niveles || [];
 
     const getIcon = (iconName: string) => {
         const i = String(iconName).toLowerCase();

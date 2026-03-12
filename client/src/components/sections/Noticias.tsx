@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 export function Noticias({ data }: { data: any }) {
     if (!data) return null;
 
-    const rawNews = data.items || [];
     
     const getTypeIcon = (category: string) => {
         const c = String(category).toLowerCase();
@@ -19,7 +18,7 @@ export function Noticias({ data }: { data: any }) {
         return url.startsWith('http') || url.startsWith('/') ? url : `http://localhost:5000${url}`;
     };
 
-    const news = rawNews.map((item: any, index: number) => ({
+    const news = (data.articulos || []).map((item: any, index: number) => ({
         id: item.id || index,
         type: item.categoria || "Noticia",
         typeIcon: getTypeIcon(item.categoria),
@@ -27,7 +26,7 @@ export function Noticias({ data }: { data: any }) {
         date: item.fecha,
         excerpt: item.extracto,
         image: getImageUrl(item.imagen),
-        link: item.enlace
+        link: item.url_externa || item.enlace
     }));
 
     const [selectedNews, setSelectedNews] = useState<any>(null);
