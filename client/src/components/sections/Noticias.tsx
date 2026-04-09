@@ -1,108 +1,38 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { ArrowRight, Bell, Calendar, X, ChevronRight } from 'lucide-react';
+import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export function Noticias() {
-    const news = [
-        {
-            id: 1,
-            type: "Comunicado Oficial",
-            typeIcon: <Bell className="w-4 h-4" />,
-            title: "Nueva Alianza Estratégica con la Universidad del Sur para Diplomados 2024",
-            date: "15 de Octubre, 2023",
-            excerpt: "La UFAAL y la Universidad del Sur firman un convenio de cooperación técnica y académica para el desarrollo de la especialidad en fisioterapia acuática.",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600",
-            content: (
-                <div className="space-y-5 text-gray-600 leading-relaxed">
-                    <p className="text-lg">
-                        La <strong>Unión Fisioterapéutica de América Latina (UFAAL)</strong> tiene el honor de anunciar la firma de una nueva alianza estratégica con la <strong>Universidad del Sur</strong>. Este acuerdo histórico marca un paso significativo en nuestro compromiso continuo con la excelencia académica y la profesionalización de la fisioterapia acuática en toda la región.
-                    </p>
-                    <h4 className="text-xl font-bold text-ufaal-blue mt-8 mb-4">Objetivos del Convenio</h4>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>Desarrollar e implementar programas de diplomado especializados y actualizados.</li>
-                        <li>Fomentar el intercambio de conocimientos y recursos académicos entre ambas instituciones.</li>
-                        <li>Proporcionar a los miembros de UFAAL acceso prioritario y becas parciales para estos nuevos programas.</li>
-                        <li>Promover la investigación conjunta en el campo de la hidroterapia.</li>
-                    </ul>
-                    <p>
-                        A partir del primer trimestre del 2024, lanzaremos el primer <strong>Diplomado en Terapia Acuática Avanzada</strong>. Este programa contará con módulos teóricos en línea y prácticas presenciales intensivas, impartidos por expertos internacionales de renombre.
-                    </p>
-                    <p>
-                        Agradecemos a todos los miembros de la mesa directiva y a los representantes de la Universidad del Sur que hicieron posible este logro. Próximamente compartiremos de forma oficial el folleto informativo y los requisitos de postulación a través de nuestros canales oficiales.
-                    </p>
-                </div>
-            )
-        },
-        {
-            id: 2,
-            type: "Evento Próximo",
-            typeIcon: <Calendar className="w-4 h-4" />,
-            title: "Asamblea General Anual UFAAL 2024 - Modalidad Híbrida",
-            date: "20 de Noviembre, 2023",
-            excerpt: "Convocatoria oficial para todos los representantes nacionales y miembros activos para la revisión de estatutos y plan operativo anual.",
-            image: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=600",
-            content: (
-                <div className="space-y-5 text-gray-600 leading-relaxed">
-                    <p className="text-lg">
-                        De acuerdo con lo establecido en nuestros estatutos institucionales, se convoca a todos los delegados nacionales, miembros del comité ejecutivo y profesionales asociados a la <strong>Asamblea General Anual UFAAL 2024</strong>.
-                    </p>
-                    <div className="bg-ufaal-blue/5 p-6 rounded-xl border border-ufaal-blue/10 my-8">
-                        <h4 className="font-bold text-ufaal-blue mb-4 text-lg">Detalles de la Convocatoria</h4>
-                        <div className="space-y-3">
-                            <p className="flex items-center gap-3"><Calendar className="w-5 h-5 text-ufaal-blue shrink-0" /> <strong>Fecha:</strong> Sábado, 25 de Enero de 2024</p>
-                            <p className="flex items-center gap-3"><Bell className="w-5 h-5 text-ufaal-blue shrink-0" /> <strong>Hora:</strong> 09:00 AM (Hora Central)</p>
-                            <p className="flex items-center gap-3"><Bell className="w-5 h-5 text-ufaal-blue shrink-0" /> <strong>Modalidad:</strong> Híbrida (Presencial en Ciudad de México / Transmisión vía Zoom)</p>
-                        </div>
-                    </div>
-                    <h4 className="text-xl font-bold text-ufaal-blue mt-8 mb-4">Agenda Principal</h4>
-                    <ol className="list-decimal pl-6 space-y-2">
-                        <li>Presentación del informe anual de gestión y estado financiero 2023.</li>
-                        <li>Votación y aprobación del Plan Operativo Anual (POA) 2024.</li>
-                        <li>Elección rotativa de vocales regionales y actualización de comitivas.</li>
-                        <li>Mesas de trabajo: Revisión de propuestas para la estandarización de competencias básicas.</li>
-                    </ol>
-                    <p>
-                        La participación activa de nuestras representaciones es vital para el fortalecimiento de nuestra asociación. El enlace de registro para la participación remota y los documentos base de la asamblea serán enviados a los correos institucionales registrados en los próximos días. Esté atento a su bandeja de entrada.
-                    </p>
-                </div>
-            )
-        },
-        {
-            id: 3,
-            type: "Logro Institucional",
-            typeIcon: <Bell className="w-4 h-4" />,
-            title: "Publicación del Primer Consenso Latinoamericano de Hidroterapia",
-            date: "05 de Septiembre, 2023",
-            excerpt: "El comité de investigación de la Unión celebra la publicación en la revista indexada de rehabilitación médica del documento base regional.",
-            image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600",
-            content: (
-                <div className="space-y-5 text-gray-600 leading-relaxed">
-                    <p className="text-lg">
-                        Es con gran orgullo que anunciamos un hito trascendental para la fisioterapia en nuestra región: la publicación oficial del <strong>Primer Consenso Latinoamericano de Hidroterapia y Terapias Acuáticas</strong> en la prestigiosa <em>Revista Iberoamericana de Rehabilitación Médica</em>.
-                    </p>
-                    <p>
-                        Este documento representa más de dos años de trabajo exhaustivo, revisiones sistemáticas y debates científicos estructurados por parte del Comité de Investigación de UFAAL, en conjunto con 45 expertos clínicos y académicos de 12 países diferentes. Nuestro objetivo siempre ha sido elevar el estándar de nuestra práctica clínica.
-                    </p>
-                    <h4 className="text-xl font-bold text-ufaal-blue mt-8 mb-4">Puntos Clave del Documento</h4>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>Unificación de la terminología clínica a nivel regional para estandarizar la comunicación entre profesionales.</li>
-                        <li>Establecimiento de las contraindicaciones absolutas y relativas fundamentadas en la evidencia científica actual más rigurosa.</li>
-                        <li>Guías de ratios paciente-terapeuta sugeridos, ajustados según niveles de complejidad neurológica y motora.</li>
-                        <li>Protocolos de bioseguridad e higiene estandarizados para el mantenimiento y uso de piscinas terapéuticas, asegurando el bienestar de los pacientes.</li>
-                    </ul>
-                    <div className="bg-green-50 text-green-800 p-5 rounded-xl border border-green-200 mt-6 font-medium">
-                        El acceso al documento completo es de carácter gratuito (Open Access) para promover la diseminación del conocimiento clínico basado en evidencia y garantizar que todos los profesionales puedan beneficiarse de este esfuerzo colectivo.
-                    </div>
-                    <p className="mt-6">
-                        Este logro no solo profesionaliza nuestro gremio, sino que posiciona a Latinoamérica como un referente mundial activo en la producción científica sobre terapias en el medio acuático. Agradecemos profundamente a cada uno de los autores colaboradores por su dedicación inquebrantable a nuestra profesión.
-                    </p>
-                </div>
-            )
-        }
-    ];
+import { useI18n } from '../../contexts/I18nContext';
 
-    const [selectedNews, setSelectedNews] = useState<typeof news[0] | null>(null);
+export function Noticias({ data: _data }: { data?: any }) {
+    const { t } = useI18n();
+    if (!_data) return null;
+
+    
+    const getTypeIcon = (category: string) => {
+        const c = String(category).toLowerCase();
+        if (c.includes('evento')) return <Calendar className="w-4 h-4" />;
+        return <Bell className="w-4 h-4" />;
+    };
+
+    const getImageUrl = (url: string) => {
+        if (!url) return "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800";
+        return url.startsWith('http') || url.startsWith('/') ? url : `/${url}`;
+    };
+
+    const news = (_data.articulos || []).map((item: any, index: number) => ({
+        id: item.id || index,
+        type: item.categoria || t('noticias.categoria_noticia'),
+        typeIcon: getTypeIcon(item.categoria),
+        title: item.titulo,
+        date: item.fecha,
+        excerpt: item.extracto,
+        image: getImageUrl(item.imagen),
+        link: item.url_externa || item.enlace
+    }));
+
+    const [selectedNews, setSelectedNews] = useState<any>(null);
     const [showAllNews, setShowAllNews] = useState(false);
 
     // Bloquear scroll al abrir modales
@@ -124,26 +54,28 @@ export function Noticias() {
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div className="max-w-2xl">
                         <FadeIn direction="up">
-                            <h2 className="text-3xl md:text-5xl font-bold text-ufaal-blue mb-6 tracking-tight">Noticias y Actualidad</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold text-ufaal-blue mb-6 tracking-tight">{t('noticias.titulo')}</h2>
                             <div className="w-24 h-1 bg-ufaal-blue-light rounded-full mb-6"></div>
                             <p className="text-gray-600 font-light text-lg leading-relaxed">
-                                Mantente informado sobre los últimos comunicados institucionales y convocatorias de la región.
+                                {t('noticias.descripcion')}
                             </p>
                         </FadeIn>
                     </div>
-                    <FadeIn delay={0.2} direction="left" className="shrink-0 hidden md:block">
-                        <button
-                            onClick={() => setShowAllNews(true)}
-                            className="text-ufaal-blue font-semibold flex items-center gap-2 hover:text-ufaal-blue-light transition-colors group"
-                        >
-                            Ver todas las noticias
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </FadeIn>
+                    {news.length > 3 && (
+                        <FadeIn delay={0.2} direction="left" className="shrink-0 hidden md:block">
+                            <button
+                                onClick={() => setShowAllNews(true)}
+                                className="text-ufaal-blue font-semibold flex items-center gap-2 hover:text-ufaal-blue-light transition-colors group"
+                            >
+                                {t('noticias.ver_todas')}
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        </FadeIn>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {news.map((item, index) => (
+                    {news.slice(0, 3).map((item: any, index: number) => (
                         <FadeIn key={item.id} delay={0.3 + (index * 0.1)} direction="up" className="h-full">
                             <div
                                 onClick={() => setSelectedNews(item)}
@@ -171,7 +103,7 @@ export function Noticias() {
 
                                     <div className="mt-auto">
                                         <span className="text-ufaal-blue-light text-sm font-semibold flex items-center gap-1.5 group/link">
-                                            Leer más
+                                            {t('noticias.leer_mas')}
                                             <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                                         </span>
                                     </div>
@@ -181,16 +113,24 @@ export function Noticias() {
                     ))}
                 </div>
 
+                {news.length === 0 && (
+                    <div className="text-center py-20">
+                        <p className="text-gray-500 text-lg">{t('noticias.sin_noticias')}</p>
+                    </div>
+                )}
+
                 {/* Botón para pantallas pequeñas */}
-                <div className="mt-12 flex justify-center md:hidden">
-                    <button
-                        onClick={() => setShowAllNews(true)}
-                        className="bg-white border border-gray-200 text-ufaal-blue px-6 py-3 rounded-full shadow-sm font-semibold flex items-center gap-2 hover:bg-gray-50 transition-colors group"
-                    >
-                        Ver todas las noticias
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                </div>
+                {news.length > 3 && (
+                    <div className="mt-12 flex justify-center md:hidden">
+                        <button
+                            onClick={() => setShowAllNews(true)}
+                            className="bg-white border border-gray-200 text-ufaal-blue px-6 py-3 rounded-full shadow-sm font-semibold flex items-center gap-2 hover:bg-gray-50 transition-colors group"
+                        >
+                            {t('noticias.ver_todas')}
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </div>
+                )}
 
             </div>
 
@@ -236,9 +176,18 @@ export function Noticias() {
                                 </div>
                             </div>
 
-                            <div className="p-6 sm:p-10 overflow-y-auto bg-gray-50/50">
+                            <div className="p-6 sm:p-10 overflow-y-auto bg-gray-50/50 flex-1">
                                 <div className="max-w-3xl mx-auto">
-                                    {selectedNews.content}
+                                    <p className="text-lg text-gray-700 leading-relaxed mb-8">
+                                        {selectedNews.excerpt}
+                                    </p>
+                                    
+                                    {selectedNews.link && (
+                                        <a href={selectedNews.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-ufaal-blue text-white px-6 py-3 rounded-full hover:bg-ufaal-blue-light transition-colors font-medium">
+                                            <LinkIcon className="w-4 h-4" />
+                                            {t('noticias.leer_articulo_externo')}
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -254,22 +203,22 @@ export function Noticias() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: '100%' }}
                         transition={{ type: "spring", bounce: 0, duration: 0.7 }}
-                        className="fixed inset-0 z-[100] bg-ufaal-gray overflow-y-auto"
+                        className="fixed inset-0 z-[100] bg-ufaal-gray overflow-y-auto w-full h-full"
                     >
                         <div className="bg-white py-6 px-6 sm:px-12 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-gray-100">
-                            <h2 className="text-2xl font-bold text-ufaal-blue">Archivo de Noticias</h2>
+                            <h2 className="text-2xl font-bold text-ufaal-blue">{t('noticias.archivo_titulo')}</h2>
                             <button
                                 onClick={() => setShowAllNews(false)}
                                 className="text-gray-500 hover:text-ufaal-blue hover:bg-gray-100 p-2 rounded-full transition-colors flex items-center gap-2"
                             >
-                                <span className="font-semibold text-sm hidden sm:block">Volver</span>
+                                <span className="font-semibold text-sm hidden sm:block">{t('common.volver')}</span>
                                 <X className="w-6 h-6" />
                             </button>
                         </div>
 
                         <div className="max-w-5xl mx-auto py-12 px-6">
                             <div className="space-y-8">
-                                {news.map((item, index) => (
+                                {news.map((item: any, index: number) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 30 }}
@@ -298,7 +247,7 @@ export function Noticias() {
                                             </p>
                                             <div className="mt-auto flex justify-end">
                                                 <span className="text-ufaal-blue-light font-semibold flex items-center gap-1.5 group-hover:underline">
-                                                    Leer artículo completo
+                                                    {t('noticias.leer_articulo_completo')}
                                                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                                 </span>
                                             </div>
@@ -308,7 +257,7 @@ export function Noticias() {
                             </div>
 
                             <div className="mt-16 text-center">
-                                <p className="text-gray-400">Has llegado al final del archivo.</p>
+                                <p className="text-gray-400">{t('noticias.fin_archivo')}</p>
                             </div>
                         </div>
                     </motion.div>

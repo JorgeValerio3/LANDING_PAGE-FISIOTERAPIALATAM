@@ -3,7 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-ufaal-gray text-ufaal-text font-sans antialiased;
+  html, body {
+    @apply bg-ufaal-gray text-ufaal-text font-sans antialiased overflow-x-hidden w-full;
+    position: relative;
+  }
+}
+
+@layer utilities {
+  @media (max-width: 768px) {
+    /* Optimize Hero Image framing for narrow screens */
+    .hero-bg-image {
+      object-position: 90% center !important;
+    }
+
+    /* Pull Navbar logo upwards by reducing padding at the top */
+    .nav-container.bg-transparent {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
   }
 }

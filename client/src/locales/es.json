@@ -1,0 +1,342 @@
+{
+  "colaboradores": {
+    "titulo": "Instituciones y Organizaciones que nos acompañan"
+  },
+  "common": {
+    "confirmar": "Confirmar",
+    "cancelar": "Cancelar",
+    "guardar": "Guardar",
+    "eliminar": "Eliminar",
+    "editar": "Editar",
+    "enviar": "Enviar",
+    "cerrar": "Cerrar",
+    "mision": "Misión",
+    "vision": "Visión",
+    "ver_mas": "Ver más",
+    "leer_mas": "Leer más",
+    "volver": "Volver"
+  },
+  "navbar": {
+    "quienes_somos": "Quiénes Somos",
+    "historia": "Historia",
+    "organizacion": "Organización",
+    "paises": "Países Miembros",
+    "formacion": "Formación",
+    "investigacion": "Investigación",
+    "noticias": "Noticias",
+    "contacto": "Contacto",
+    "sede_virtual": "Sede Virtual",
+    "galeria": "Galería"
+  },
+  "hero": {
+    "titulo": "UFAAL",
+    "subtitulo": "",
+    "descripcion": "Somos la red líder de profesionales en fisioterapia acuática de Latinoamérica.",
+    "cta_primario": "Ver Sobre Nosotros",
+    "cta_secundario": "Nuestra Red Regional",
+    "stats": {
+      "paises": "Países Miembros",
+      "profesionales": "Profesionales",
+      "investigaciones": "Investigaciones"
+    }
+  },
+  "quienes_somos": {
+    "titulo": "Quienes Somos",
+    "institucional": "Institucional",
+    "descripcion": "La Unión de Fisioterapia Acuática de América Latina (UFAAL) es una organización que integra a profesionales, académicos e instituciones comprometidas con el desarrollo y la promoción de la fisioterapia acuática en la región latinoamericana.\n\nNuestro propósito es fomentar la colaboración científica, la formación profesional y el intercambio de conocimientos, impulsando el crecimiento de la fisioterapia acuática como herramienta terapéutica basada en evidencia.\n\nUFAAL trabaja para fortalecer la educación, la investigación y la práctica clínica en el medio acuático, promoviendo la integración regional hispano parlante y el avance de la rehabilitación física en beneficio de la salud y la calidad de vida de las personas.",
+    "filosofia": {
+      "titulo": "Filosofía Institucional",
+      "contenido": "La Unión de Fisioterapia Acuática de América Latina (UFAAL) sustenta su filosofía en el principio de que el agua constituye un medio terapéutico de alto valor científico y humano para la rehabilitación, la prevención y la optimización de la función física.\n\nNuestra visión filosófica se fundamenta en la integración del conocimiento científico, la práctica clínica basada en evidencia y la cooperación regional, promoviendo una fisioterapia acuática desarrollada bajo principios de excelencia profesional, ética, responsabilidad social y compromiso con la salud de las poblaciones.\n\nLa UFAAL concibe la diversidad cultural, social y sanitaria de América Latina como una fuente de enriquecimiento para el intercambio de conocimientos y el crecimiento de la disciplina, fomentando el diálogo académico, la innovación terapéutica y la formación continua de los profesionales de la rehabilitación.\n\nA través del trabajo colaborativo entre países, instituciones académicas y profesionales de la salud, la Unión impulsa el fortalecimiento de la fisioterapia acuática como un campo especializado de la fisioterapia contemporánea, orientado a mejorar la funcionalidad, la calidad de vida y el bienestar de las personas en toda la región latinoamericana.\n\nNuestra filosofía se expresa en el compromiso permanente con la excelencia científica, la práctica ética y el desarrollo sostenible de la fisioterapia acuática, consolidando una comunidad profesional que trabaja de manera integrada para avanzar en la rehabilitación y la salud en América Latina."
+    },
+    "mision": "Promover el desarrollo, fortalecimiento y posicionamiento de la fisioterapia acuática en América Latina, impulsando la educación continua, la investigación científica y la práctica profesional ética. La UFAAL fomenta la colaboración entre profesionales, instituciones y organizaciones de la región, respetando la diversidad cultural y contribuyendo al mejoramiento de la salud, la rehabilitación y la calidad de vida de las comunidades.",
+    "vision": "Ser una red latinoamericana de referencia internacional en fisioterapia acuática, reconocida por impulsar la formación especializada, la investigación científica y la práctica clínica basada en evidencia, promoviendo estándares de excelencia, responsabilidad social y compromiso bioético en el ámbito de la rehabilitación en el medio acuático.",
+    "valores": {
+      "tag": "Valores",
+      "titulo": "Nuestros Valores",
+      "items": {
+        "colaboracion_intercultural": {
+          "titulo": "Colaboración intercultural",
+          "descripcion": "Promovemos la cooperación entre profesionales, instituciones y países de América Latina, valorando la diversidad cultural y el intercambio de conocimientos."
+        },
+        "excelencia_academica": {
+          "titulo": "Excelencia académica y científica",
+          "descripcion": "Impulsamos la formación continua, la investigación y la actualización profesional para garantizar prácticas terapéuticas fundamentadas en evidencia científica."
+        },
+        "compromiso_bioetico": {
+          "titulo": "Compromiso bioético",
+          "descripcion": "Actuamos con responsabilidad ética, respeto por los principios de la bioética y compromiso con el bienestar de los pacientes y las comunidades."
+        },
+        "innovacion_terapeutica": {
+          "titulo": "Innovación terapéutica",
+          "descripcion": "Fomentamos el desarrollo de nuevas estrategias, metodologías y tecnologías aplicadas a la fisioterapia acuática para mejorar los resultados clínicos."
+        },
+        "respeto_dignidad": {
+          "titulo": "Respeto por la dignidad humana",
+          "descripcion": "Reconocemos el valor intrínseco de cada persona, promoviendo una atención centrada en el paciente, inclusiva y humanizada."
+        },
+        "transparencia_responsabilidad": {
+          "titulo": "Transparencia y responsabilidad profesional",
+          "descripcion": "Promovemos una gestión institucional clara, ética y responsable, basada en la confianza, la integridad y el compromiso profesional."
+        }
+      }
+    }
+  },
+  "historia": {
+    "titulo": "Nuestra Historia",
+    "subtitulo": "Unión de Fisioterapia Acuática de América Latina (UFAAL)",
+    "descripcion": [
+      "La Unión de Fisioterapia Acuática de América Latina (UFAAL) surge como una iniciativa regional destinada a fortalecer la integración, representación y desarrollo de la fisioterapia acuática en los países de América Latina, particularmente en la comunidad profesional hispanohablante.",
+      "El origen de este proceso se vincula con la creación de la International Organisation of Aquatic Physiotherapists (IOAPT), grupo de interés reconocido dentro de World Physiotherapy, cuyo objetivo es promover el avance de la fisioterapia acuática a nivel global.",
+      "Al conocer la formación de esta organización internacional, la fisioterapeuta chilena Gloria Aravena identificó una oportunidad histórica para que los profesionales de América Latina participaran activamente en este espacio de reconocimiento científico y profesional.",
+      "Motivada por esta visión, y con el apoyo del Colegio de Kinesiólogos de Chile, inició en el año 2020 un proceso de articulación regional orientado a convocar profesionales y representantes de distintos países de América Latina interesados en fortalecer la disciplina.",
+      "Posteriormente, en 2023, Gloria Aravena fue elegida Vicepresidenta de la IOAPT, consolidando la presencia de la región en el liderazgo internacional junto a líderes como Karen Morales (México) y Yara Humarán (Puerto Rico).",
+      "Hoy, UFAAL representa un espacio de encuentro y crecimiento colectivo, donde profesionales de distintos países se unen con un propósito común: avanzar juntos desde América Latina hacia el mundo, fortaleciendo la fisioterapia acuática como una disciplina científica, terapéutica y humana al servicio de la salud y la rehabilitación."
+    ]
+  },
+  "organizacion": {
+    "titulo": "ÁREA DE GESTIÓN",
+    "descripcion": "Estructura funcional y equipos de trabajo",
+    "estatutos": "Descargar Estatutos (PDF)",
+    "secciones": {
+      "junta": "Eje 1: Investigación Científica y Desarrollo",
+      "academico": "Eje 2: Académico y de Formación",
+      "delegados": "Eje 3: Comunicación, Medios y Plataforma Web"
+    }
+  },
+  "paises": {
+    "titulo": "Miembros y Países",
+    "descripcion": "Nuestra Red Regional en Expansión",
+    "delegado": "Delegado Nacional",
+    "delegada": "Delegada Nacional",
+    "ver_perfil": "Ver perfil en panel",
+    "miembro_regional": "Miembro Regional",
+    "por_definir": "Representante por definir",
+    "actividades_en": "Actividades en",
+    "sin_actividades": "Sin registro de actividades",
+    "selecciona_pais": "Selecciona otro país"
+  },
+  "footer": {
+    "descripcion": "La mayor red de profesionales de Fisioterapia Aquática en Latinoamérica. Comprometidos con el desarrollo académico y la excelencia terapéutica.",
+    "enlaces_rapidos": "Enlaces Rápidos",
+    "recursos": "Recursos",
+    "siguenos": "Síguenos",
+    "contacto_institucional": "Contacto Institucional",
+    "reconocimiento": "Subgrupo reconocido por IOAPT / World Physiotherapy",
+    "copyright_text": "Unión de Fisioterapia Acuática de América Latina (UFAAL). Todos los derechos reservados.",
+    "region": "América Latina"
+  },
+  "contacto": {
+    "titulo": "Soporte y Contacto",
+    "descripcion": "Estamos a su disposición para resolver cualquier duda institucional, académica o técnica. Nuestro equipo le responderá a la brevedad posible.",
+    "form_titulo": "Formulario de Soporte",
+    "form_nombre": "Nombre Completo",
+    "form_nombre_placeholder": "Ej. Dra. Elena Silva",
+    "form_email": "Correo Electrónico",
+    "form_email_placeholder": "ejemplo@institucion.org",
+    "form_telefono": "Teléfono de Contacto",
+    "form_telefono_placeholder": "Ej. +52 55 1234 5678",
+    "form_asunto": "Asunto",
+    "form_asunto_placeholder": "Consulta sobre tratamiento",
+    "form_mensaje": "Mensaje",
+    "form_mensaje_placeholder": "Detalle su consulta para que podamos ayudarle...",
+    "form_enviar": "Enviar Solicitud",
+    "enviar_mensaje": "Enviar Mensaje",
+    "info_canal": "Canal Oficial",
+    "info_respuesta": "Respuesta en menos de 24h",
+    "info_email": "Correo Electrónico",
+    "info_telefono": "Atención Telefónica",
+    "info_horario": "9:00 AM - 6:00 PM (GMT-6)",
+    "redes_sociales": "Redes Sociales",
+    "afiliaciones_titulo": "Afiliaciones Internacionales",
+    "afiliaciones_desc": "Para consultas específicas sobre la World Physiotherapy o la IOAPT, nuestro equipo puede orientarlo sobre los procesos de validación regional.",
+    "asuntos": {
+      "soporte": "Soporte Técnico",
+      "afiliacion": "Consultas sobre Afiliación",
+      "formacion": "Programas de Formación",
+      "investigacion": "Investigación y Publicaciones",
+      "otros": "Otros"
+    },
+    "insta_oficial": "Instagram Oficial",
+    "proximamente": "Próximamente en redes sociales"
+  },
+  "formacion": {
+    "titulo": "Formación y Ejes Académicos",
+    "descripcion": "En UFAAL, promovemos el desarrollo profesional a través de tres pilares fundamentales que integran la práctica clínica, la investigación y la difusión del conocimiento.",
+    "ejes": {
+      "eje1": {
+        "titulo": "Investigación Científica y Desarrollo",
+        "descripcion": "Fomentamos la generación de evidencia científica en fisioterapia acuática, apoyando proyectos de investigación y publicando avances técnicos que beneficien a toda la comunidad regional."
+      },
+      "eje2": {
+        "titulo": "Académico y de Formación",
+        "descripcion": "Impulsamos programas de capacitación continua, certificaciones y convenios universitarios para elevar el estándar de la fisioterapia acuática en América Latina."
+      },
+      "eje3": {
+        "titulo": "Comunicación, Medios y Plataforma Web",
+        "descripcion": "Gestionamos canales de difusión y herramientas digitales que facilitan el intercambio de conocimiento entre expertos y el acceso a recursos académicos."
+      }
+    }
+  },
+  "investigacion": {
+    "titulo": "Área de Investigación",
+    "descripcion": "Descarga de documentos oficiales y publicaciones científicas.",
+    "cta": "Explorar Investigaciones",
+    "estatutos_titulo": "Estatutos Oficiales",
+    "estatutos_desc": "Consulta los lineamientos éticos, reglamentos y objetivos institucionales que rigen nuestra unión regional.",
+    "descargar_pdf": "Descargar PDF",
+    "proximas_pub_titulo": "Próximas Publicaciones",
+    "proximas_pub_desc": "Estamos consolidando los proyectos de investigación de nuestros países miembros."
+  },
+  "galeria": {
+    "titulo": "Galería Institucional",
+    "ver_imagen": "Ver Imagen",
+    "sin_imagenes": "No hay imágenes en la galería actualmente.",
+    "fallback_alt": "Imagen de galería"
+  },
+  "noticias": {
+    "titulo": "Noticias y Novedades",
+    "descripcion": "Mantente al día con las últimas actividades, eventos y avances de la fisioterapia acuática en Latinoamérica.",
+    "ver_todas": "Ver todas las noticias",
+    "leer_mas": "Leer más",
+    "sin_noticias": "No hay noticias publicadas en este momento.",
+    "fecha": "Publicado el",
+    "archivo_titulo": "Archivo de Noticias",
+    "leer_articulo_externo": "Ver artículo completo externo",
+    "leer_articulo_completo": "Leer artículo completo",
+    "fin_archivo": "Has llegado al final del archivo.",
+    "categoria_noticia": "Noticia"
+  },
+  "roles": {
+    "coordinador": "Coordinador",
+    "miembro": "Miembro",
+    "lider": "Líder",
+    "coordinador_pagina_web": "Coordinador página web",
+    "delegada_nacional": "Delegada Nacional",
+    "delegado_nacional": "Delegado Nacional"
+  },
+  "paises_nombres_by_name": {
+    "Argentina": "Argentina",
+    "Bolivia": "Bolivia",
+    "Brasil": "Brasil",
+    "Chile": "Chile",
+    "Colombia": "Colombia",
+    "Costa Rica": "Costa Rica",
+    "Ecuador": "Ecuador",
+    "Guatemala": "Guatemala",
+    "México": "México",
+    "Paraguay": "Paraguay",
+    "Perú": "Perú",
+    "Puerto Rico": "Puerto Rico",
+    "República Dominicana": "República Dominicana",
+    "Uruguay": "Uruguay",
+    "Venezuela": "Venezuela"
+  },
+  "paises_nombres": {
+    "ar": "Argentina",
+    "bo": "Bolivia",
+    "br": "Brasil",
+    "cl": "Chile",
+    "co": "Colombia",
+    "cr": "Costa Rica",
+    "ec": "Ecuador",
+    "gt": "Guatemala",
+    "mx": "México",
+    "py": "Paraguay",
+    "pe": "Perú",
+    "pr": "Puerto Rico",
+    "do": "República Dominicana",
+    "uy": "Uruguay",
+    "ve": "Venezuela"
+  },
+  "faq": {
+    "titulo": "Preguntas Frecuentes",
+    "descripcion": "Resolvemos tus dudas principales sobre nuestra organización, procesos de calidad y participación regional.",
+    "no_encuentras": "¿No encuentras lo que buscas?",
+    "soporte_desc": "Nuestro equipo de soporte está listo para ayudarte con cualquier consulta adicional que tengas.",
+    "contactar_soporte": "Contactar Soporte",
+    "preguntas": {
+      "p1": {
+        "q": "¿Cómo puedo afiliarme a UFAAL?",
+        "a": "La afiliación se realiza a través de los delegados nacionales de cada país. Puede contactar al representante de su región en la sección de 'Países Miembros' o enviarnos un correo electrónico a ufaal2020@gmail.com solicitando información sobre los requisitos específicos para su país."
+      },
+      "p2": {
+        "q": "¿UFAAL ofrece certificaciones internacionales?",
+        "a": "Sí, UFAAL, en colaboración con el área de Formación y docentes internacionales certificados, organiza programas de capacitación por niveles. Estas formaciones están alineadas con los estándares de la IOAPT y World Physiotherapy."
+      },
+      "p3": {
+        "q": "¿Tienen convenios con universidades?",
+        "a": "Actualmente trabajamos en estrecha colaboración con diversas instituciones académicas líderes en América Latina para promover la investigación y la inclusión de la fisioterapia acuática en los planes de estudio de pregrado y posgrado."
+      },
+      "p4": {
+        "q": "¿Quiénes pueden participar en los congresos de UFAAL?",
+        "a": "Nuestros eventos están abiertos a fisioterapeutas, kinesiólogos, estudiantes de último año y profesionales de la salud interesados en la rehabilitación acuática. Los miembros afiliados disfrutan de beneficios y descuentos exclusivos en las inscripciones."
+      },
+      "p5": {
+        "q": "¿Cómo puedo publicar una investigación en su repositorio?",
+        "a": "Si usted tiene un trabajo de investigación original relacionado con la fisioterapia acuática, puede enviarlo a nuestro Eje de Investigación Científica para revisión. Una vez validado por el comité, podrá ser publicado en nuestra plataforma digital."
+      }
+    }
+  },
+  "privacidad": {
+    "titulo": "Políticas de Privacidad",
+    "ultima_actualizacion": "Última actualización: 15 de marzo de 2026.",
+    "secciones": {
+      "s1": {
+        "titulo": "1. Compromiso de Privacidad",
+        "p": "La Unión de Fisioterapia Acuática de América Latina (UFAAL) se compromete a proteger la privacidad y seguridad de la información personal de sus afiliados, colaboradores y usuarios de nuestra plataforma digital. Esta política detalla nuestras prácticas de recopilación y uso de datos de acuerdo con los estándares internacionales de protección de la información."
+      },
+      "s2": {
+        "titulo": "2. Información Recopilada",
+        "p": "Recopilamos información únicamente cuando es estrictamente necesario para el cumplimiento de nuestros objetivos institucionales, tales como:",
+        "items": [
+          "Datos de contacto (Nombre, correo electrónico, teléfono) proporcionados voluntariamente en formularios.",
+          "Información académica y profesional para procesos de afiliación o certificación.",
+          "Datos de navegación técnica para mejorar la experiencia de usuario y seguridad del sitio."
+        ]
+      },
+      "s3": {
+        "titulo": "3. Uso de la Información",
+        "p": "Los datos recopilados se utilizan exclusivamente para:",
+        "items": [
+          "Gestionar la comunicación institucional con los países miembros.",
+          "Informar sobre programas de formación, congresos y avances científicos.",
+          "Garantizar el correcto funcionamiento de la plataforma web y los servicios de soporte."
+        ]
+      },
+      "s4": {
+        "titulo": "4. Protección de Datos",
+        "p": "Implementamos medidas de seguridad técnicas y organizativas para evitar el acceso no autorizado, la pérdida o alteración de su información personal. UFAAL no vende, alquila ni comparte sus datos con terceros con fines comerciales."
+      },
+      "s5": {
+        "titulo": "5. Derechos del Usuario",
+        "p": "Usted tiene derecho a acceder, rectificar o solicitar la eliminación de sus datos personales de nuestras bases de datos en cualquier momento. Para ejercer estos derechos, puede contactarnos a través de nuestro correo institucional: ufaal2020@gmail.com"
+      }
+    }
+  },
+  "terminos": {
+    "titulo": "Términos y Condiciones",
+    "ultima_actualizacion": "Última actualización: 15 de marzo de 2026.",
+    "secciones": {
+      "s1": {
+        "titulo": "1. Aceptación de los Términos",
+        "p": "Al acceder y utilizar este sitio web, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones de uso. Si no está de acuerdo con alguna parte de estos términos, le solicitamos que no utilice nuestra plataforma."
+      },
+      "s2": {
+        "titulo": "2. Propiedad Intelectual",
+        "p": "Todo el contenido presente en este sitio, incluyendo pero no limitado a textos, gráficos, logotipos, imágenes, audios, videos y documentos científicos, es propiedad de UFAAL o de sus respectivos autores y está protegido por las leyes de derechos de autor y propiedad intelectual internacionales. Se prohíbe la reproducción total o parcial sin autorización expresa."
+      },
+      "s3": {
+        "titulo": "3. Uso de la Información",
+        "p": "El material proporcionado en este sitio tiene fines exclusivamente educativos e informativos sobre la fisioterapia acuática. No constituye consejo médico profesional ni sustituye la evaluación clínica personalizada."
+      },
+      "s4": {
+        "titulo": "4. Limitación de Responsabilidad",
+        "p": "UFAAL no se hace responsable de las consecuencias derivadas del uso inadecuado de la información aquí contenida, ni de los daños directos o indirectos que puedan surgir del acceso a nuestra plataforma o de la imposibilidad de acceder a la misma."
+      },
+      "s5": {
+        "titulo": "5. Modificaciones",
+        "p": "La organización se reserva el derecho de modificar estos términos y condiciones en cualquier momento sin previo aviso. Es responsabilidad del usuario revisar periódicamente esta sección para estar al tanto de los cambios realizados."
+      }
+    }
+  }
+}
