@@ -58,8 +58,10 @@ export function Dashboard() {
         setFetchError(null);
         setContent(null);
         try {
-            const data = await fetchClient(`/admin/content?lang=${lang}`);
-            setContent(data);
+            const raw = await fetchClient(`/admin/content?lang=${lang}`);
+            // Separar metadato del contenido real para que no llegue a los forms
+            const { _meta, ...data } = raw;
+            setContent({ ...data, _meta });
         } catch (err: any) {
             console.error('QA Error [fetchContent]:', err);
             setFetchError(err.message || 'No se pudo conectar con el servidor backend.');
@@ -95,7 +97,12 @@ export function Dashboard() {
                 method: 'PUT',
                 body: sectionData,
             });
-            setContent((prev: any) => ({ ...prev, [sectionKey]: responseData.section }));
+            // Tras guardar, la fuente es db_exact para este idioma
+            setContent((prev: any) => ({
+                ...prev,
+                [sectionKey]: responseData.section,
+                _meta: { source: 'db_exact', lang: activeLang },
+            }));
             setMessage(`Sección guardada (${activeLang.toUpperCase()})`);
             setTimeout(() => setMessage(''), 4000);
         } catch (err: any) {
@@ -155,6 +162,8 @@ export function Dashboard() {
 
     const currentSectionData = content[activeTab];
     const isTranslationLang = activeLang !== 'es';
+    const dataSource: 'db_exact' | 'db_fallback_es' | 'file_fallback' = content._meta?.source ?? 'db_exact';
+    const currentLangFlag = LANGS.find(l => l.code === activeLang)?.flag ?? '';
 
     return (
         <div className="min-h-screen bg-gray-50 flex">
@@ -284,15 +293,42 @@ export function Dashboard() {
                     </div>
                 </header>
 
-                {isTranslationLang && (
+                {/* Banner de estado de idioma */}
+                {dataSource === 'db_exact' && isTranslationLang && (
+                    <div className="mb-4 bg-green-50 border border-green-200 rounded-xl px-5 py-3 flex items-start gap-3">
+                        <span className="text-green-500 text-lg mt-0.5">✅</span>
+                        <div>
+                            <p className="text-green-800 font-bold text-sm">
+                                {currentLangFlag} {activeLang.toUpperCase()} — Cargado desde MongoDB
+                            </p>
+                            <p className="text-green-700 text-xs mt-0.5">
+                                Versión traducida guardada. Edita y guarda para actualizar.
+                            </p>
+                        </div>
+                    </div>
+                )}
+                {dataSource === 'db_fallback_es' && (
                     <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 flex items-start gap-3">
                         <span className="text-amber-500 text-lg mt-0.5">🌐</span>
                         <div>
                             <p className="text-amber-800 font-bold text-sm">
-                                Editando versión {LANGS.find(l => l.code === activeLang)?.flag} {activeLang.toUpperCase()} — Cargada desde base de datos
+                                {currentLangFlag} {activeLang.toUpperCase()} — No existe en MongoDB aún. Mostrando base en Español.
                             </p>
                             <p className="text-amber-700 text-xs mt-0.5">
-                                Traduce los campos de texto y guarda. Imágenes, URLs y datos numéricos son compartidos con ES.
+                                Traduce los campos de texto y pulsa Guardar. Se creará el documento {activeLang.toUpperCase()} en MongoDB.
+                            </p>
+                        </div>
+                    </div>
+                )}
+                {dataSource === 'file_fallback' && (
+                    <div className="mb-4 bg-red-50 border border-red-200 rounded-xl px-5 py-3 flex items-start gap-3">
+                        <span className="text-red-500 text-lg mt-0.5">⚠️</span>
+                        <div>
+                            <p className="text-red-800 font-bold text-sm">
+                                MongoDB sin conexión — Datos cargados desde archivo local
+                            </p>
+                            <p className="text-red-700 text-xs mt-0.5">
+                                Los cambios no se guardarán hasta restaurar la conexión con la base de datos.
                             </p>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ import fs from 'fs';
 import contactRoutes from './routes/contactRoutes';
 import adminRoutes from './routes/adminRoutes';
 import dataRoutes from './routes/dataRoutes';
+import { pingMongo } from './config/db';
 
 dotenv.config();
 
@@ -59,8 +60,8 @@ const loginLimiter = rateLimit({
 
 app.use('/api/', apiLimiter);
 app.use('/api/admin/login', loginLimiter);
-app.use(express.json({ limit: '10mb' })); 
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: '50mb' })); 
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // QA: Servir archivos estáticos (Imágenes y Descargas)
 const imagesPath = path.join(__dirname, '../../client/public/images');
@@ -81,11 +82,10 @@ app.use('/api/data', dataRoutes);
 
 app.get('/api/health', async (req, res) => {
     try {
-        const { readData } = await import('./config/db');
-        await readData('es');
+        await pingMongo();
         res.status(200).json({ status: 'OK', db: 'connected', message: 'UFAAL API Backend corriendo' });
-    } catch {
-        res.status(503).json({ status: 'DEGRADED', db: 'unreachable', message: 'MongoDB no disponible' });
+    } catch (err: any) {
+        res.status(503).json({ status: 'DEGRADED', db: 'unreachable', message: err.message || 'MongoDB no disponible' });
     }
 });
 

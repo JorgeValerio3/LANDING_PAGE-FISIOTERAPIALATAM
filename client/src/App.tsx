@@ -76,6 +76,8 @@ function AdminArea() {
         : <Login onLogin={() => setIsLoggedIn(true)} />;
 }
 
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
 function LandingPage() {
   const { data: contentData } = useData();
   if (!contentData) return null;
@@ -83,17 +85,17 @@ function LandingPage() {
   return (
     <>
       <ScrollToHash />
-      <Hero data={contentData.hero} />
-      <QuienesSomos data={contentData.quienes_somos} />
-      <Historia data={contentData.historia} />
-      <Organizacion data={contentData.organizacion} />
-      <Paises data={contentData.paises} />
-      <Actividades data={contentData.actividades} />
-      <Formacion data={contentData.formacion} />
-      <Investigacion data={contentData.investigacion} />
-      <Galeria data={contentData.galeria} />
-      <Noticias data={contentData.noticias} />
-      <Contacto data={contentData.contacto} />
+      <ErrorBoundary name="Hero"><Hero data={contentData.hero} /></ErrorBoundary>
+      <ErrorBoundary name="QuienesSomos"><QuienesSomos data={contentData.quienes_somos} /></ErrorBoundary>
+      <ErrorBoundary name="Historia"><Historia data={contentData.historia} /></ErrorBoundary>
+      <ErrorBoundary name="Organizacion"><Organizacion data={contentData.organizacion} /></ErrorBoundary>
+      <ErrorBoundary name="Paises"><Paises data={contentData.paises} /></ErrorBoundary>
+      <ErrorBoundary name="Actividades"><Actividades data={contentData.actividades} /></ErrorBoundary>
+      <ErrorBoundary name="Formacion"><Formacion data={contentData.formacion} /></ErrorBoundary>
+      <ErrorBoundary name="Investigacion"><Investigacion data={contentData.investigacion} /></ErrorBoundary>
+      <ErrorBoundary name="Galeria"><Galeria data={contentData.galeria} /></ErrorBoundary>
+      <ErrorBoundary name="Noticias"><Noticias data={contentData.noticias} /></ErrorBoundary>
+      <ErrorBoundary name="Contacto"><Contacto data={contentData.contacto} /></ErrorBoundary>
     </>
   );
 }

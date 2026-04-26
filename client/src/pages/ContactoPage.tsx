@@ -1,10 +1,13 @@
 import { FadeIn } from '../components/ui/FadeIn';
 import { Mail, Phone, Clock, Send } from 'lucide-react';
 import { useI18n } from '../contexts/I18nContext';
-import contentData from '../data/content.json';
+import { useData } from '../contexts/DataContext';
 
 export default function ContactoPage() {
     const { t } = useI18n();
+    const { data: contentData } = useData();
+    
+    if (!contentData) return null;
     const { contacto } = contentData;
 
     return (

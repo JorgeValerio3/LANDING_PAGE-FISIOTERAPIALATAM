@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { Mail, Send, Facebook, Instagram, Linkedin, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Mail, Send, Facebook, Instagram, Linkedin, Loader2, CheckCircle2, XCircle, ArrowRight, RefreshCw } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { fetchClient } from '../../api';
 import { ContactoData } from '../../types';
@@ -12,7 +12,7 @@ export function Contacto({ data: _data }: { data?: ContactoData }) {
     const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
-        if (status !== 'idle') {
+        if (status === 'error') {
             const timer = setTimeout(() => setStatus('idle'), 8000);
             return () => clearTimeout(timer);
         }
@@ -35,7 +35,6 @@ export function Contacto({ data: _data }: { data?: ContactoData }) {
         const formData = new FormData(form);
         const rawData = Object.fromEntries(formData.entries());
         
-        // QA: Limpieza y Desinfección Proactiva
         const cleanData = {
             nombre: String(rawData.nombre).trim(),
             email: String(rawData.email).trim().toLowerCase(),
@@ -44,7 +43,6 @@ export function Contacto({ data: _data }: { data?: ContactoData }) {
             mensaje: String(rawData.mensaje).trim()
         };
 
-        // Validación básica previa
         if (!cleanData.nombre || !cleanData.email || !cleanData.mensaje) {
             setStatus('error');
             setErrorMsg('Por favor completa los campos requeridos');
@@ -85,60 +83,71 @@ export function Contacto({ data: _data }: { data?: ContactoData }) {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-16">
-                    <div className="w-full lg:w-[60%] bg-white rounded-3xl shadow-xl shadow-ufaal-blue/5 border border-gray-100 p-8 md:p-12 relative overflow-hidden">
+                    <div className="w-full lg:w-[60%] bg-white rounded-3xl shadow-xl shadow-ufaal-blue/5 border border-gray-100 p-8 md:p-12 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
                         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-ufaal-blue via-ufaal-blue-light to-blue-300"></div>
 
-                        <FadeIn delay={0.2} direction="right">
-                            <h3 className="text-2xl font-bold text-ufaal-text mb-8">{t('contacto.form_titulo') || 'Envíanos un mensaje'}</h3>
-
-                            {status === 'success' && (
-                                <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-2xl flex items-center gap-3 border border-green-200 animate-in fade-in slide-in-from-top-2">
-                                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                                    <p className="font-semibold text-sm">Mensaje enviado correctamente. Nos pondremos en contacto pronto.</p>
+                        {status === 'success' ? (
+                            <FadeIn direction="up" className="text-center py-12">
+                                <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-in zoom-in duration-500">
+                                    <CheckCircle2 className="w-12 h-12" />
                                 </div>
-                            )}
-
-                            {status === 'error' && (
-                                <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-2xl flex items-center gap-3 border border-red-200 animate-in shake">
-                                    <XCircle className="w-5 h-5 flex-shrink-0" />
-                                    <p className="font-semibold text-sm">{errorMsg || 'Hubo un problema al enviar el mensaje. Intenta de nuevo.'}</p>
-                                </div>
-                            )}
-
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <fieldset disabled={isLoading} className="grid grid-cols-1 md:grid-cols-2 gap-6 disabled:opacity-50">
-                                    <div className="space-y-2">
-                                        <label htmlFor="nombre" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_nombre')}</label>
-                                        <input type="text" id="nombre" name="nombre" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_nombre_placeholder')} />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="email" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_email')}</label>
-                                        <input type="email" id="email" name="email" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_email_placeholder')} />
-                                    </div>
-                                </fieldset>
-
-                                <fieldset disabled={isLoading} className="grid grid-cols-1 md:grid-cols-2 gap-6 disabled:opacity-50">
-                                    <div className="space-y-2">
-                                        <label htmlFor="telefono" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_telefono')}</label>
-                                        <input type="tel" id="telefono" name="telefono" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_telefono_placeholder')} />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="asunto" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_asunto')}</label>
-                                        <input type="text" id="asunto" name="asunto" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_asunto_placeholder')} />
-                                    </div>
-                                </fieldset>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="mensaje" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_mensaje')}</label>
-                                    <textarea id="mensaje" name="mensaje" rows={5} required disabled={isLoading} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all resize-none placeholder-gray-400 font-medium disabled:opacity-50" placeholder={t('contacto.form_mensaje_placeholder')}></textarea>
-                                </div>
-
-                                <button type="submit" disabled={isLoading} className="w-full sm:w-auto px-10 py-4 bg-ufaal-blue text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-ufaal-blue-dark transition-all flex items-center justify-center gap-3 shadow-xl shadow-ufaal-blue/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed">
-                                    {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-                                    {isLoading ? 'Enviando...' : t('contacto.enviar_mensaje')}
+                                <h3 className="text-3xl font-bold text-ufaal-text mb-4">¡Mensaje Recibido!</h3>
+                                <p className="text-gray-600 text-lg mb-10 max-w-md mx-auto leading-relaxed">
+                                    Gracias por contactarnos. Hemos recibido tu solicitud correctamente y nuestro equipo institucional te responderá en las próximas 24 horas.
+                                </p>
+                                <button 
+                                    onClick={() => setStatus('idle')}
+                                    className="inline-flex items-center gap-2 text-ufaal-blue font-bold hover:text-ufaal-blue-light transition-colors group"
+                                >
+                                    Enviar otro mensaje <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </button>
-                            </form>
-                        </FadeIn>
+                            </FadeIn>
+                        ) : (
+                            <FadeIn delay={0.2} direction="right">
+                                <h3 className="text-2xl font-bold text-ufaal-text mb-8">{t('contacto.form_titulo') || 'Envíanos un mensaje'}</h3>
+
+                                {status === 'error' && (
+                                    <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-2xl flex items-center gap-3 border border-red-200 animate-in shake">
+                                        <XCircle className="w-5 h-5 flex-shrink-0" />
+                                        <p className="font-semibold text-sm">{errorMsg || 'Hubo un problema al enviar el mensaje. Intenta de nuevo.'}</p>
+                                    </div>
+                                )}
+
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <fieldset disabled={isLoading} className="grid grid-cols-1 md:grid-cols-2 gap-6 disabled:opacity-50">
+                                        <div className="space-y-2">
+                                            <label htmlFor="nombre" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_nombre')}</label>
+                                            <input type="text" id="nombre" name="nombre" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_nombre_placeholder')} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="email" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_email')}</label>
+                                            <input type="email" id="email" name="email" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_email_placeholder')} />
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset disabled={isLoading} className="grid grid-cols-1 md:grid-cols-2 gap-6 disabled:opacity-50">
+                                        <div className="space-y-2">
+                                            <label htmlFor="telefono" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_telefono')}</label>
+                                            <input type="tel" id="telefono" name="telefono" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_telefono_placeholder')} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="asunto" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_asunto')}</label>
+                                            <input type="text" id="asunto" name="asunto" required className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all placeholder-gray-400 font-medium" placeholder={t('contacto.form_asunto_placeholder')} />
+                                        </div>
+                                    </fieldset>
+
+                                    <div className="space-y-2">
+                                        <label htmlFor="mensaje" className="text-xs font-bold text-ufaal-text uppercase tracking-widest ml-1">{t('contacto.form_mensaje')}</label>
+                                        <textarea id="mensaje" name="mensaje" rows={5} required disabled={isLoading} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ufaal-blue/10 focus:border-ufaal-blue-light outline-none transition-all resize-none placeholder-gray-400 font-medium disabled:opacity-50" placeholder={t('contacto.form_mensaje_placeholder')}></textarea>
+                                    </div>
+
+                                    <button type="submit" disabled={isLoading} className="w-full sm:w-auto px-10 py-4 bg-ufaal-blue text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-ufaal-blue-dark transition-all flex items-center justify-center gap-3 shadow-xl shadow-ufaal-blue/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed">
+                                        {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                                        {isLoading ? 'Enviando...' : t('contacto.enviar_mensaje')}
+                                    </button>
+                                </form>
+                            </FadeIn>
+                        )}
                     </div>
 
                     <div className="w-full lg:w-[40%] flex flex-col justify-center">

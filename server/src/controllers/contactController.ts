@@ -56,15 +56,32 @@ export const sendContactEmail = async (req: Request, res: Response): Promise<voi
 
         await transporter.sendMail({
             from: `"${safeNombre}" <${safeEmail}>`,
-            to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER || "contacto@ufaal.org",
-            subject: `UFAAL Web - ${asunto || 'Sin asunto'}`,
-            text: `De: ${safeNombre} (${safeEmail})\n\nMensaje:\n${mensaje}`,
-            html: `<h3>Mensaje desde Formulario de Contacto</h3>
-                   <p><strong>De:</strong> ${safeNombre} (${safeEmail})</p>
-                   <p><strong>Asunto:</strong> ${asunto || 'No especificado'}</p>
-                   <hr />
-                   <p><strong>Mensaje:</strong></p>
-                   <p style="white-space: pre-wrap;">${mensaje}</p>`,
+            to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER || "ufaal2020@gmail.com",
+            replyTo: safeEmail,
+            subject: `UFAAL WEB: ${asunto || 'Nuevo Mensaje'}`,
+            html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
+                <div style="background-color: #0047AB; padding: 20px; text-align: center;">
+                    <h2 style="color: white; margin: 0; font-size: 24px;">Unión de Fisioterapia Acuática de América Latina</h2>
+                </div>
+                <div style="padding: 30px; background-color: #ffffff;">
+                    <p style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Nuevo mensaje de contacto</p>
+                    <h1 style="color: #0f172a; font-size: 20px; margin-top: 0; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px;">${asunto || 'Sin Asunto'}</h1>
+                    
+                    <div style="margin: 20px 0; background-color: #f8fafc; padding: 20px; border-radius: 8px;">
+                        <p style="margin: 0; color: #334155; line-height: 1.6;">${mensaje.replace(/\n/g, '<br>')}</p>
+                    </div>
+
+                    <div style="margin-top: 30px; border-top: 1px solid #f1f5f9; pt-20px;">
+                        <p style="margin: 5px 0; color: #1e293b;"><strong>Remitente:</strong> ${safeNombre}</p>
+                        <p style="margin: 5px 0; color: #1e293b;"><strong>Email:</strong> <a href="mailto:${safeEmail}" style="color: #0047AB; text-decoration: none;">${safeEmail}</a></p>
+                    </div>
+                </div>
+                <div style="background-color: #f1f5f9; padding: 15px; text-align: center; color: #94a3b8; font-size: 12px;">
+                    Este es un mensaje automático enviado desde la plataforma oficial de UFAAL.
+                </div>
+            </div>
+            `,
         });
 
         res.status(200).json({ success: true, message: 'Mensaje enviado correctamente.' });

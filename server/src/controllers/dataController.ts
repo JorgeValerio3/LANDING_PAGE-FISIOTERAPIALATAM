@@ -4,7 +4,7 @@ import { readData, writeData } from '../config/db';
 export const getAppData = async (req: Request, res: Response): Promise<void> => {
     try {
         const lang = (req.query.lang as string) || 'es';
-        const data = await readData(lang);
+        const { data } = await readData(lang);
         if (!data) {
             res.status(404).json({ error: `No se encontraron datos para el idioma '${lang}'` });
             return;
@@ -12,7 +12,7 @@ export const getAppData = async (req: Request, res: Response): Promise<void> => 
         res.status(200).json(data);
     } catch (error: any) {
         console.error('QA Error [getAppData]:', error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: 'Error al obtener los datos globales',
             details: error.message || 'Error desconocido del sistema'
         });
@@ -31,10 +31,10 @@ export const updateAppData = async (req: Request, res: Response): Promise<void> 
         }
 
         // 2. Lectura para Smart Merge
-        const currentData = await readData(lang);
-        const mergedData = { 
-            ...(typeof currentData === 'object' ? currentData : {}), 
-            ...newData 
+        const { data: currentData } = await readData(lang);
+        const mergedData = {
+            ...(typeof currentData === 'object' ? currentData : {}),
+            ...newData
         };
 
         const success = await writeData(mergedData, lang);

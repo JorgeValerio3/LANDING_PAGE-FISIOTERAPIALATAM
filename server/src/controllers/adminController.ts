@@ -66,8 +66,8 @@ export const logoutAdmin = (req: Request, res: Response): void => {
 export const getAdminContent = async (req: Request, res: Response): Promise<void> => {
     try {
         const lang = (req.query.lang as string) || 'es';
-        const data = await readData(lang);
-        res.status(200).json(data);
+        const { data, source } = await readData(lang);
+        res.status(200).json({ ...data, _meta: { source, lang } });
     } catch (error) {
         console.error('QA Error [getAdminContent]:', error);
         res.status(500).json({ error: 'Error al recuperar contenidos' });
@@ -92,8 +92,8 @@ export const updateAdminContentSection = async (req: Request, res: Response): Pr
             return;
         }
 
-        const currentData = await readData(lang);
-        
+        const { data: currentData } = await readData(lang);
+
         if (!currentData || typeof currentData !== 'object') {
             res.status(500).json({ error: 'Error de integridad en la base de datos' });
             return;
