@@ -65,3 +65,9 @@
 .hover\:bg-white\/8:hover {
   background-color: rgba(255, 255, 255, 0.08);
 }
+
+/* ── Modal text wrap — prevents long words/URLs from breaking layout ── */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

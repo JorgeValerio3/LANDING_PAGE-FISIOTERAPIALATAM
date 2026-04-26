@@ -123,7 +123,7 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.96, y: 20 }}
                             transition={{ type: "spring", duration: 0.55, bounce: 0.12 }}
-                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10"
+                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10 min-w-0"
                         >
                             <button
                                 onClick={() => setSelected(null)}
@@ -161,8 +161,8 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto flex-1 bg-white">
-                                <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 space-y-8">
+                            <div className="overflow-y-auto flex-1 bg-white min-h-0">
+                                <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 space-y-8 break-words overflow-wrap-anywhere">
 
                                     <div className="flex flex-wrap gap-4 pb-5 border-b border-gray-100">
                                         {selected.fecha && (
@@ -186,7 +186,7 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                     </div>
 
                                     {selected.descripcion && (
-                                        <div className="text-[15px] text-gray-700 leading-relaxed whitespace-pre-line">
+                                        <div className="text-[15px] text-gray-700 leading-relaxed whitespace-pre-line break-words">
                                             {selected.descripcion}
                                         </div>
                                     )}

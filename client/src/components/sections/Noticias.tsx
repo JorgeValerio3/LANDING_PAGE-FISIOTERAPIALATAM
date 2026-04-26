@@ -165,7 +165,7 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.96, y: 20 }}
                             transition={{ type: "spring", duration: 0.55, bounce: 0.12 }}
-                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10"
+                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10 min-w-0"
                         >
                             {/* Close button */}
                             <button
@@ -204,8 +204,8 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                             </div>
 
                             {/* Body — scrollable */}
-                            <div className="overflow-y-auto flex-1 bg-white overscroll-contain">
-                                <div className="max-w-3xl mx-auto px-5 sm:px-8 md:px-10 py-6 sm:py-8 space-y-6 sm:space-y-8">
+                            <div className="overflow-y-auto flex-1 bg-white overscroll-contain min-h-0">
+                                <div className="max-w-3xl mx-auto px-5 sm:px-8 md:px-10 py-6 sm:py-8 space-y-6 sm:space-y-8 break-words">
 
                                     {/* Meta row: autor */}
                                     {selectedNews.autor && (
