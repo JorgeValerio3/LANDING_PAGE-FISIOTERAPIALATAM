@@ -17,6 +17,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Necesario para que express-rate-limit funcione correctamente en Render (detrás de un proxy)
+app.set('trust proxy', 1);
+
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
