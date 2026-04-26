@@ -23,32 +23,42 @@
 
 /* ── Admin sidebar scrollbar ── */
 .admin-sidebar::-webkit-scrollbar {
-  width: 3px;
+  width: 8px;
 }
 .admin-sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.admin-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.30);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 .admin-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.55);
+}
+.admin-sidebar::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.75);
 }
 
 /* ── Admin main content scrollbar ── */
 .admin-main-scroll::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
 }
 .admin-main-scroll::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-.admin-main-scroll::-webkit-scrollbar-thumb {
-  background: #c8d5e8;
+  background: #e2e8f0;
   border-radius: 10px;
 }
-.admin-main-scroll::-webkit-scrollbar-thumb:hover {
+.admin-main-scroll::-webkit-scrollbar-thumb {
   background: #94a3b8;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+}
+.admin-main-scroll::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+.admin-main-scroll::-webkit-scrollbar-thumb:active {
+  background: #475569;
 }
 
 /* ── Sidebar hover utility (Tailwind doesn't cover bg-white/8) ── */

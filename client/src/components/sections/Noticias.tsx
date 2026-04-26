@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon } from 'lucide-react';
+import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon, User, FileText, Download, Paperclip, BookOpen } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../../contexts/I18nContext';
-import { NoticiasData, Articulo } from '../../types';
+import { NoticiasData, Articulo, ArchivoAdjunto } from '../../types';
 import { getUploadUrl } from '../../services/api';
 
 export interface NewsItem {
@@ -12,9 +12,12 @@ export interface NewsItem {
     typeIcon: React.ReactNode;
     title: string;
     date?: string;
+    autor?: string;
     excerpt?: string;
+    contenido?: string;
     image: string;
     link?: string;
+    archivos_adjuntos?: ArchivoAdjunto[];
 }
 
 export function Noticias({ data: _data }: { data?: NoticiasData }) {
@@ -50,9 +53,12 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
         typeIcon: getTypeIcon(item.categoria || ''),
         title: item.titulo,
         date: item.fecha,
+        autor: item.autor || item.autores,
         excerpt: item.extracto,
+        contenido: item.contenido,
         image: getUploadUrl(item.imagen || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800"),
-        link: item.url_externa || item.enlace
+        link: item.url_externa || item.enlace,
+        archivos_adjuntos: item.archivos_adjuntos || [],
     }));
 
     return (
@@ -145,57 +151,157 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
             {/* Modal de Detalle de Noticia */}
             <AnimatePresence>
                 {selectedNews && (
-                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 md:p-12">
+                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 md:p-10">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.25 }}
                             onClick={() => setSelectedNews(null)}
-                            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                         />
                         <motion.div
-                            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                            initial={{ opacity: 0, y: 40, scale: 0.96 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            transition={{ type: "spring", duration: 0.6, bounce: 0.15 }}
-                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col relative z-10"
+                            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+                            transition={{ type: "spring", duration: 0.55, bounce: 0.12 }}
+                            className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10"
                         >
+                            {/* Close button */}
                             <button
                                 onClick={() => setSelectedNews(null)}
-                                className="absolute top-4 right-4 z-30 bg-black/20 hover:bg-black/40 text-white rounded-full p-2 backdrop-blur-md transition-colors"
+                                className="absolute top-4 right-4 z-30 bg-black/25 hover:bg-black/50 text-white rounded-full p-2.5 backdrop-blur-md transition-colors"
+                                aria-label="Cerrar"
                             >
                                 <X className="w-5 h-5" />
                             </button>
 
-                            <div className="relative h-56 sm:h-72 shrink-0">
-                                <img src={selectedNews.image} alt={selectedNews.title} className="w-full h-full object-cover" loading="lazy" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-10">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <span className="bg-ufaal-blue text-white font-bold px-3 py-1.5 rounded-md text-xs shadow-sm flex items-center gap-1.5">
+                            {/* Hero image */}
+                            <div className="relative h-60 sm:h-80 shrink-0">
+                                <img
+                                    src={selectedNews.image}
+                                    alt={selectedNews.title}
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10">
+                                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                                        <span className="bg-ufaal-blue text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow flex items-center gap-1.5">
                                             {selectedNews.typeIcon}
                                             {selectedNews.type}
                                         </span>
-                                        <span className="text-white/90 text-sm font-medium">{selectedNews.date}</span>
+                                        {selectedNews.date && (
+                                            <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white/90 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                                <Calendar className="w-3.5 h-3.5" />
+                                                {selectedNews.date}
+                                            </span>
+                                        )}
                                     </div>
-                                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
+                                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-snug">
                                         {selectedNews.title}
                                     </h2>
                                 </div>
                             </div>
 
-                            <div className="p-6 sm:p-10 overflow-y-auto bg-gray-50/50 flex-1">
-                                <div className="max-w-3xl mx-auto">
-                                    <p className="text-lg text-gray-700 leading-relaxed mb-8">
-                                        {selectedNews.excerpt}
-                                    </p>
-                                    
-                                    {selectedNews.link && (
-                                        <a href={selectedNews.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-ufaal-blue text-white px-6 py-3 rounded-full hover:bg-ufaal-blue-light transition-colors font-medium">
-                                            <LinkIcon className="w-4 h-4" />
-                                            {t('noticias.leer_articulo_externo')}
-                                        </a>
+                            {/* Body — scrollable */}
+                            <div className="overflow-y-auto flex-1 bg-white">
+                                <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 space-y-8">
+
+                                    {/* Meta row: autor */}
+                                    {selectedNews.autor && (
+                                        <div className="flex items-center gap-2 text-sm text-gray-500 border-b border-gray-100 pb-5">
+                                            <User className="w-4 h-4 text-ufaal-blue-light shrink-0" />
+                                            <span className="font-medium text-ufaal-text">{selectedNews.autor}</span>
+                                        </div>
                                     )}
+
+                                    {/* Extracto */}
+                                    {selectedNews.excerpt && (
+                                        <div className="bg-ufaal-gray rounded-xl p-5 border-l-4 border-ufaal-blue-light">
+                                            <p className="text-base text-gray-700 leading-relaxed font-medium italic">
+                                                {selectedNews.excerpt}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Contenido completo */}
+                                    {selectedNews.contenido && (
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <BookOpen className="w-4 h-4 text-ufaal-blue-light" />
+                                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Contenido</h3>
+                                            </div>
+                                            <div className="prose prose-gray max-w-none text-gray-700 leading-relaxed text-[15px] whitespace-pre-line">
+                                                {selectedNews.contenido}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Archivos adjuntos */}
+                                    {selectedNews.archivos_adjuntos && selectedNews.archivos_adjuntos.length > 0 && (
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <Paperclip className="w-4 h-4 text-ufaal-blue-light" />
+                                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                                    Archivos Adjuntos
+                                                    <span className="ml-2 bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                                                        {selectedNews.archivos_adjuntos.length}
+                                                    </span>
+                                                </h3>
+                                            </div>
+                                            <div className="space-y-2.5">
+                                                {selectedNews.archivos_adjuntos.map((adj, i) => {
+                                                    const ext = adj.url?.split('.').pop()?.toLowerCase() ?? '';
+                                                    const isPdf = ext === 'pdf';
+                                                    const isDoc = ext === 'doc' || ext === 'docx';
+                                                    const fileUrl = getUploadUrl(adj.url);
+                                                    return (
+                                                        <a
+                                                            key={adj.id ?? i}
+                                                            href={fileUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            download
+                                                            className="flex items-center gap-4 p-4 bg-gray-50 hover:bg-ufaal-gray border border-gray-100 hover:border-ufaal-blue-light/30 rounded-xl transition-all group"
+                                                        >
+                                                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                                                                isPdf  ? 'bg-red-50 text-red-500' :
+                                                                isDoc  ? 'bg-blue-50 text-blue-500' :
+                                                                         'bg-gray-100 text-gray-500'
+                                                            }`}>
+                                                                <FileText className="w-5 h-5" />
+                                                            </div>
+                                                            <div className="flex-1 min-w-0">
+                                                                <p className="text-sm font-semibold text-ufaal-text truncate group-hover:text-ufaal-blue transition-colors">
+                                                                    {adj.nombre || `Archivo ${i + 1}`}
+                                                                </p>
+                                                                <p className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">
+                                                                    {ext || 'archivo'}
+                                                                </p>
+                                                            </div>
+                                                            <Download className="w-4 h-4 text-gray-400 group-hover:text-ufaal-blue shrink-0 transition-colors" />
+                                                        </a>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Enlace externo */}
+                                    {selectedNews.link && (
+                                        <div className="pt-2">
+                                            <a
+                                                href={selectedNews.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 bg-ufaal-blue text-white px-6 py-3 rounded-xl hover:bg-ufaal-blue-light transition-colors font-semibold text-sm shadow-lg shadow-ufaal-blue/20"
+                                            >
+                                                <LinkIcon className="w-4 h-4" />
+                                                {t('noticias.leer_articulo_externo')}
+                                            </a>
+                                        </div>
+                                    )}
+
                                 </div>
                             </div>
                         </motion.div>

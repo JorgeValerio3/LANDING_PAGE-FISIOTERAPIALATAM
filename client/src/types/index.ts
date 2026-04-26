@@ -87,19 +87,28 @@ export interface FormacionData {
     niveles?: NivelFormacion[];
 }
 
+export interface ArchivoAdjunto {
+    id?: string | number;
+    nombre: string;
+    url: string;
+}
+
 export interface Articulo {
     id?: string | number;
     titulo: string;
     extracto?: string;
+    contenido?: string;
     fecha?: string;
     imagen?: string;
     enlace?: string;
     url_externa?: string;
     categoria?: string;
+    autor?: string;
     autores?: string;
     revista?: string;
     doi?: string;
     pdf_url?: string;
+    archivos_adjuntos?: ArchivoAdjunto[];
 }
 
 export interface InvestigacionData {
@@ -118,6 +127,9 @@ export interface ActividadItem {
     pais: string;
     impacto: string;
     imagen: string;
+    estado?: string;
+    url_registro?: string;
+    archivos_adjuntos?: ArchivoAdjunto[];
 }
 
 export interface ActividadesData {

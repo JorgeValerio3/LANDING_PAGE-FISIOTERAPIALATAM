@@ -5,8 +5,8 @@ Este documento contiene la información necesaria para la gestión y despliegue 
 ## 1. Acceso al Panel Administrativo (Backend)
 
 *   **Usuario:** `admin_ufaal`
-*   **Contraseña Segura:** `Uf@@l_P4ssw0rd_2026!`
-*   **Hash Bcrypt (ADMIN_PASS):** `$2b$10$C8u6N3S/N6/W8k.K6zF.aeG5C0U9X0.1W2E3R4T5Y6U7I8O9P0Q1a`
+*   **Contraseña Segura:** `Ufaal2026!`
+*   **Hash Bcrypt (ADMIN_PASS):** `$2b$10$kBp5DPkofAfsbNkiyWlx2OLUiy/s.A9/Gl8oHD5Q8VbGV6r68aYCe`
 *   **Contraseña Anterior (Backup):** `Edgar78`
 *   **Hash Anterior (Backup):** `$2b$10$9PIphlqfWnswGCLPCYzSNOnZv7GjYIQfGUCDj9ykZGM6wbieVXynW`
 
