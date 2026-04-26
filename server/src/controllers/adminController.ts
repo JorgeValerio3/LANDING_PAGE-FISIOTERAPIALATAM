@@ -37,8 +37,8 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
 
                 res.cookie('admin_token', token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
-                    sameSite: 'strict',
+                    secure: true, // Siempre true para permitir SameSite: none
+                    sameSite: 'none', // Obligatorio para peticiones entre diferentes dominios (localhost <-> render)
                     maxAge: 8 * 60 * 60 * 1000 
                 });
 
