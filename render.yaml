@@ -21,11 +21,17 @@ services:
       - key: MONGODB_COLLECTION
         value: app_data
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
       - key: ADMIN_USER
         value: admin_ufaal
       - key: ADMIN_PASS
-        value: "$2b$10$0DdQG8J3jhr8EZ/RxJDoIetDZLEhOt85yrKulF6VO4XipPVe/8vDa"
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://ufaal.org
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
 
   # Servicio para el Frontend (React + Vite)
   - type: web
