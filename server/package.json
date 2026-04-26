@@ -8,6 +8,7 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "migrate": "ts-node src/scripts/migrateToMongo.ts",
+    "patch:actividades": "ts-node src/scripts/patchActividades.ts",
     "deep-check": "ts-node src/scripts/deepCheck.ts",
     "test-cloudinary": "ts-node src/scripts/testCloudinary.ts",
     "migrate-images": "ts-node src/scripts/migrateImagesToCloudinary.ts"

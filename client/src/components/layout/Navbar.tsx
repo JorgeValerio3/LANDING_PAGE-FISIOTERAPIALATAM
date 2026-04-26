@@ -49,15 +49,15 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto flex items-center justify-between w-full relative">
 
                 {/* Desktop Nav */}
-                <div className="hidden lg:flex items-center justify-center w-full z-10">
+                <div className="hidden lg:flex items-center justify-between w-full z-10 gap-4 xl:gap-8">
                     {/* Left Items */}
-                    <div className="flex-none w-[460px] flex justify-end items-center gap-3 xl:gap-4">
+                    <div className="flex-1 flex justify-end items-center gap-3 xl:gap-6">
                         {items.slice(0, 5).map((item: any) => (
                             <a
                                 key={item.href}
                                 href={item.href}
                                 className={clsx(
-                                    "text-[12px] xl:text-[13px] font-medium transition-colors hover:text-ufaal-blue whitespace-nowrap",
+                                    "text-[12px] xl:text-[13px] font-semibold transition-colors hover:text-ufaal-blue whitespace-nowrap tracking-tight uppercase",
                                     forceSolid ? "text-gray-600" : "text-gray-200 hover:text-white"
                                 )}
                             >
@@ -66,13 +66,13 @@ export function Navbar() {
                         ))}
                     </div>
 
-                    {/* Center Logo - Fixed Width Spacer */}
+                    {/* Center Logo - Responsive Container */}
                     <div
                         className={clsx(
-                            "flex-none w-[180px] xl:w-[220px] flex items-center justify-center",
+                            "flex-none flex items-center justify-center transition-all duration-500",
                             forceSolid 
-                                ? "opacity-100 scale-100" 
-                                : "opacity-0 scale-90 pointer-events-none"
+                                ? "opacity-100 scale-100 w-[140px] xl:w-[180px]" 
+                                : "opacity-0 scale-90 pointer-events-none w-0 overflow-hidden"
                         )}
                     >
                         <a
@@ -83,21 +83,21 @@ export function Navbar() {
                                 src="./images/logo_sin_fondo.png?v=3"
                                 alt="Logo UFAAL"
                                 className={clsx(
-                                    "object-contain mix-blend-multiply brightness-110",
-                                    forceSolid ? "h-20 xl:h-24" : "h-28 xl:h-32"
+                                    "object-contain mix-blend-multiply brightness-110 transition-all duration-500",
+                                    forceSolid ? "h-20 xl:h-24" : "h-0"
                                 )}
                             />
                         </a>
                     </div>
 
                     {/* Right Items */}
-                    <div className="flex-none w-[460px] flex justify-start items-center gap-3 pl-4">
+                    <div className="flex-1 flex justify-start items-center gap-3 xl:gap-6">
                         {items.slice(5).map((item: any) => (
                             <a
                                 key={item.href}
                                 href={item.href}
                                 className={clsx(
-                                    "text-[12px] xl:text-[13px] font-medium transition-colors hover:text-ufaal-blue whitespace-nowrap",
+                                    "text-[12px] xl:text-[13px] font-semibold transition-colors hover:text-ufaal-blue whitespace-nowrap tracking-tight uppercase",
                                     forceSolid ? "text-gray-600" : "text-gray-200 hover:text-white"
                                 )}
                             >

@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-ufaal-gray font-sans selection:bg-ufaal-blue selection:text-white flex flex-col">
       <ScrollToTop />
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow overflow-x-hidden">
         {children}
       </main>
       <Colaboradores data={contentData.colaboradores} />

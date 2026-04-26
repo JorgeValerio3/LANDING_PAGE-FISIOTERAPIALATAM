@@ -236,8 +236,8 @@ export function ActividadesForm({ data, onChange }: ActividadesFormProps) {
                                         </div>
                                         <div className="space-y-3">
                                             {(item.archivos_adjuntos || []).map((adj: any, adjIdx: number) => (
-                                                <div key={adj.id || adjIdx} className="flex gap-2 items-start">
-                                                    <div className="flex-1 space-y-2">
+                                                <div key={adj.id || adjIdx} className="flex flex-col sm:flex-row gap-2 items-start bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                                                    <div className="flex-1 w-full space-y-2">
                                                         <input
                                                             type="text"
                                                             value={adj.nombre || ''}
@@ -254,9 +254,9 @@ export function ActividadesForm({ data, onChange }: ActividadesFormProps) {
                                                     </div>
                                                     <button
                                                         onClick={() => removeAdjunto(idx, adjIdx)}
-                                                        className="mt-1 text-red-400 hover:text-red-600 p-1"
+                                                        className="self-end sm:self-start text-red-400 hover:text-red-600 p-1 bg-red-50 rounded-md transition-colors"
                                                     >
-                                                        <X className="w-4 h-4" />
+                                                        <Trash2 className="w-4 h-4" />
                                                     </button>
                                                 </div>
                                             ))}

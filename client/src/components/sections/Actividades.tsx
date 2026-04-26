@@ -94,7 +94,7 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                                 <Users className="w-5 h-5" />
                                                 <span className="text-sm font-bold">{item.impacto}</span>
                                             </div>
-                                            <span className="text-ufaal-blue-light text-xs font-semibold flex items-center gap-1 group-hover:underline">
+                                            <span className="text-ufaal-blue-light text-xs font-semibold flex items-center gap-1">
                                                 Ver más <ChevronRight className="w-3.5 h-3.5" />
                                             </span>
                                         </div>
@@ -106,7 +106,7 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                 </div>
             </div>
 
-            {/* ── Modal de detalle ── */}
+            {/* Modal de detalle */}
             <AnimatePresence>
                 {selected && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 md:p-10">
@@ -125,7 +125,6 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                             transition={{ type: "spring", duration: 0.55, bounce: 0.12 }}
                             className="bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col relative z-10"
                         >
-                            {/* Close */}
                             <button
                                 onClick={() => setSelected(null)}
                                 className="absolute top-4 right-4 z-30 bg-black/25 hover:bg-black/50 text-white rounded-full p-2.5 backdrop-blur-md transition-colors"
@@ -134,7 +133,6 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                 <X className="w-5 h-5" />
                             </button>
 
-                            {/* Hero image */}
                             <div className="relative h-60 sm:h-80 shrink-0">
                                 <img
                                     src={getUploadUrl(selected.imagen || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800")}
@@ -163,11 +161,9 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                 </div>
                             </div>
 
-                            {/* Body */}
                             <div className="overflow-y-auto flex-1 bg-white">
                                 <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 space-y-8">
 
-                                    {/* Meta: fecha + pais + impacto */}
                                     <div className="flex flex-wrap gap-4 pb-5 border-b border-gray-100">
                                         {selected.fecha && (
                                             <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -189,14 +185,12 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                         )}
                                     </div>
 
-                                    {/* Descripción */}
                                     {selected.descripcion && (
                                         <div className="text-[15px] text-gray-700 leading-relaxed whitespace-pre-line">
                                             {selected.descripcion}
                                         </div>
                                     )}
 
-                                    {/* Archivos adjuntos */}
                                     {selected.archivos_adjuntos && selected.archivos_adjuntos.length > 0 && (
                                         <div>
                                             <div className="flex items-center gap-2 mb-4">
@@ -213,30 +207,23 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                                     const ext = adj.url?.split('.').pop()?.toLowerCase() ?? '';
                                                     const isPdf = ext === 'pdf';
                                                     const isDoc = ext === 'doc' || ext === 'docx';
-                                                    const fileUrl = getUploadUrl(adj.url);
                                                     return (
                                                         <a
                                                             key={adj.id ?? i}
-                                                            href={fileUrl}
+                                                            href={getUploadUrl(adj.url)}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             download
                                                             className="flex items-center gap-4 p-4 bg-gray-50 hover:bg-ufaal-gray border border-gray-100 hover:border-ufaal-blue-light/30 rounded-xl transition-all group"
                                                         >
-                                                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-                                                                isPdf  ? 'bg-red-50 text-red-500' :
-                                                                isDoc  ? 'bg-blue-50 text-blue-500' :
-                                                                         'bg-gray-100 text-gray-500'
-                                                            }`}>
+                                                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${isPdf ? 'bg-red-50 text-red-500' : isDoc ? 'bg-blue-50 text-blue-500' : 'bg-gray-100 text-gray-500'}`}>
                                                                 <FileText className="w-5 h-5" />
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <p className="text-sm font-semibold text-ufaal-text truncate group-hover:text-ufaal-blue transition-colors">
                                                                     {adj.nombre || `Documento ${i + 1}`}
                                                                 </p>
-                                                                <p className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">
-                                                                    {ext || 'archivo'}
-                                                                </p>
+                                                                <p className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">{ext || 'archivo'}</p>
                                                             </div>
                                                             <Download className="w-4 h-4 text-gray-400 group-hover:text-ufaal-blue shrink-0 transition-colors" />
                                                         </a>
@@ -246,7 +233,6 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                         </div>
                                     )}
 
-                                    {/* Enlace de registro */}
                                     {selected.url_registro && (
                                         <div className="pt-2">
                                             <a

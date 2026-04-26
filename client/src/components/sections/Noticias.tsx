@@ -66,10 +66,10 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                    <div className="max-w-2xl">
+                    <div className="max-w-2xl text-center md:text-left mx-auto md:mx-0">
                         <FadeIn direction="up">
                             <h2 className="text-3xl md:text-5xl font-bold text-ufaal-blue mb-6 tracking-tight">{t('noticias.titulo')}</h2>
-                            <div className="w-24 h-1 bg-ufaal-blue-light rounded-full mb-6"></div>
+                            <div className="w-24 h-1 bg-ufaal-blue-light rounded-full mb-6 mx-auto md:mx-0"></div>
                             <p className="text-gray-600 font-light text-lg leading-relaxed">
                                 {t('noticias.descripcion')}
                             </p>
@@ -177,39 +177,39 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                             </button>
 
                             {/* Hero image */}
-                            <div className="relative h-60 sm:h-80 shrink-0">
+                            <div className="relative h-48 sm:h-64 md:h-80 shrink-0">
                                 <img
                                     src={selectedNews.image}
                                     alt={selectedNews.title}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-8 md:p-10">
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
-                                        <span className="bg-ufaal-blue text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow flex items-center gap-1.5">
+                                        <span className="bg-ufaal-blue text-white font-bold px-2.5 py-1 rounded-lg text-[10px] sm:text-xs shadow flex items-center gap-1.5 whitespace-nowrap">
                                             {selectedNews.typeIcon}
                                             {selectedNews.type}
                                         </span>
                                         {selectedNews.date && (
-                                            <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white/90 text-xs font-medium px-3 py-1.5 rounded-lg">
+                                            <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white/90 text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-lg whitespace-nowrap">
                                                 <Calendar className="w-3.5 h-3.5" />
                                                 {selectedNews.date}
                                             </span>
                                         )}
                                     </div>
-                                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-snug">
+                                    <h2 className="text-lg sm:text-xl md:text-3xl font-bold text-white leading-tight line-clamp-3">
                                         {selectedNews.title}
                                     </h2>
                                 </div>
                             </div>
 
                             {/* Body — scrollable */}
-                            <div className="overflow-y-auto flex-1 bg-white">
-                                <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 space-y-8">
+                            <div className="overflow-y-auto flex-1 bg-white overscroll-contain">
+                                <div className="max-w-3xl mx-auto px-5 sm:px-8 md:px-10 py-6 sm:py-8 space-y-6 sm:space-y-8">
 
                                     {/* Meta row: autor */}
                                     {selectedNews.autor && (
-                                        <div className="flex items-center gap-2 text-sm text-gray-500 border-b border-gray-100 pb-5">
+                                        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 border-b border-gray-100 pb-5">
                                             <User className="w-4 h-4 text-ufaal-blue-light shrink-0" />
                                             <span className="font-medium text-ufaal-text">{selectedNews.autor}</span>
                                         </div>
@@ -217,8 +217,8 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
 
                                     {/* Extracto */}
                                     {selectedNews.excerpt && (
-                                        <div className="bg-ufaal-gray rounded-xl p-5 border-l-4 border-ufaal-blue-light">
-                                            <p className="text-base text-gray-700 leading-relaxed font-medium italic">
+                                        <div className="bg-ufaal-gray rounded-xl p-4 sm:p-5 border-l-4 border-ufaal-blue-light">
+                                            <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium italic">
                                                 {selectedNews.excerpt}
                                             </p>
                                         </div>
@@ -229,9 +229,9 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                         <div>
                                             <div className="flex items-center gap-2 mb-4">
                                                 <BookOpen className="w-4 h-4 text-ufaal-blue-light" />
-                                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Contenido</h3>
+                                                <h3 className="text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Contenido</h3>
                                             </div>
-                                            <div className="prose prose-gray max-w-none text-gray-700 leading-relaxed text-[15px] whitespace-pre-line">
+                                            <div className="prose prose-gray max-w-none text-gray-700 leading-relaxed text-[14px] sm:text-[15px] whitespace-pre-line">
                                                 {selectedNews.contenido}
                                             </div>
                                         </div>
@@ -242,7 +242,7 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                         <div>
                                             <div className="flex items-center gap-2 mb-4">
                                                 <Paperclip className="w-4 h-4 text-ufaal-blue-light" />
-                                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                                <h3 className="text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">
                                                     Archivos Adjuntos
                                                     <span className="ml-2 bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded-full font-bold">
                                                         {selectedNews.archivos_adjuntos.length}
@@ -262,9 +262,9 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             download
-                                                            className="flex items-center gap-4 p-4 bg-gray-50 hover:bg-ufaal-gray border border-gray-100 hover:border-ufaal-blue-light/30 rounded-xl transition-all group"
+                                                            className="flex items-center gap-4 p-3 sm:p-4 bg-gray-50 hover:bg-ufaal-gray border border-gray-100 hover:border-ufaal-blue-light/30 rounded-xl transition-all group"
                                                         >
-                                                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                                                            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center shrink-0 ${
                                                                 isPdf  ? 'bg-red-50 text-red-500' :
                                                                 isDoc  ? 'bg-blue-50 text-blue-500' :
                                                                          'bg-gray-100 text-gray-500'
@@ -275,7 +275,7 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                                                 <p className="text-sm font-semibold text-ufaal-text truncate group-hover:text-ufaal-blue transition-colors">
                                                                     {adj.nombre || `Archivo ${i + 1}`}
                                                                 </p>
-                                                                <p className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">
+                                                                <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider mt-0.5">
                                                                     {ext || 'archivo'}
                                                                 </p>
                                                             </div>
@@ -319,8 +319,8 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                         transition={{ type: "spring", bounce: 0, duration: 0.7 }}
                         className="fixed inset-0 z-[100] bg-ufaal-gray overflow-y-auto w-full h-full"
                     >
-                        <div className="bg-white py-6 px-6 sm:px-12 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-gray-100">
-                            <h2 className="text-2xl font-bold text-ufaal-blue">{t('noticias.archivo_titulo')}</h2>
+                        <div className="bg-white py-4 sm:py-6 px-4 sm:px-12 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-gray-100">
+                            <h2 className="text-xl sm:text-2xl font-bold text-ufaal-blue">{t('noticias.archivo_titulo')}</h2>
                             <button
                                 onClick={() => setShowAllNews(false)}
                                 className="text-gray-500 hover:text-ufaal-blue hover:bg-gray-100 p-2 rounded-full transition-colors flex items-center gap-2"
@@ -330,20 +330,20 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                             </button>
                         </div>
 
-                        <div className="max-w-5xl mx-auto py-12 px-6">
-                            <div className="space-y-8">
+                        <div className="max-w-5xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
+                            <div className="space-y-6 sm:space-y-8">
                                 {news.map((item: typeof news[0], index: number) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
-                                        className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-8 hover:shadow-md transition-shadow cursor-pointer group"
+                                        className="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 sm:gap-8 hover:shadow-md transition-shadow cursor-pointer group"
                                         onClick={() => {
                                             setSelectedNews(item);
                                         }}
                                     >
-                                        <div className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative h-48 md:h-auto">
+                                        <div className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative h-40 sm:h-48 md:h-auto">
                                             <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                                             <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-sm text-ufaal-blue font-bold px-2 py-1 rounded-md text-[10px] shadow-sm flex items-center gap-1">
                                                 {item.typeIcon}
@@ -352,17 +352,17 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                         </div>
 
                                         <div className="flex flex-col flex-grow justify-center">
-                                            <p className="text-sm font-medium text-gray-400 mb-2">{item.date}</p>
-                                            <h3 className="text-2xl font-bold text-ufaal-text mb-4 group-hover:text-ufaal-blue transition-colors">
+                                            <p className="text-xs sm:text-sm font-medium text-gray-400 mb-2">{item.date}</p>
+                                            <h3 className="text-xl sm:text-2xl font-bold text-ufaal-text mb-3 group-hover:text-ufaal-blue transition-colors">
                                                 {item.title}
                                             </h3>
-                                            <p className="text-gray-600 leading-relaxed mb-6">
+                                            <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6 line-clamp-3 md:line-clamp-none">
                                                 {item.excerpt}
                                             </p>
                                             <div className="mt-auto flex justify-end">
-                                                <span className="text-ufaal-blue-light font-semibold flex items-center gap-1.5 group-hover:underline">
+                                                <span className="text-ufaal-blue-light font-semibold flex items-center gap-1.5 group-hover:underline text-sm">
                                                     {t('noticias.leer_articulo_completo')}
-                                                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                                                 </span>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                             </div>
 
                             <div className="mt-16 text-center">
-                                <p className="text-gray-400">{t('noticias.fin_archivo')}</p>
+                                <p className="text-gray-400 text-sm">{t('noticias.fin_archivo')}</p>
                             </div>
                         </div>
                     </motion.div>

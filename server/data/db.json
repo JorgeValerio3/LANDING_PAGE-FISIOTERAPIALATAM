@@ -376,6 +376,11 @@
       }
     ]
   },
+  "actividades": {
+    "titulo": "Actividades y Eventos",
+    "descripcion": "Mantente al tanto de nuestros próximos congresos, talleres y seminarios.",
+    "items": []
+  },
   "formacion": {
     "titulo": "Área de Gestión: Información y Objetivos",
     "descripcion": "Nuestros ejes de trabajo estratégico y sus metas",
