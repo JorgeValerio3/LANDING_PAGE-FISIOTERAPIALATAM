@@ -136,7 +136,7 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.valores?.items.map((item: any, index: number) => (
+                    {(data.valores?.items || []).map((item: any, index: number) => (
                         <div key={index} className="p-5 bg-white rounded-xl border border-gray-100 shadow-sm relative group">
                             <button
                                 onClick={() => removeValorItem(index)}
@@ -150,7 +150,7 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
                                     <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Título</label>
                                     <input
                                         type="text"
-                                        value={item.titulo}
+                                        value={item.titulo || ''}
                                         onChange={(e) => updateValorItem(index, 'titulo', e.target.value)}
                                         className="w-full text-sm border border-gray-100 rounded-lg p-2 bg-gray-50 focus:border-ufaal-blue outline-none"
                                     />
@@ -158,7 +158,7 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
                                 <div>
                                     <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Icono</label>
                                     <select
-                                        value={item.icono}
+                                        value={item.icono || 'Heart'}
                                         onChange={(e) => updateValorItem(index, 'icono', e.target.value)}
                                         className="w-full text-sm border border-gray-100 rounded-lg p-2 bg-gray-50 focus:border-ufaal-blue outline-none"
                                     >
@@ -168,7 +168,7 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
                                 <div>
                                     <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Descripción</label>
                                     <textarea
-                                        value={item.descripcion}
+                                        value={item.descripcion || ''}
                                         onChange={(e) => updateValorItem(index, 'descripcion', e.target.value)}
                                         className="w-full text-sm border border-gray-100 rounded-lg p-2 bg-gray-50 h-20 focus:border-ufaal-blue outline-none resize-none"
                                     />

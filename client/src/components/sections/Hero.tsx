@@ -4,8 +4,9 @@ import { FadeIn } from '../ui/FadeIn';
 import { ArrowDown } from 'lucide-react';
 import { Skeleton } from '../ui/Skeleton';
 import { getUploadUrl } from '../../services/api';
+import { HeroData } from '../../types';
 
-export function Hero({ data: _data }: { data?: any }) {
+export function Hero({ data: _data }: { data?: HeroData }) {
     const { t, isLoading } = useI18n();
     const [scrollPos, setScrollPos] = useState(0);
 
@@ -25,7 +26,7 @@ export function Hero({ data: _data }: { data?: any }) {
     const blurAmount = Math.min(8, scrollPos / 40);
 
     // Prioridad de datos: CMS > Traducciones > Hardcoded
-    const titulo = _data?.titulo || t('hero.titulo');
+    const titulo = _data?.titulo_principal || t('hero.titulo');
     const subtitulo = _data?.subtitulo || t('hero.subtitulo');
     const descripcion = _data?.descripcion || t('hero.descripcion');
     const imagenUrl = _data?.imagen ? getUploadUrl(_data.imagen) : './images/home2.jpg';

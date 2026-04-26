@@ -1,8 +1,8 @@
 import { FadeIn } from '../ui/FadeIn';
 import { Users, Award, MapPin, ShieldCheck } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
-
-export function Organizacion({ data: _data }: { data?: any }) {
+import { OrganizacionData, OrganizacionSeccion, OrganizacionMiembro } from '../../types';
+export function Organizacion({ data: _data }: { data?: OrganizacionData }) {
     const { t } = useI18n();
     if (!_data) return null;
 
@@ -32,7 +32,7 @@ export function Organizacion({ data: _data }: { data?: any }) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    {_data.secciones?.map((section: any, index: number) => {
+                    {_data.secciones?.map((section: OrganizacionSeccion, index: number) => {
                         const sectionKeys: Record<number, string> = {
                             0: 'junta',
                             1: 'academico',
@@ -49,7 +49,7 @@ export function Organizacion({ data: _data }: { data?: any }) {
                                     </div>
                                 <div className="p-6 flex-1">
                                     <ul className="space-y-4">
-                                        {section.members?.map((member: any, idx: number) => (
+                                        {section.members?.map((member: OrganizacionMiembro & { country?: string }, idx: number) => (
                                             <li key={idx} className="flex justify-between items-center border-b border-gray-50 pb-3 last:border-0 last:pb-0">
                                                 <div>
                                                     <p className="font-semibold text-ufaal-text">{member.name}</p>

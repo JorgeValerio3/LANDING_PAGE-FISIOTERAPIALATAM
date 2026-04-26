@@ -64,13 +64,13 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
             <div className="pt-6 border-t border-gray-100">
                 <h3 className="text-sm font-bold text-gray-700 mb-4">Estadísticas Principales</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {data.estadisticas.map((stat: any, idx: number) => (
+                    {(data.estadisticas || []).map((stat: any, idx: number) => (
                         <div key={idx} className="bg-gray-50 p-4 border border-gray-100 rounded-lg">
                             <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Valor</label>
-                            <input type="text" value={stat.valor} onChange={(e) => handleStatChange(idx, 'valor', e.target.value)} className="w-full mb-3 border border-gray-200 rounded p-2 text-sm" />
+                            <input type="text" value={stat.valor || ''} onChange={(e) => handleStatChange(idx, 'valor', e.target.value)} className="w-full mb-3 border border-gray-200 rounded p-2 text-sm" />
                             
                             <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Etiqueta</label>
-                            <input type="text" value={stat.etiqueta} onChange={(e) => handleStatChange(idx, 'etiqueta', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                            <input type="text" value={stat.etiqueta || ''} onChange={(e) => handleStatChange(idx, 'etiqueta', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                         </div>
                     ))}
                 </div>

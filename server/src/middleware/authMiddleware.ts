@@ -6,7 +6,10 @@ interface AuthRequest extends Request {
 }
 
 export const authenticateJWT = (req: AuthRequest, res: Response, next: NextFunction): void => {
-    const token = req.cookies.admin_token;
+    const cookieToken = req.cookies.admin_token;
+    const authHeader = req.headers.authorization;
+    const bearerToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+    const token = cookieToken || bearerToken;
 
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET || 'secret_key_ufaalsuperadmin', (err: any, user: any) => {

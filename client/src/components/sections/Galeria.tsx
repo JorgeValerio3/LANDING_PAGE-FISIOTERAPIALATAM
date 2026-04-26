@@ -4,19 +4,18 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { getUploadUrl } from '../../services/api';
 import { useI18n } from '../../contexts/I18nContext';
+import { GaleriaData, GaleriaImagen } from '../../types';
 
-export function Galeria({ data: _data }: { data?: any }) {
+export interface MappedGaleriaImagen {
+    src: string;
+    alt: string;
+    type: string;
+}
+
+export function Galeria({ data: _data }: { data?: GaleriaData }) {
     const { t } = useI18n();
-    if (!_data) return null;
-
-    const rawImages = _data.imagenes || [];
-    const images = rawImages.map((img: any) => ({
-        src: getUploadUrl(img.url),
-        alt: img.alt || img.titulo || t('galeria.fallback_alt'),
-        type: img.tipo || "square"
-    }));
-
-    const [selectedImage, setSelectedImage] = useState<any>(null);
+    
+    const [selectedImage, setSelectedImage] = useState<MappedGaleriaImagen | null>(null);
 
     // Bloquear scroll al abrir el modal (lightbox)
     useEffect(() => {
@@ -29,6 +28,15 @@ export function Galeria({ data: _data }: { data?: any }) {
             document.body.style.overflow = 'unset';
         };
     }, [selectedImage]);
+
+    if (!_data) return null;
+
+    const rawImages = _data.imagenes || [];
+    const images = rawImages.map((img: GaleriaImagen) => ({
+        src: getUploadUrl(img.url),
+        alt: img.alt || img.titulo || t('galeria.fallback_alt'),
+        type: img.tipo || "square"
+    }));
 
     return (
         <section id="galeria" className="py-24 bg-white relative">
@@ -43,7 +51,7 @@ export function Galeria({ data: _data }: { data?: any }) {
 
                 {/* Masonry Layout Basico via Tailwind columns */}
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                    {images.map((img: any, index: number) => (
+                    {images.map((img: MappedGaleriaImagen, index: number) => (
                         <FadeIn key={img.src + index} delay={0.1 + (index * 0.05)} direction="up" className="break-inside-avoid">
                             <div
                                 onClick={() => setSelectedImage(img)}

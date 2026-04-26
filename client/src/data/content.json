@@ -104,7 +104,7 @@
         }
       ]
     },
-    "imagen_destacada": "./images/home.jpeg"
+    "imagen_destacada": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828962/ufaal_production_v2/img_1776828962029_home.jpg"
   },
   "historia": {
     "titulo": "Nuestra Historia",
@@ -117,12 +117,12 @@
       "Posteriormente, en 2023, Gloria Aravena fue elegida Vicepresidenta de la IOAPT, consolidando la presencia de la región en el liderazgo internacional junto a líderes como Karen Morales (México) y Yara Humarán (Puerto Rico).",
       "Hoy, UFAAL representa un espacio de encuentro y crecimiento colectivo, donde profesionales de distintos países se unen con un propósito común: avanzar juntos desde América Latina hacia el mundo, fortaleciendo la fisioterapia acuática como una disciplina científica, terapéutica y humana al servicio de la salud y la rehabilitación."
     ],
-    "imagen": "./images/imagen_historia.jpg"
+    "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828963/ufaal_production_v2/img_1776828963670_imagen_historia.jpg"
   },
   "organizacion": {
     "titulo": "ÁREA DE GESTIÓN",
     "descripcion": "Estructura funcional y equipos de trabajo",
-    "estatutos_pdf": "./docs_proyecto/ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
+    "estatutos_pdf": "https://res.cloudinary.com/dldj1ue8b/raw/upload/v1776829144/ufaal_documents/doc_1776829144449_ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
     "secciones": [
       {
         "title": "Eje 1: Investigación Científica y Desarrollo",
@@ -202,7 +202,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "fabianagiannini@gmail.com",
         "descripcion": "• Integrante Comisión Directiva Asociación Argentina Hidroterapia\n• Representante por Argentina en la IOAPT\n• Lic. en Kinesiología y Fisiatría (UBA - Argentina)\n• Prof. Nacional de Educación Física\n• Técnica en Investigación Científica Deportiva\n• Docente Universitaria Fisioterapia, Fisiología y Biofísica en Universidad Nacional de La Matanza Argentina\n• Ayudante en Trabajos Prácticos de Técnicas Kinésicas 1, UBA (Universidad Nacional de Buenos Aires)\n• Coordinadora Académica de la “Diplomatura en Terapias Acuáticas para Kinesiólogos – Cohorte 2024 y 2026.\n• Docente en la Diplomatura Asociación Argentina Hidroterapia 2024 y 2026\n• Directora de Kinepraxis - Centro de Rehabilitación Acuática en Buenos Aires (Argentina)\n• Técnica en Reeducación de cadenas musculares miofasciales\n• Curso Certificado de dos niveles de Halliwick (Water specific therapy)\n• Certificado en Watsu: Nivel I y Nivel II\n• Curso Certificado de Bad Ragaz\n• Formación en Hidroterapia en métodos Aquafasciaterapia, Hidropilates\n• Certificado en Aquadinamic: Nivel I “Elemental”\n• Curso de evaluación funcional de natación aplicada a alumnos con discapacidad física (SNR)\n• Investigadora Científica Categoría V",
-        "imagen": "./images/Fabiana_giannini.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828963/ufaal_production_v2/img_1776828964387_Fabiana_giannini.jpg",
         "galeria": []
       },
       {
@@ -226,7 +226,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "kesiamesc@bol.com.br",
         "descripcion": "Fisioterapeuta , Prof Educação Física, Presidente da ABFA, CEO Aquatop e Fisiotop Pós Graduada en Ortopedia e Traumatologia , Especialista em Fisioterapia Aquática Palestrante Internacional, Experiência em Fisio  Aquática há 38 anos",
-        "imagen": "./images/kesya_castro.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828964/ufaal_production_v2/img_1776828965103_kesya_castro.jpg",
         "galeria": []
       },
       {
@@ -238,7 +238,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "garavena@hotmail.com",
         "descripcion": "",
-        "imagen": "./images/Gloria_aravena.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828965/ufaal_production_v2/img_1776828965968_Gloria_aravena.jpg",
         "galeria": []
       },
       {
@@ -262,7 +262,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "",
         "descripcion": "Licenciada en Terapia Física de la Universidad Santa Paula, Costa Rica.\n\nMonography for Licentiate in Physical Therapy: \"AQUATIC THERAPY EFFECT ON TREATMENT FOR PATIENTS WITH PARKINSON\". University Santa Paula, Costa Rica. 2024.\n\nMaster in Health and Sports Science, Athletic division Máster in Sports. Universidad de Tsukuba, Japón. Graduation thesis: \"COMPARISON OF MUSCULAR ACTIVATION ON LAND AND IN WATER WITH ELECTROMYOGRAPHY\". University of Tsukuba, Japan. 2003.\n\nMáster en Ciencias de la Salud y Movimiento Humano Universidad Nacional de Costa Rica. Postgraduate Studies System National University, Costa Rica. Graduation work for a Master's degree professional modality: \"EFFECT OF WALKING IN THE SWIMMING POOL ON THE GAIT PATTERN AND QUALITY OF LIFE IN PATIENTS WITH PARKINSON'S DISEASE\". 2018.",
-        "imagen": "./images/brenes.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828966/ufaal_production_v2/img_1776828966637_brenes.jpg",
         "galeria": []
       },
       {
@@ -298,7 +298,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "in_fisiotheros@hotmail.com",
         "descripcion": "Vicepresidenta de la International Organisation of Aquatic Physiotherapists (IOAPT). Especialista en Fisioterapia Acuática con amplia trayectoria en la integración regional.",
-        "imagen": "./images/karen_morales.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828967/ufaal_production_v2/img_1776828967558_karen_morales.jpg",
         "galeria": []
       },
       {
@@ -322,7 +322,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "",
         "descripcion": "Lic. en Terapia física y rehabilitación egresada de la universidad San Pedro, Chimbote\nformación en Equino terapia\nFormación en Fisioterapia acuática\nTerapia Manual",
-        "imagen": "./images/nohely_rodriguez.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828968/ufaal_production_v2/img_1776828968306_nohely_rodriguez.jpg",
         "galeria": []
       },
       {
@@ -334,7 +334,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "yarahumaran@gmail.com",
         "descripcion": "",
-        "imagen": "./images/yara_humaran.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828968/ufaal_production_v2/img_1776828969410_yara_humaran.jpg",
         "galeria": []
       },
       {
@@ -346,7 +346,7 @@
         "cargo": "Delegado Nacional",
         "contacto": "edgar1967arias@gmail.com",
         "descripcion": "Licenciado en Terapia de Rehabilitación con mención en Terapia Física, profesional orientado al servicio, la excelencia clínica y el desarrollo integral en el ámbito de la rehabilitación deportiva y funcional. Posee una sólida formación académica en la Universidad Católica Santo Domingo, donde fue reconocida con el Premio Cardenal Octavio Beras Rojas a la investigación en 2019, y cuenta con habilitación profesional mediante Exequátur No. 269-21. Su perfil se caracteriza por la combinación de conocimientos científicos, experiencia práctica y vocación docente.\n\nHa fortalecido su preparación mediante diplomados en fisioterapia y en habilitación pedagógica y docencia universitaria, además de certificaciones y cursos especializados en terapia acuática, métodos Bad Ragaz, watsu y Halliwick, kinesiología, medicina deportiva, nutrición, ciencia del deporte, vendaje neuromuscular, primeros auxilios, RCP y uso de DEA. También ha participado en seminarios nacionales e internacionales, incluido el Kinesio Taping International Research Simposio, consolidando una formación continua orientada a la rehabilitación integral y el rendimiento físico.\n\nCuenta con amplia experiencia en el área clínica y deportiva, desempeñando funciones de liderazgo como encargado del Departamento de Terapia Física en el Centro Nacional de Investigación de Ciencias Aplicadas al Deporte (CNICAD), del Ministerio de Deportes. Ha trabajado como fisioterapeuta en el Proyecto de Selecciones Nacionales de Voleibol (Reinas del Caribe), en la Selección Nacional de Pentatlón Moderno y en la Selección Nacional de Esgrima.\n\nAdemás, ha ejercido como maestro instructor deportivo en la Universidad Católica Santo Domingo, jefe de equipo de terapia física deportiva en Mirador VC y terapeuta en eventos internacionales, participando también como expositor en talleres especializados en salud y rendimiento deportivo.\n\nRedes sociales: @edgararias168, @fisiodep_rd\nEmail: edgar1967arias@gmail.com",
-        "imagen": "./images/edgard_ricardo.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828969/ufaal_production_v2/img_1776828970019_edgard_ricardo.jpg",
         "galeria": []
       },
       {
@@ -370,7 +370,7 @@
         "cargo": "Delegada Nacional",
         "contacto": "Paoguevaram89@gmail.com",
         "descripcion": "",
-        "imagen": "./images/Paola_Guevara.jpeg",
+        "imagen": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828970/ufaal_production_v2/img_1776828970635_Paola_Guevara.jpg",
         "galeria": []
       }
     ]
@@ -399,7 +399,7 @@
   "investigacion": {
     "titulo": "Área de Investigación",
     "descripcion": "Descarga de documentos oficiales y publicaciones científicas.",
-    "estatutos_pdf": "./docs_proyecto/ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
+    "estatutos_pdf": "https://res.cloudinary.com/dldj1ue8b/raw/upload/v1776829145/ufaal_documents/doc_1776829145958_ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
     "articulos": []
   },
   "galeria": {
@@ -408,63 +408,63 @@
     "imagenes": [
       {
         "id": 1,
-        "url": "./images/home.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828970/ufaal_production_v2/img_1776828971337_home.jpg",
         "titulo": "Práctica Clínica",
         "descripcion": "Sesión de Ai Chi Clínico reralizada por miembros de la Unión",
         "categoria": "formacion"
       },
       {
         "id": 2,
-        "url": "./images/world-physiotherapy-congress.jpg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828971/ufaal_production_v2/img_1776828972065_world-physiotherapy-congress.png",
         "titulo": "World Physiotherapy Congress",
         "descripcion": "Participación institucional en el congreso mundial",
         "categoria": "eventos"
       },
       {
         "id": 3,
-        "url": "./images/nohely_rodriguez.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828972/ufaal_production_v2/img_1776828972884_nohely_rodriguez.jpg",
         "titulo": "Liderazgo Regional - Perú",
         "descripcion": "Representación de la fisioterapia acuática en Perú",
         "categoria": "liderazgo"
       },
       {
         "id": 4,
-        "url": "./images/edgard_ricardo.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828973/ufaal_production_v2/img_1776828973704_edgard_ricardo.jpg",
         "titulo": "Liderazgo Regional - R. Dominicana",
         "descripcion": "Impulsando la disciplina en el Caribe",
         "categoria": "liderazgo"
       },
       {
         "id": 5,
-        "url": "./images/karen_morales.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828973/ufaal_production_v2/img_1776828974521_karen_morales.jpg",
         "titulo": "Liderazgo Regional - México",
         "descripcion": "Coordinación internacional desde México",
         "categoria": "liderazgo"
       },
       {
         "id": 6,
-        "url": "./images/yara_humaran.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828974/ufaal_production_v2/img_1776828975137_yara_humaran.jpg",
         "titulo": "Liderazgo Regional - Puerto Rico",
         "descripcion": "Gestión de plataformas y comunicación",
         "categoria": "liderazgo"
       },
       {
         "id": 7,
-        "url": "./images/kesya_castro.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828975/ufaal_production_v2/img_1776828975753_kesya_castro.jpg",
         "titulo": "Liderazgo Regional - Brasil",
         "descripcion": "Trayectoria y excelencia en Brasil",
         "categoria": "liderazgo"
       },
       {
         "id": 8,
-        "url": "./images/brenes.jpeg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828976/ufaal_production_v2/img_1776828976578_brenes.jpg",
         "titulo": "Liderazgo Regional - Costa Rica",
         "descripcion": "Investigación y desarrollo en Costa Rica",
         "categoria": "liderazgo"
       },
       {
         "id": 9,
-        "url": "./images/home2.jpg",
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828976/ufaal_production_v2/img_1776828977401_home2.jpg",
         "titulo": "Sesión de Rehabilitación",
         "descripcion": "Desarrollo de técnicas avanzadas en el medio acuático",
         "categoria": "formacion"
@@ -504,15 +504,15 @@
     "logos": [
       {
         "nombre": "IOAPT",
-        "url": "./images/ioapt.png"
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828978/ufaal_production_v2/img_1776828978210_ioapt.png"
       },
       {
         "nombre": "UFAAL",
-        "url": "./images/logo_sin_fondo.png"
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828979/ufaal_production_v2/img_1776828980257_logo_sin_fondo.png"
       },
       {
         "nombre": "World Physiotherapy",
-        "url": "./images/logo.svg"
+        "url": "https://res.cloudinary.com/dldj1ue8b/image/upload/v1776828980/ufaal_production_v2/img_1776828980974_logo.svg"
       }
     ]
   },

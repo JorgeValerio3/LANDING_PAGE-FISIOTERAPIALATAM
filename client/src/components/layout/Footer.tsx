@@ -1,12 +1,13 @@
 import { Facebook, Instagram, Linkedin, Globe, Mail } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
+import { FooterData, ContactoData } from '../../types';
 
-export function Footer({ data: _data, contactData }: { data?: any, contactData?: any }) {
+export function Footer({ data: _data, contactData }: { data?: FooterData, contactData?: ContactoData }) {
     const { t } = useI18n();
     const currentYear = new Date().getFullYear();
     
     // Redes sociales desde contactData o _data.contacto
-    const socialLinks = contactData?.redes_sociales || _data?.redes_sociales || {};
+    const socialLinks: { facebook?: string; instagram?: string; linkedin?: string } = contactData?.redes_sociales || _data?.redes_sociales || {};
 
     return (
         <footer className="bg-ufaal-blue pt-20 pb-10 border-t border-ufaal-blue-light/20 relative overflow-hidden">
@@ -49,7 +50,7 @@ export function Footer({ data: _data, contactData }: { data?: any, contactData?:
                                 { titulo: t('navbar.formacion'), url: '#/formacion' },
                                 { titulo: t('navbar.investigacion'), url: '#/investigacion' },
                                 { titulo: t('navbar.sede_virtual'), url: '#/sede-virtual' }
-                            ].map((link: any, idx: number) => (
+                            ].map((link: { titulo: string; url: string }, idx: number) => (
                                 <li key={idx}>
                                     <a href={link.url} className="text-gray-400 hover:text-white transition-all duration-300 text-sm font-light hover:pl-2 inline-block">
                                         {link.titulo}
@@ -67,7 +68,7 @@ export function Footer({ data: _data, contactData }: { data?: any, contactData?:
                                 { titulo: t('privacidad.titulo'), url: '#/privacidad' },
                                 { titulo: t('terminos.titulo'), url: '#/terminos' },
                                 { titulo: t('navbar.contacto') || 'Contacto', url: '#/contacto' }
-                            ].map((link: any, idx: number) => (
+                            ].map((link: { titulo: string; url: string }, idx: number) => (
                                 <li key={idx}>
                                     <a href={link.url} className="text-gray-400 hover:text-white transition-all duration-300 text-sm font-light hover:pl-2 inline-block">
                                         {link.titulo}

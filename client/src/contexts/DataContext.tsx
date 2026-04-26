@@ -21,9 +21,19 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(true);
         setError(null);
         try {
-            // QA: Unificado con fetchClient que ya maneja API_URL y Credenciales
-            const result = await fetchClient('/data');
-            setData(result);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+            try {
+                const result = await fetchClient('/data');
+                clearTimeout(timeoutId);
+                setData(result);
+            } catch (err: any) {
+                clearTimeout(timeoutId);
+                if (err.name === 'AbortError') {
+                    throw new Error('El servidor tardó demasiado en responder. El plan gratuito puede estar iniciando. Intenta de nuevo en unos segundos.');
+                }
+                throw err;
+            }
         } catch (err: any) {
             console.error('QA Error [DataContext]:', err);
             setError(err.message || 'Error al conectar con la base de datos central de UFAAL');

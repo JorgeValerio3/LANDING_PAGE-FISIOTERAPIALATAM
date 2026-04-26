@@ -10,6 +10,7 @@ import { Formacion } from './components/sections/Formacion';
 import { Investigacion } from './components/sections/Investigacion';
 import { Galeria } from './components/sections/Galeria';
 import { Noticias } from './components/sections/Noticias';
+import { Actividades } from './components/sections/Actividades';
 import { Contacto } from './components/sections/Contacto';
 
 // CMS Admin
@@ -87,6 +88,7 @@ function LandingPage() {
       <Historia data={contentData.historia} />
       <Organizacion data={contentData.organizacion} />
       <Paises data={contentData.paises} />
+      <Actividades data={contentData.actividades} />
       <Formacion data={contentData.formacion} />
       <Investigacion data={contentData.investigacion} />
       <Galeria data={contentData.galeria} />

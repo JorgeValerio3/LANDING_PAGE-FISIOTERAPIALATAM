@@ -1,8 +1,9 @@
 import { FadeIn } from '../ui/FadeIn';
 import { ShieldCheck, Mail, Send, ArrowRight, ClipboardCheck } from 'lucide-react';
 import { useState } from 'react';
+import { AfiliacionData } from '../../types';
 
-export function Afiliacion({ data }: { data: any }) {
+export function Afiliacion({ data }: { data: AfiliacionData }) {
     const [copied, setCopied] = useState(false);
 
     if (!data) return null;

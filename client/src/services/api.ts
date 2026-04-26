@@ -8,13 +8,18 @@ import { SERVER_URL } from '../api';
 export const getUploadUrl = (path: string) => {
     if (!path) return '';
     
-    // Si ya es una URL completa (ej: banderas externas), devolver tal cual
+    // Si ya es una URL completa (ej: Cloudinary o externas), devolver tal cual
     if (path.startsWith('http')) return path;
     
-    // QA: Normalización de ruta para producción
-    // El backend sirve las imágenes desde la raíz /uploads
-    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    // QA: Normalización de ruta para imágenes locales (/images/)
+    if (path.startsWith('/images/') || path.startsWith('images/')) {
+        const cleanPath = path.startsWith('/') ? path : `/${path}`;
+        // En desarrollo local están en /public/images, en producción deben estar disponibles
+        return cleanPath;
+    }
     
+    // QA: Normalización de ruta para subidas de /uploads/
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
     return `${SERVER_URL}${cleanPath}`;
 };
 

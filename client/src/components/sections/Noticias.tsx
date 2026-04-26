@@ -2,37 +2,25 @@ import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-
 import { useI18n } from '../../contexts/I18nContext';
+import { NoticiasData, Articulo } from '../../types';
+import { getUploadUrl } from '../../services/api';
 
-export function Noticias({ data: _data }: { data?: any }) {
+export interface NewsItem {
+    id: string | number;
+    type: string;
+    typeIcon: React.ReactNode;
+    title: string;
+    date?: string;
+    excerpt?: string;
+    image: string;
+    link?: string;
+}
+
+export function Noticias({ data: _data }: { data?: NoticiasData }) {
     const { t } = useI18n();
-    if (!_data) return null;
 
-    
-    const getTypeIcon = (category: string) => {
-        const c = String(category).toLowerCase();
-        if (c.includes('evento')) return <Calendar className="w-4 h-4" />;
-        return <Bell className="w-4 h-4" />;
-    };
-
-    const getImageUrl = (url: string) => {
-        if (!url) return "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800";
-        return url.startsWith('http') || url.startsWith('/') ? url : `/${url}`;
-    };
-
-    const news = (_data.articulos || []).map((item: any, index: number) => ({
-        id: item.id || index,
-        type: item.categoria || t('noticias.categoria_noticia'),
-        typeIcon: getTypeIcon(item.categoria),
-        title: item.titulo,
-        date: item.fecha,
-        excerpt: item.extracto,
-        image: getImageUrl(item.imagen),
-        link: item.url_externa || item.enlace
-    }));
-
-    const [selectedNews, setSelectedNews] = useState<any>(null);
+    const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
     const [showAllNews, setShowAllNews] = useState(false);
 
     // Bloquear scroll al abrir modales
@@ -46,6 +34,26 @@ export function Noticias({ data: _data }: { data?: any }) {
             document.body.style.overflow = 'unset';
         };
     }, [selectedNews, showAllNews]);
+
+    if (!_data) return null;
+
+    
+    const getTypeIcon = (category: string) => {
+        const c = String(category).toLowerCase();
+        if (c.includes('evento')) return <Calendar className="w-4 h-4" />;
+        return <Bell className="w-4 h-4" />;
+    };
+
+    const news = (_data.articulos || []).map((item: Articulo, index: number) => ({
+        id: item.id || index,
+        type: item.categoria || t('noticias.categoria_noticia'),
+        typeIcon: getTypeIcon(item.categoria || ''),
+        title: item.titulo,
+        date: item.fecha,
+        excerpt: item.extracto,
+        image: getUploadUrl(item.imagen || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800"),
+        link: item.url_externa || item.enlace
+    }));
 
     return (
         <section id="noticias" className="py-24 bg-ufaal-gray/50 relative">
@@ -75,7 +83,7 @@ export function Noticias({ data: _data }: { data?: any }) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {news.slice(0, 3).map((item: any, index: number) => (
+                    {news.slice(0, 3).map((item: typeof news[0], index: number) => (
                         <FadeIn key={item.id} delay={0.3 + (index * 0.1)} direction="up" className="h-full">
                             <div
                                 onClick={() => setSelectedNews(item)}
@@ -218,7 +226,7 @@ export function Noticias({ data: _data }: { data?: any }) {
 
                         <div className="max-w-5xl mx-auto py-12 px-6">
                             <div className="space-y-8">
-                                {news.map((item: any, index: number) => (
+                                {news.map((item: typeof news[0], index: number) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 30 }}

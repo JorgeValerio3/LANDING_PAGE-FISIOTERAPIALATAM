@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const db = require\\('./server/data/db.json'\\); console.log\\(JSON.stringify\\(db.contacto, null, 2\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const bcrypt=require\\('bcrypt'\\); bcrypt.hash\\('Edgar78',12\\).then\\(h=>console.log\\(h\\)\\)\")"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Mail, ImageIcon, X } from 'lucide-react';
@@ -15,11 +15,13 @@ L.Icon.Default.mergeOptions({
 });
 
 import { useI18n } from '../../contexts/I18nContext';
+import { PaisesData, PaisData } from '../../types';
 
-export function Paises({ data: _data }: { data?: any }) {
+export function Paises({ data: _data }: { data?: PaisesData }) {
     const { t } = useI18n();
-    const paisesLista = _data?.paises_lista || [];
-    const [selectedCountry, setSelectedCountry] = useState<any>(null);
+    const rawPaises = _data?.paises_lista;
+    const paisesLista = useMemo(() => rawPaises || [], [rawPaises]);
+    const [selectedCountry, setSelectedCountry] = useState<PaisData | null>(null);
     const [fullscreenImg, setFullscreenImg] = useState<string | null>(null);
 
     useEffect(() => {
@@ -69,7 +71,7 @@ export function Paises({ data: _data }: { data?: any }) {
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
-                                {paisesLista.map((country: any) => (
+                                {paisesLista.map((country: PaisData) => (
                                     <Marker
                                         key={country.id}
                                         position={[country.latitud, country.longitud]}
@@ -135,11 +137,11 @@ export function Paises({ data: _data }: { data?: any }) {
                                         <div className="relative shrink-0">
                                             {selectedCountry.imagen ? (
                                                 <img
-                                                    src={getUploadUrl(selectedCountry.imagen)}
+                                                    src={getUploadUrl(selectedCountry.imagen || '')}
                                                     alt={selectedCountry.representante}
                                                     className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white cursor-zoom-in hover:scale-105 transition-transform"
                                                     loading="lazy"
-                                                    onClick={() => setFullscreenImg(getUploadUrl(selectedCountry.imagen))}
+                                                    onClick={() => setFullscreenImg(getUploadUrl(selectedCountry.imagen || ''))}
                                                 />
                                             ) : (
                                                 <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl bg-gradient-to-br from-ufaal-blue to-ufaal-blue-light border-4 border-white shadow-md relative z-10 flex items-center justify-center text-white text-3xl font-bold uppercase tracking-widest">
@@ -209,7 +211,7 @@ export function Paises({ data: _data }: { data?: any }) {
                                 <div className="mt-8 pt-6 border-t border-gray-200">
                                     <p className="text-xs text-center text-gray-500 mb-4 font-medium uppercase tracking-widest">{t('paises.selecciona_pais')}</p>
                                     <div className="flex flex-wrap gap-2 justify-center">
-                                        {paisesLista.map((c: any) => (
+                                        {paisesLista.map((c: PaisData) => (
                                             <button
                                                 key={c.id}
                                                 onClick={() => setSelectedCountry(c)}

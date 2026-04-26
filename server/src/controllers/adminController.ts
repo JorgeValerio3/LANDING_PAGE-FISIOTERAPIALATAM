@@ -65,7 +65,8 @@ export const logoutAdmin = (req: Request, res: Response): void => {
 
 export const getAdminContent = async (req: Request, res: Response): Promise<void> => {
     try {
-        const data = await readData();
+        const lang = (req.query.lang as string) || 'es';
+        const data = await readData(lang);
         res.status(200).json(data);
     } catch (error) {
         console.error('QA Error [getAdminContent]:', error);
@@ -77,6 +78,7 @@ export const updateAdminContentSection = async (req: Request, res: Response): Pr
     try {
         const { sectionKey } = req.params;
         const sectionData = req.body;
+        const lang = (req.query.lang as string) || 'es';
         
         // 1. Validación de existencia y tipo
         if (!sectionKey || typeof sectionKey !== 'string' || !sectionData || typeof sectionData !== 'object') {
@@ -90,7 +92,7 @@ export const updateAdminContentSection = async (req: Request, res: Response): Pr
             return;
         }
 
-        const currentData = await readData();
+        const currentData = await readData(lang);
         
         if (!currentData || typeof currentData !== 'object') {
             res.status(500).json({ error: 'Error de integridad en la base de datos' });
@@ -98,20 +100,26 @@ export const updateAdminContentSection = async (req: Request, res: Response): Pr
         }
 
         // 3. Actualización atómica de sección
-        currentData[sectionKey] = sectionData;
+        const updatedData = { ...currentData };
+        updatedData[sectionKey] = sectionData;
         
-        const success = await writeData(currentData);
+        console.log(`QA Admin [Update]: Intentando actualizar sección '${sectionKey}' en idioma '${lang}' en MongoDB...`);
+        const success = await writeData(updatedData, lang);
         
         if (success) {
             res.status(200).json({ 
-                message: `Sección '${sectionKey}' actualizada correctamente`,
+                message: `Sección '${sectionKey}' actualizada correctamente (${lang})`,
                 section: sectionData
             });
         } else {
-            throw new Error('Falló la escritura en disco');
+            console.error(`QA Error: Falló la escritura en MongoDB para la sección '${sectionKey}' (${lang})`);
+            res.status(500).json({ error: 'Error de persistencia: No se pudo guardar en la base de datos MongoDB' });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error('QA Error [updateAdminContentSection]:', error);
-        res.status(500).json({ error: 'Error crítico al intentar guardar la sección' });
+        res.status(500).json({ 
+            error: 'Error crítico interno',
+            details: error.message || 'Error desconocido'
+        });
     }
 };

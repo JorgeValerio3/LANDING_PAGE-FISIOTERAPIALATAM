@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Upload, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { SERVER_URL } from '../../api';
+import { getUploadUrl } from '../../services/api';
+import { Loader2, Upload } from 'lucide-react';
 
 interface ImageUploadProps {
     currentImage: string;
@@ -22,11 +24,13 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
         // Subir al servidor
         setUploading(true);
         const formData = new FormData();
-        formData.append('files', file); // backend usa .array('files')
+        formData.append('files', file); 
 
         try {
+            // QA: Usamos fetch directo aquí porque fetchClient está diseñado para JSON, 
+            // pero usamos SERVER_URL para evitar hardcoding.
             const token = localStorage.getItem('admin_token');
-            const res = await fetch('http://localhost:5000/api/admin/upload', {
+            const res = await fetch(`${SERVER_URL}/api/admin/upload`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -36,6 +40,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
             const data = await res.json();
             if (res.ok && data.urls && data.urls.length > 0) {
                 onUploadSuccess(data.urls[0]);
+                setPreview(data.urls[0]);
             } else {
                 alert('Error subiendo imagen: ' + (data.error || 'Desconocido'));
                 setPreview(currentImage); // revert
@@ -49,13 +54,19 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
         }
     };
 
+    const displayUrl = preview ? getUploadUrl(preview) : '';
+
     return (
         <div className="border shadow-sm rounded-xl p-4 bg-white relative">
             <label className="block text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">{label}</label>
             
             {preview ? (
                 <div className="relative rounded-lg overflow-hidden group">
-                    <img src={preview.startsWith('http') || preview.startsWith('blob') ? preview : `http://localhost:5000${preview}`} alt="Preview" className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+                    <img 
+                        src={displayUrl} 
+                        alt="Preview" 
+                        className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition-opacity" 
+                    />
                     
                     <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                         <span className="bg-white text-gray-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center gap-2">

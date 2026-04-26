@@ -18,7 +18,7 @@ export default function SedeVirtual() {
                 void iframeRef.current.contentWindow.origin;
                 setError(false);
             }
-        } catch (e) {
+        } catch {
             console.error("Error de Same-Origin detectado. El iframe probablemente falló al cargar y redirigió a una página de error local.");
             setError(true);
         }

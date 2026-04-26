@@ -1,6 +1,7 @@
 import { FadeIn } from '../ui/FadeIn';
 import { Target, Eye, Heart, Globe, TestTube, Users, ShieldCheck, Lightbulb, HandHeart } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
+import { QuienesSomosData } from '../../types';
 
 const iconMap: Record<string, React.ReactNode> = {
     Globe: <Globe className="w-6 h-6 text-ufaal-blue" />,
@@ -11,7 +12,7 @@ const iconMap: Record<string, React.ReactNode> = {
     Users: <Users className="w-6 h-6 text-ufaal-blue" />,
 };
 
-export function QuienesSomos({ data: _data }: { data?: any }) {
+export function QuienesSomos({ data: _data }: { data?: QuienesSomosData }) {
     const { t } = useI18n();
     if (!_data) return null;
 
@@ -113,7 +114,7 @@ export function QuienesSomos({ data: _data }: { data?: any }) {
                                  { key: 'innovacion_terapeutica', icono: 'TestTube' },
                                  { key: 'respeto_dignidad', icono: 'HandHeart' },
                                  { key: 'transparencia_responsabilidad', icono: 'Users' }
-                             ].map((item: any, index: number) => (
+                             ].map((item: { key: string; icono: string }, index: number) => (
                                 <FadeIn key={item.key} delay={0.1 + (index * 0.1)} direction="up" className="h-full">
                                     <div className="bg-white p-8 rounded-[2rem] h-full border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all duration-500 group relative overflow-hidden">
                                         <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50/50 rounded-bl-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700"></div>

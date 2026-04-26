@@ -3,8 +3,9 @@ import { FadeIn } from '../ui/FadeIn';
 import { Mail, Send, Facebook, Instagram, Linkedin, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { fetchClient } from '../../api';
+import { ContactoData } from '../../types';
 
-export function Contacto({ data: _data }: { data?: any }) {
+export function Contacto({ data: _data }: { data?: ContactoData }) {
     const { t } = useI18n();
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');

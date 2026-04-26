@@ -8,15 +8,14 @@ export const uploadFiles = async (req: Request, res: Response): Promise<void> =>
             return;
         }
 
-        // QA: Retornar las URLs relativas (asumiendo que /uploads se sirve estáticamente)
-        const urls = (req.files as Express.Multer.File[]).map(file => {
-            // El nombre del archivo ya viene procesado por el middleware de multer en adminRoutes
-            return `/uploads/${file.filename}`;
+        // Cloudinary devuelve la URL completa en file.path cuando se usa multer-storage-cloudinary
+        const urls = (req.files as any[]).map(file => {
+            return file.path; 
         });
 
         res.status(200).json({ 
             success: true, 
-            message: 'Archivos subidos correctamente',
+            message: 'Archivos subidos a la nube correctamente',
             urls 
         });
     } catch (error) {

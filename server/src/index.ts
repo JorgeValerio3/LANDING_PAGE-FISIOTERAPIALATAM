@@ -16,10 +16,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(cookieParser());
 app.use(cors({ 
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: [
+        process.env.CORS_ORIGIN || 'http://localhost:5173', 
+        'https://ufaal-client.onrender.com',
+        'https://ufaal.org',
+        'https://www.ufaal.org'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -33,10 +40,13 @@ const apiLimiter = rateLimit({
 });
 
 app.use('/api/', apiLimiter);
-app.use(express.json({ limit: '5mb' })); 
-app.use(express.urlencoded({ limit: '5mb', extended: true }));
+app.use(express.json({ limit: '10mb' })); 
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // QA: Servir archivos estáticos (Imágenes y Descargas)
+const imagesPath = path.join(__dirname, '../../client/public/images');
+app.use('/images', express.static(imagesPath));
+
 const uploadsPath = path.join(__dirname, '../public/uploads');
 if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
 app.use('/uploads', express.static(uploadsPath));

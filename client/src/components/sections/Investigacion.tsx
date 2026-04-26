@@ -1,8 +1,10 @@
 import { FadeIn } from '../ui/FadeIn';
-import { FileText, Download, ShieldCheck } from 'lucide-react';
+import { FileText, Download, ShieldCheck, ExternalLink, Calendar, ArrowRight } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
+import { InvestigacionData } from '../../types';
+import { getUploadUrl } from '../../services/api';
 
-export function Investigacion({ data: _data }: { data?: any }) {
+export function Investigacion({ data: _data }: { data?: InvestigacionData }) {
     const { t } = useI18n();
     if (!_data) return null;
 
@@ -11,6 +13,14 @@ export function Investigacion({ data: _data }: { data?: any }) {
             window.open(_data.estatutos_pdf.startsWith('http') || _data.estatutos_pdf.startsWith('/') ? _data.estatutos_pdf : `/${_data.estatutos_pdf}`, '_blank', 'noopener,noreferrer');
         }
     };
+
+    const handleDownloadPDF = (url?: string) => {
+        if (url) {
+            window.open(url.startsWith('http') || url.startsWith('/') ? url : `/${url}`, '_blank', 'noopener,noreferrer');
+        }
+    };
+
+    const articulos = _data.articulos || [];
 
     return (
         <section id="investigacion" className="py-24 bg-ufaal-gray">
@@ -54,20 +64,82 @@ export function Investigacion({ data: _data }: { data?: any }) {
                         </div>
                     </FadeIn>
 
-                    {/* Placeholder for future Research works */}
-                    <FadeIn direction="up" delay={0.4}>
-                        <div className="bg-white/50 backdrop-blur-sm border-2 border-dashed border-gray-200 p-10 rounded-3xl flex flex-col items-center justify-center text-center group hover:border-ufaal-blue-light/30 transition-colors">
-                            <div className="p-4 bg-gray-100 rounded-2xl text-gray-400 mb-4">
-                                <FileText className="w-8 h-8" />
+                    {/* Proximas publicaciones placeholder si no hay artículos */}
+                    {articulos.length === 0 && (
+                        <FadeIn direction="up" delay={0.4}>
+                            <div className="bg-white/50 backdrop-blur-sm border-2 border-dashed border-gray-200 p-10 rounded-3xl flex flex-col items-center justify-center text-center group hover:border-ufaal-blue-light/30 transition-colors h-full">
+                                <div className="p-4 bg-gray-100 rounded-2xl text-gray-400 mb-4">
+                                    <FileText className="w-8 h-8" />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-400 mb-2">{t('investigacion.proximas_pub_titulo')}</h3>
+                                <p className="text-gray-400 font-light max-w-xs">
+                                    {t('investigacion.proximas_pub_desc')}
+                                </p>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-400 mb-2">{t('investigacion.proximas_pub_titulo')}</h3>
-                            <p className="text-gray-400 font-light max-w-xs">
-                                {t('investigacion.proximas_pub_desc')}
-                            </p>
-                        </div>
-                    </FadeIn>
+                        </FadeIn>
+                    )}
+
+                    {/* Si hay artículos, mostrar el primero como destacado o simplemente el listado */}
                 </div>
+
+                {articulos.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {articulos.map((art, idx) => (
+                            <FadeIn key={idx} delay={idx * 0.1} direction="up">
+                                <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-500 flex flex-col h-full">
+                                    <div className="relative h-48 overflow-hidden bg-gray-100">
+                                        <img 
+                                            src={getUploadUrl(art.imagen || "https://images.unsplash.com/photo-1454165833767-027ff33027b4?auto=format&fit=crop&q=80&w=800")} 
+                                            alt={art.titulo} 
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-sm">
+                                            <FileText className="w-4 h-4 text-ufaal-blue" />
+                                        </div>
+                                    </div>
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        <div className="flex items-center gap-3 text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+                                            <span className="flex items-center gap-1">
+                                                <Calendar className="w-3 h-3" />
+                                                {art.fecha}
+                                            </span>
+                                            {art.revista && (
+                                                <span className="bg-ufaal-gray px-2 py-0.5 rounded text-ufaal-blue">
+                                                    {art.revista}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h3 className="text-lg font-bold text-ufaal-text mb-2 line-clamp-2 group-hover:text-ufaal-blue transition-colors">
+                                            {art.titulo}
+                                        </h3>
+                                        <p className="text-gray-500 text-xs font-medium mb-4 italic">
+                                            {art.autores}
+                                        </p>
+                                        <div className="mt-auto pt-4 flex items-center justify-between">
+                                            {art.pdf_url ? (
+                                                <button 
+                                                    onClick={() => handleDownloadPDF(art.pdf_url)}
+                                                    className="text-ufaal-blue text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:translate-x-1 transition-transform"
+                                                >
+                                                    Leer Artículo <ArrowRight className="w-3 h-3" />
+                                                </button>
+                                            ) : (
+                                                <span className="text-gray-400 text-[10px] uppercase font-bold">Sin PDF disponible</span>
+                                            )}
+                                            {art.doi && (
+                                                <a href={`https://doi.org/${art.doi}`} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-ufaal-blue transition-colors">
+                                                    <ExternalLink className="w-4 h-4" />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </FadeIn>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );
 }
+

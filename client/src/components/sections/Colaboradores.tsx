@@ -1,7 +1,8 @@
 import { FadeIn } from '../ui/FadeIn';
 import { useI18n } from '../../contexts/I18nContext';
+import { ColaboradoresData, ColaboradorLogo } from '../../types';
 
-export function Colaboradores({ data }: { data: any }) {
+export function Colaboradores({ data }: { data: ColaboradoresData }) {
     const { t } = useI18n();
     if (!data) return null;
 
@@ -19,7 +20,7 @@ export function Colaboradores({ data }: { data: any }) {
                 </FadeIn>
 
                 <FadeIn delay={0.2} direction="up" className="flex flex-wrap items-center justify-center gap-12 md:gap-20 lg:gap-32">
-                    {colaboradores.map((colab: any, index: number) => (
+                    {colaboradores.map((colab: ColaboradorLogo, index: number) => (
                         <div key={index} className="flex items-center justify-center p-4 hover:-translate-y-2 transition-transform duration-300">
                             <img
                                 src={colab.url}

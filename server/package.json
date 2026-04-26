@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "migrate": "ts-node src/scripts/migrateToMongo.ts",
+    "deep-check": "ts-node src/scripts/deepCheck.ts",
+    "test-cloudinary": "ts-node src/scripts/testCloudinary.ts",
+    "migrate-images": "ts-node src/scripts/migrateImagesToCloudinary.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +20,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "axios": "^1.15.0",
     "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
@@ -25,7 +30,9 @@
     "form-data": "^4.0.5",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.1.1",
     "multer": "^2.1.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^8.0.1"
   },
   "devDependencies": {

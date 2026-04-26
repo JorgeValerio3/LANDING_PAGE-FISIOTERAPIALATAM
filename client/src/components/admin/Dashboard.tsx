@@ -13,6 +13,7 @@ import { InvestigacionForm } from './sections/InvestigacionForm';
 import { GaleriaForm } from './sections/GaleriaForm';
 import { NoticiasForm } from './sections/NoticiasForm';
 import { AfiliacionForm } from './sections/AfiliacionForm';
+import { ContactoForm } from './sections/ContactoForm';
 import { fetchClient } from '../../api';
 
 export function Dashboard() {
@@ -36,6 +37,7 @@ export function Dashboard() {
         { id: 'galeria', label: 'Galería', icon: ImageIcon },
         { id: 'noticias', label: 'Noticias', icon: Newspaper },
         { id: 'afiliacion', label: 'Afiliacion', icon: UserPlus },
+        { id: 'contacto', label: 'Contacto', icon: LayoutDashboard },
     ], []);
 
     useEffect(() => {
@@ -232,10 +234,11 @@ export function Dashboard() {
                       {activeTab === 'galeria' && <GaleriaForm data={currentSectionData} onChange={(newData: any) => handleSectionChange('galeria', newData)} />}
                       {activeTab === 'noticias' && <NoticiasForm data={currentSectionData} onChange={(newData: any) => handleSectionChange('noticias', newData)} />}
                       { activeTab === 'afiliacion' && <AfiliacionForm data={currentSectionData} onChange={(newData: any) => handleSectionChange('afiliacion', newData)} />}
+                      { activeTab === 'contacto' && <ContactoForm data={currentSectionData} onChange={(newData: any) => handleSectionChange('contacto', newData)} />}
 
                       {![
                           'hero', 'quienes_somos', 'organizacion', 'paises', 'actividades',
-                          'formacion', 'investigacion', 'galeria', 'noticias', 'afiliacion'
+                          'formacion', 'investigacion', 'galeria', 'noticias', 'afiliacion', 'contacto'
                       ].includes(activeTab) && (
                           <div className="flex flex-col items-center justify-center py-20 text-gray-400 italic">
                               <Search className="w-12 h-12 mb-4 opacity-10" />

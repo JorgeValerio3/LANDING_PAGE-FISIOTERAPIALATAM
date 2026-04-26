@@ -45,7 +45,10 @@ export const fetchClient = async (endpoint: string, options: RequestOptions = {}
     }
 
     if (!response.ok) {
-        const error = data.error || `Error del sistema (${response.status}): ${response.statusText}`;
+        const detailMessage = data.details ? ` (${data.details})` : '';
+        const error = data.error 
+            ? `${data.error}${detailMessage}` 
+            : `Error del sistema (${response.status}): ${response.statusText}`;
         throw new Error(error);
     }
 

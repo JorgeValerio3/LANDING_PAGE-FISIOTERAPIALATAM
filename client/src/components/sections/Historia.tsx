@@ -1,7 +1,8 @@
 import { FadeIn } from '../ui/FadeIn';
 import { useI18n } from '../../contexts/I18nContext';
+import { HistoriaData } from '../../types';
 
-export function Historia({ data }: { data: any }) {
+export function Historia({ data }: { data: HistoriaData }) {
     const { t } = useI18n();
     if (!data) return null;
 
