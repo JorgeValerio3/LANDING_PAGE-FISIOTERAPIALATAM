@@ -21,7 +21,7 @@ import { Dashboard } from './components/admin/Dashboard';
 import { DataProvider, useData } from './contexts/DataContext';
 import { I18nProvider, useI18n } from './contexts/I18nContext';
 import { GlobalLoader } from './components/ui/GlobalLoader';
-import { fetchClient } from './api';
+import { fetchClient, getAdminToken, clearAdminToken } from './api';
 
 import Privacidad from './pages/Privacidad';
 import Terminos from './pages/Terminos';
@@ -52,8 +52,19 @@ function AdminArea() {
 
     useEffect(() => {
         const checkAuth = async () => {
+            // Fast path: token en localStorage (funciona en iOS Safari que bloquea cookies cross-origin)
+            if (getAdminToken()) {
+                try {
+                    await fetchClient('/admin/content');
+                    setIsLoggedIn(true);
+                } catch {
+                    clearAdminToken();
+                    setIsLoggedIn(false);
+                }
+                return;
+            }
+            // Fallback: cookie HTTP-Only (desktop browsers)
             try {
-                // Intentamos obtener el contenido del admin, si falla la cookie no es válida
                 await fetchClient('/admin/content');
                 setIsLoggedIn(true);
             } catch {

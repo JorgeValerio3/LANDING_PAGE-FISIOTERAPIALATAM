@@ -18,7 +18,7 @@ import { ContactoForm } from './sections/ContactoForm';
 import { FooterForm } from './sections/FooterForm';
 import { HistoriaForm } from './sections/HistoriaForm';
 import { ColaboradoresForm } from './sections/ColaboradoresForm';
-import { fetchClient } from '../../api';
+import { fetchClient, clearAdminToken } from '../../api';
 
 const LANGS = [
     { code: 'es', label: 'ES', flag: '🇪🇸' },
@@ -118,6 +118,7 @@ export function Dashboard() {
     };
 
     const handleLogout = async () => {
+        clearAdminToken();
         try {
             await fetchClient('/admin/logout', { method: 'POST' });
         } catch (err) {

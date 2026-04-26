@@ -37,12 +37,13 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
 
                 res.cookie('admin_token', token, {
                     httpOnly: true,
-                    secure: true, // Siempre true para permitir SameSite: none
-                    sameSite: 'none', // Obligatorio para peticiones entre diferentes dominios (localhost <-> render)
-                    maxAge: 8 * 60 * 60 * 1000 
+                    secure: true,
+                    sameSite: 'none',
+                    maxAge: 8 * 60 * 60 * 1000
                 });
 
-                res.status(200).json({ success: true, message: 'Autenticación exitosa' });
+                // Token también en body para clientes que no soportan cookies cross-origin (iOS Safari ITP)
+                res.status(200).json({ success: true, message: 'Autenticación exitosa', token });
                 return;
             }
         }

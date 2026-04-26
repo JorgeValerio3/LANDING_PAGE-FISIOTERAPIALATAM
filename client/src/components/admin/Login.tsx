@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Mail, Lock, LogIn, ShieldAlert, Loader2 } from 'lucide-react';
-import { fetchClient } from '../../api';
+import { fetchClient, saveAdminToken } from '../../api';
 
 interface LoginProps {
     onLogin: (token: string) => void;
@@ -39,12 +39,13 @@ export function Login({ onLogin }: LoginProps) {
         setLoading(true);
 
         try {
-            await fetchClient('/admin/login', {
+            const res = await fetchClient('/admin/login', {
                 method: 'POST',
                 body: { username: cleanUsername, password: cleanPassword },
             });
 
-            onLogin('success'); 
+            if (res.token) saveAdminToken(res.token);
+            onLogin('success');
         } catch (err: any) {
             console.error('QA Error [Login]:', err);
             setError(err.message || 'Credenciales inválidas o error de servidor');

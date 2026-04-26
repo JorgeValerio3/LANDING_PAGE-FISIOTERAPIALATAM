@@ -9,10 +9,16 @@ interface RequestOptions extends RequestInit {
     body?: any;
 }
 
+const ADMIN_TOKEN_KEY = 'ufaal_admin_token';
+export const saveAdminToken = (token: string) => localStorage.setItem(ADMIN_TOKEN_KEY, token);
+export const clearAdminToken = () => localStorage.removeItem(ADMIN_TOKEN_KEY);
+export const getAdminToken = () => localStorage.getItem(ADMIN_TOKEN_KEY);
+
 export const fetchClient = async (endpoint: string, options: RequestOptions = {}) => {
-    // Configurar headers por defecto
+    const localToken = getAdminToken();
     const headers: HeadersInit = {
         'Content-Type': 'application/json',
+        ...(localToken ? { 'Authorization': `Bearer ${localToken}` } : {}),
         ...options.headers,
     };
 
