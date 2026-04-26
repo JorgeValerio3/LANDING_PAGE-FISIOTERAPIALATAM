@@ -56,7 +56,11 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
 
 export const logoutAdmin = (req: Request, res: Response): void => {
     try {
-        res.clearCookie('admin_token');
+        res.clearCookie('admin_token', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
         res.status(200).json({ success: true, message: 'Sesión cerrada correctamente' });
     } catch (error) {
         res.status(500).json({ error: 'Error al cerrar sesión' });
