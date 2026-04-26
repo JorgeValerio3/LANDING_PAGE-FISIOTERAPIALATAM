@@ -35,7 +35,7 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isI18nLoading, setIsI18nLoading] = useState(true);
   
   // Consumimos los datos dinámicos de la DB
-  const { data: dbData, loading: isDataLoading } = useData();
+  const { data: dbData, isLoading: isDataLoading } = useData();
 
   const loadTranslations = useCallback(async (lang: Language) => {
     setIsI18nLoading(true);

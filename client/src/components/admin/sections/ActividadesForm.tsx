@@ -1,4 +1,4 @@
-import { Plus, Trash2, X } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import { ImageUpload } from '../ImageUpload';
 import { FileUpload } from '../FileUpload';
 
