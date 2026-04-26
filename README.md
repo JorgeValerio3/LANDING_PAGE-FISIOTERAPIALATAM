@@ -164,3 +164,10 @@ Archivos: `client/src/locales/{es,en,fr,pt}.json`
 - CORS whitelist configurable
 - Prototype pollution protection en adminController
 - Bearer token + cookie aceptados en authMiddleware
+
+### Comportamiento del dashboard del Admin:
+- Al cambiar idioma → re-fetch GET /admin/content?lang=es/en/fr/pt       
+- Al guardar → PUT /admin/content/:section?lang=es/en/fr/pt
+- Botón "Guardar" muestra el idioma activo: Guardar (ES)
+- Mensaje de confirmación incluye idioma: Sección guardada (ES)
+- Contenido en pantalla es del idioma seleccionado

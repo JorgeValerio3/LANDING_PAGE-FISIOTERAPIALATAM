@@ -8,34 +8,31 @@ let transporterInstance: nodemailer.Transporter | null = null;
 const getTransporter = async () => {
     if (transporterInstance) return transporterInstance;
 
-    const isProd = process.env.NODE_ENV === 'production';
-    
-    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+
+    if (emailUser && emailPass) {
         transporterInstance = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: Number(process.env.SMTP_PORT) || 587,
-            secure: process.env.SMTP_SECURE === 'true',
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            },
-            connectionTimeout: 10000, // QA: Añadir timeout de 10s
-        });
-    } else if (!isProd) {
-        // Solo permitir cuentas de prueba en desarrollo
-        const testAccount = await nodemailer.createTestAccount();
-        transporterInstance = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
+            host: 'smtp.gmail.com',
             port: 587,
             secure: false,
             auth: {
-                user: testAccount.user,
-                pass: testAccount.pass,
+                user: emailUser,
+                pass: emailPass,
             },
+            connectionTimeout: 10000,
+        });
+    } else if (process.env.NODE_ENV !== 'production') {
+        const testAccount = await nodemailer.createTestAccount();
+        transporterInstance = nodemailer.createTransport({
+            host: 'smtp.ethereal.email',
+            port: 587,
+            secure: false,
+            auth: { user: testAccount.user, pass: testAccount.pass },
         });
         console.warn('QA Warning: Usando Ethereal Test Account (Desarrollo)');
     } else {
-        throw new Error('Configuración SMTP faltante en entorno de producción');
+        throw new Error('EMAIL_USER y EMAIL_PASS no configurados en variables de entorno');
     }
 
     return transporterInstance;
@@ -59,7 +56,7 @@ export const sendContactEmail = async (req: Request, res: Response): Promise<voi
 
         await transporter.sendMail({
             from: `"${safeNombre}" <${safeEmail}>`,
-            to: process.env.CONTACT_EMAIL || "contacto@ufaal.org",
+            to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER || "contacto@ufaal.org",
             subject: `UFAAL Web - ${asunto || 'Sin asunto'}`,
             text: `De: ${safeNombre} (${safeEmail})\n\nMensaje:\n${mensaje}`,
             html: `<h3>Mensaje desde Formulario de Contacto</h3>

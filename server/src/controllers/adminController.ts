@@ -5,9 +5,10 @@ import { readData, writeData } from '../config/db';
 
 // Lista blanca de secciones permitidas para edición
 const ALLOWED_SECTIONS = [
-    'hero', 'quienes_somos', 'historia', 'organizacion', 
-    'paises', 'actividades', 'formacion', 'investigacion', 
-    'galeria', 'noticias', 'afiliacion', 'contacto', 'footer'
+    'hero', 'quienes_somos', 'historia', 'organizacion',
+    'paises', 'actividades', 'formacion', 'investigacion',
+    'galeria', 'noticias', 'afiliacion', 'contacto',
+    'colaboradores', 'footer', 'navbar'
 ];
 
 export const loginAdmin = async (req: Request, res: Response): Promise<void> => {
@@ -26,7 +27,6 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
         if (username === adminUser && adminPassHash) {
             // QA: Uso de versión asíncrona para no bloquear el event loop
             const isMatch = await bcrypt.compare(password, adminPassHash);
-            console.log('QA Debug [Login]: isMatch =', isMatch, '| passInput =', password, '| hashEnv =', adminPassHash?.substring(0, 10));
 
             if (isMatch) {
                 const token = jwt.sign(

@@ -4,12 +4,14 @@ interface HeroFormProps {
 }
 
 export function HeroForm({ data, onChange }: HeroFormProps) {
+    if (!data) return null;
+
     const handleChange = (field: string, value: any) => {
         onChange({ ...data, [field]: value });
     };
 
     const handleStatChange = (index: number, field: string, value: string) => {
-        const newStats = [...data.estadisticas];
+        const newStats = [...(data.estadisticas || [])];
         newStats[index] = { ...newStats[index], [field]: value };
         handleChange('estadisticas', newStats);
     };
@@ -19,18 +21,18 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Título Principal</label>
-                    <input 
-                        type="text" 
-                        value={data.titulo_principal} 
+                    <input
+                        type="text"
+                        value={data.titulo_principal || ''}
                         onChange={(e) => handleChange('titulo_principal', e.target.value)}
                         className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
                     />
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Subtítulo</label>
-                    <input 
-                        type="text" 
-                        value={data.subtitulo} 
+                    <input
+                        type="text"
+                        value={data.subtitulo || ''}
                         onChange={(e) => handleChange('subtitulo', e.target.value)}
                         className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
                     />
@@ -39,8 +41,8 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
 
             <div>
                 <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Descripción</label>
-                <textarea 
-                    value={data.descripcion} 
+                <textarea
+                    value={data.descripcion || ''}
                     onChange={(e) => handleChange('descripcion', e.target.value)}
                     className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 h-24 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
                 />
@@ -48,16 +50,16 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Primario</label>
-                     <input type="text" value={data.cta_primario} onChange={(e) => handleChange('cta_primario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Primario</label>
+                    <input type="text" value={data.cta_primario || ''} onChange={(e) => handleChange('cta_primario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
                 </div>
                 <div>
-                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Secundario</label>
-                     <input type="text" value={data.cta_secundario} onChange={(e) => handleChange('cta_secundario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Secundario</label>
+                    <input type="text" value={data.cta_secundario || ''} onChange={(e) => handleChange('cta_secundario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
                 </div>
                 <div>
-                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">ID del Video YouTube (Ej: 8zR4z8C5XjU)</label>
-                     <input type="text" value={data.video_id} onChange={(e) => handleChange('video_id', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">ID del Video YouTube (Ej: 8zR4z8C5XjU)</label>
+                    <input type="text" value={data.video_id || ''} onChange={(e) => handleChange('video_id', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
                 </div>
             </div>
 

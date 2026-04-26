@@ -20,26 +20,45 @@ app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(cookieParser());
-app.use(cors({ 
-    origin: [
-        process.env.CORS_ORIGIN || 'http://localhost:5173', 
-        'https://ufaal-client.onrender.com',
-        'https://ufaal.org',
-        'https://www.ufaal.org'
-    ],
+const ALLOWED_ORIGINS = new Set([
+    process.env.CORS_ORIGIN || 'http://localhost:5173',
+    process.env.CORS_ORIGIN_2 || '',
+    'http://localhost:5173',
+    'https://ufaal-client.onrender.com',
+    'https://ufaal.org',
+    'https://www.ufaal.org',
+].filter(Boolean));
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (ALLOWED_ORIGINS.has(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error(`CORS bloqueado: ${origin}`));
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
 
 const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
+    windowMs: 15 * 60 * 1000,
     max: 100,
     message: 'Demasiadas peticiones desde esta IP.',
     standardHeaders: true,
     legacyHeaders: false,
 });
 
+const loginLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+    message: 'Demasiados intentos de acceso. Intenta en 10 minutos.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 app.use('/api/', apiLimiter);
+app.use('/api/admin/login', loginLimiter);
 app.use(express.json({ limit: '10mb' })); 
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
@@ -60,8 +79,14 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/data', dataRoutes);
 
-app.get('/api/health', (req, res) => {
-    res.status(200).json({ status: 'OK', message: 'UFAAL API Backend corriendo' });
+app.get('/api/health', async (req, res) => {
+    try {
+        const { readData } = await import('./config/db');
+        await readData('es');
+        res.status(200).json({ status: 'OK', db: 'connected', message: 'UFAAL API Backend corriendo' });
+    } catch {
+        res.status(503).json({ status: 'DEGRADED', db: 'unreachable', message: 'MongoDB no disponible' });
+    }
 });
 
 app.listen(PORT, () => {

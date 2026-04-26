@@ -12,12 +12,16 @@ cloudinary.config({
 });
 
 // Configuración del almacenamiento para Multer
+const IMAGE_MIMES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
 export const cloudinaryStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
+    const isImage = IMAGE_MIMES.includes(file.mimetype);
     return {
       folder: 'ufaal_uploads',
-      format: 'webp', // Convertimos todo a WebP para mejor rendimiento
+      ...(isImage && { format: 'webp' }),
+      resource_type: isImage ? 'image' : 'raw',
       public_id: `${Date.now()}-${file.originalname.split('.')[0]}`,
     };
   },

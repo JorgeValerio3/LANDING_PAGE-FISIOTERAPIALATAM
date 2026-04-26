@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from '../../api';
 import { getUploadUrl } from '../../services/api';
 import { Loader2, Upload } from 'lucide-react';
@@ -12,6 +12,10 @@ interface ImageUploadProps {
 export function ImageUpload({ currentImage, onUploadSuccess, label = "Seleccionar Imagen" }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState(currentImage);
+
+    useEffect(() => {
+        setPreview(currentImage);
+    }, [currentImage]);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
@@ -27,15 +31,10 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
         formData.append('files', file); 
 
         try {
-            // QA: Usamos fetch directo aquí porque fetchClient está diseñado para JSON, 
-            // pero usamos SERVER_URL para evitar hardcoding.
-            const token = localStorage.getItem('admin_token');
             const res = await fetch(`${SERVER_URL}/api/admin/upload`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
+                credentials: 'include',
+                body: formData,
             });
             const data = await res.json();
             if (res.ok && data.urls && data.urls.length > 0) {

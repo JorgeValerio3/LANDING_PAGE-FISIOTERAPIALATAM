@@ -28,6 +28,8 @@ services:
         sync: false
       - key: CORS_ORIGIN
         value: https://ufaal.org
+      - key: CORS_ORIGIN_2
+        sync: false
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS

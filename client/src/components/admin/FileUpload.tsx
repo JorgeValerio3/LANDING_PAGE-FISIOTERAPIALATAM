@@ -21,13 +21,10 @@ export function FileUpload({ currentFile, onUploadSuccess, label = "Seleccionar 
         formData.append('files', file);
 
         try {
-            const token = localStorage.getItem('admin_token');
             const res = await fetch(`${SERVER_URL}/api/admin/upload`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
+                credentials: 'include',
+                body: formData,
             });
             const data = await res.json();
             if (res.ok && data.urls && data.urls.length > 0) {

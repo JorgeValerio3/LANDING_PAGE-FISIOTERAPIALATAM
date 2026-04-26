@@ -38,11 +38,11 @@ export function InvestigacionForm({ data, onChange }: InvestigacionFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Título</label>
-                    <input type="text" value={data.titulo} onChange={(e) => handleChange('titulo', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <input type="text" value={data.titulo || ''} onChange={(e) => handleChange('titulo', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Descripción</label>
-                    <input type="text" value={data.descripcion} onChange={(e) => handleChange('descripcion', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <input type="text" value={data.descripcion || ''} onChange={(e) => handleChange('descripcion', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
                 </div>
             </div>
 
@@ -66,26 +66,26 @@ export function InvestigacionForm({ data, onChange }: InvestigacionFormProps) {
                                     <div className="grid grid-cols-1 gap-4">
                                         <div>
                                             <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Título del Artículo</label>
-                                            <input type="text" value={articulo.titulo} onChange={(e) => handleArticuloChange(idx, 'titulo', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm font-bold" />
+                                            <input type="text" value={articulo.titulo || ''} onChange={(e) => handleArticuloChange(idx, 'titulo', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm font-bold" />
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Autores</label>
-                                                <input type="text" value={articulo.autores} onChange={(e) => handleArticuloChange(idx, 'autores', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                                <input type="text" value={articulo.autores || ''} onChange={(e) => handleArticuloChange(idx, 'autores', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                             </div>
                                             <div>
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Revista/Medio</label>
-                                                <input type="text" value={articulo.revista} onChange={(e) => handleArticuloChange(idx, 'revista', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                                <input type="text" value={articulo.revista || ''} onChange={(e) => handleArticuloChange(idx, 'revista', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                             </div>
                                         </div>
                                         <div className="flex gap-4">
                                             <div className="flex-1">
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Fecha</label>
-                                                <input type="text" value={articulo.fecha} onChange={(e) => handleArticuloChange(idx, 'fecha', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                                <input type="text" value={articulo.fecha || ''} onChange={(e) => handleArticuloChange(idx, 'fecha', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                             </div>
                                             <div className="flex-1">
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">DOI (Opcional)</label>
-                                                <input type="text" value={articulo.doi} onChange={(e) => handleArticuloChange(idx, 'doi', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                                <input type="text" value={articulo.doi || ''} onChange={(e) => handleArticuloChange(idx, 'doi', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                             </div>
                                         </div>
                                         <div>

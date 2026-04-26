@@ -5,7 +5,9 @@
       "Bash(npx tsc *)",
       "Bash(node -e \"const bcrypt=require\\('bcrypt'\\); bcrypt.hash\\('Edgar78',12\\).then\\(h=>console.log\\(h\\)\\)\")",
       "Bash(node *)",
-      "Bash(git check-ignore *)"
+      "Bash(git check-ignore *)",
+      "Bash(npm run *)",
+      "Bash(git rm *)"
     ]
   }
 }
