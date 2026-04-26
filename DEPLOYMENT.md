@@ -60,3 +60,5 @@ npm run build
 1. **Cookies**: El backend ahora configura `HttpOnly: true` y `Secure: true`. La conexión debe usar **HTTPS** en producción para que el login funcione.
 2. **CORS**: El servidor solo aceptará peticiones desde el dominio configurado.
 3. **Payload**: El servidor acepta hasta 5MB para subidas multimedia dinámicas.
+
+123
