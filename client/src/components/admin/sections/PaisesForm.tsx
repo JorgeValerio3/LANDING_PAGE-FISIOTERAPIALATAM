@@ -20,15 +20,16 @@ export function PaisesForm({ data, onChange }: PaisesFormProps) {
     };
 
     const addPais = () => {
-        const newPaises = [...(data.paises_lista || []), { 
-            id: "", 
-            nombre: "", 
-            latitud: 0, 
-            longitud: 0, 
-            representante: "", 
-            cargo: "Delegado Nacional", 
+        const newPaises = [...(data.paises_lista || []), {
+            id: "",
+            nombre: "",
+            latitud: 0,
+            longitud: 0,
+            representante: "",
+            cargo: "Delegado Nacional",
             contacto: "",
-            imagen: "" 
+            imagen: "",
+            galeria: []
         }];
         handleChange('paises_lista', newPaises);
     };
@@ -174,19 +175,35 @@ export function PaisesForm({ data, onChange }: PaisesFormProps) {
                                 </div>
                             </div>
 
-                            {/* Galería de Actividades (Max 5) */}
+                            {/* Galería dinámica sin límite */}
                             <div className="mt-8 pt-6 border-t border-gray-100">
-                                <div className="flex items-center gap-2 text-gray-400 mb-6">
-                                    <Plus className="w-3.5 h-3.5" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest">Galería de Actividades (Máximo 5 imágenes)</span>
+                                <div className="flex items-center justify-between gap-2 mb-6">
+                                    <div className="flex items-center gap-2 text-gray-400">
+                                        <Plus className="w-3.5 h-3.5" />
+                                        <span className="text-[10px] font-bold uppercase tracking-widest">Galería de Actividades</span>
+                                        <span className="text-[10px] text-gray-300">({(pais.galeria || []).filter(Boolean).length} foto{(pais.galeria || []).filter(Boolean).length !== 1 ? 's' : ''})</span>
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            const newGaleria = [...(pais.galeria || []), ''];
+                                            handlePaisChange(idx, 'galeria', newGaleria);
+                                        }}
+                                        className="flex items-center gap-1 text-[9px] text-ufaal-blue hover:text-ufaal-blue-dark font-bold uppercase tracking-wide"
+                                    >
+                                        <Plus className="w-3 h-3" /> Agregar foto
+                                    </button>
                                 </div>
-                                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                                    {[0, 1, 2, 3, 4].map((slotIdx) => (
-                                        <div key={slotIdx} className="space-y-2">
-                                            <div className="flex justify-between items-center px-1">
-                                                <span className="text-[9px] font-bold text-gray-300 uppercase">Espacio {slotIdx + 1}</span>
-                                                {pais.galeria && pais.galeria[slotIdx] && (
-                                                    <button 
+                                {(pais.galeria || []).length === 0 ? (
+                                    <div className="text-center py-6 text-gray-300 border-2 border-dashed border-gray-100 rounded-xl text-xs">
+                                        Sin fotos. Haz clic en "Agregar foto".
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        {(pais.galeria || []).map((imgUrl: string, slotIdx: number) => (
+                                            <div key={slotIdx} className="space-y-2">
+                                                <div className="flex justify-between items-center px-1">
+                                                    <span className="text-[9px] font-bold text-gray-300 uppercase">Foto {slotIdx + 1}</span>
+                                                    <button
                                                         onClick={() => {
                                                             const newGaleria = [...(pais.galeria || [])];
                                                             newGaleria.splice(slotIdx, 1);
@@ -196,22 +213,20 @@ export function PaisesForm({ data, onChange }: PaisesFormProps) {
                                                     >
                                                         Quitar
                                                     </button>
-                                                )}
+                                                </div>
+                                                <ImageUpload
+                                                    label=""
+                                                    currentImage={imgUrl}
+                                                    onUploadSuccess={(url) => {
+                                                        const newGaleria = [...(pais.galeria || [])];
+                                                        newGaleria[slotIdx] = url;
+                                                        handlePaisChange(idx, 'galeria', newGaleria);
+                                                    }}
+                                                />
                                             </div>
-                                            <ImageUpload 
-                                                label="" 
-                                                currentImage={(pais.galeria || [])[slotIdx]} 
-                                                onUploadSuccess={(url) => {
-                                                    const newGaleria = [...(pais.galeria || [])];
-                                                    // Ensure we don't have gaps and respect the index if we want specific slots
-                                                    // But requested behavior is usually just a list. Let's make it a fixed list of 5 slots.
-                                                    newGaleria[slotIdx] = url;
-                                                    handlePaisChange(idx, 'galeria', newGaleria);
-                                                }} 
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}
