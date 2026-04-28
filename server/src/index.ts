@@ -3,89 +3,96 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import path from 'path';
-import contactRoutes from './routes/contact';
-import downloadRoutes from './routes/downloads';
-import adminRoutes from './routes/admin';
-import { mailQueue } from './utils/mailQueue';
+import fs from 'fs';
+
+import contactRoutes from './routes/contactRoutes';
+import adminRoutes from './routes/adminRoutes';
+import dataRoutes from './routes/dataRoutes';
+import { pingMongo } from './config/db';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Iniciar el worker de la cola de correos al arrancar
-mailQueue.start();
+// Necesario para que express-rate-limit funcione correctamente en Render (detrás de un proxy)
+app.set('trust proxy', 1);
 
-// Request Logger (Debugger)
-app.use(morgan('dev'));
-
-// Security Middleware
 app.use(helmet({
-    crossOriginResourcePolicy: false, // Permitir que las imágenes se carguen en el frontend
+    crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
-app.use(cors({ 
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cookieParser());
+const ALLOWED_ORIGINS = new Set([
+    process.env.CORS_ORIGIN || 'http://localhost:5173',
+    process.env.CORS_ORIGIN_2 || '',
+    'http://localhost:5173',
+    'https://ufaal-client.onrender.com',
+    'https://ufaal.org',
+    'https://www.ufaal.org',
+].filter(Boolean));
 
-// Servir archivos estáticos (Imágenes subidas)
-app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (ALLOWED_ORIGINS.has(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error(`CORS bloqueado: ${origin}`));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 200, // Aumentado para el dashboard
-    message: 'Demasiadas peticiones desde esta IP, intente de nuevo más tarde.',
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: 'Demasiadas peticiones desde esta IP.',
     standardHeaders: true,
     legacyHeaders: false,
 });
+
+const loginLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+    message: 'Demasiados intentos de acceso. Intenta en 10 minutos.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 app.use('/api/', apiLimiter);
+app.use('/api/admin/login', loginLimiter);
+app.use(express.json({ limit: '50mb' })); 
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(express.json({ limit: '1mb' })); // Aumentado para contenido JSON de la página
+// QA: Servir archivos estáticos (Imágenes y Descargas)
+const imagesPath = path.join(__dirname, '../../client/public/images');
+app.use('/images', express.static(imagesPath));
 
+const uploadsPath = path.join(__dirname, '../public/uploads');
+if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
+app.use('/uploads', express.static(uploadsPath));
+
+const downloadsPath = path.join(__dirname, '../public/downloads');
+if (!fs.existsSync(downloadsPath)) fs.mkdirSync(downloadsPath, { recursive: true });
+app.use('/downloads', express.static(downloadsPath));
+
+// Definición de Rutas de la API Dinámica
 app.use('/api/contact', contactRoutes);
-app.use('/api/downloads', downloadRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/data', dataRoutes);
 
-// Global Error Handler (Centralized Debugging)
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error('--- DEBUG ERROR START ---');
-    console.error(`Method: ${req.method} | URL: ${req.originalUrl}`);
-    console.error('Error Stack:', err.stack);
-    console.error('--- DEBUG ERROR END ---');
-
-    res.status(err.status || 500).json({
-        error: 'Ocurrió un error interno en el servidor.',
-        message: err.message,
-        details: process.env.NODE_ENV === 'development' ? err.stack : undefined
-    });
+app.get('/api/health', async (req, res) => {
+    try {
+        await pingMongo();
+        res.status(200).json({ status: 'OK', db: 'connected', message: 'UFAAL API Backend corriendo' });
+    } catch (err: any) {
+        res.status(503).json({ status: 'DEGRADED', db: 'unreachable', message: err.message || 'MongoDB no disponible' });
+    }
 });
 
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
 });
-
-// Manejo de Cierre Limpio (Graceful Shutdown)
-const shutdown = async (signal: string) => {
-    console.log(`\n[Recibido ${signal}] Iniciando proceso de apagado...`);
-    
-    // 1. Detener el worker de correos y esperar a que termine lo pendiente
-    await mailQueue.stop();
-    
-    // 2. Cerrar el servidor Express
-    server.close(() => {
-        console.log('[Express] Servidor cerrado.');
-        process.exit(0);
-    });
-
-    // Forzar salida si no cierra en 10 segundos
-    setTimeout(() => {
-        console.error('[Shutdown] Tiempo de espera agotado, forzando salida.');
-        process.exit(1);
-    }, 10000);
-};
-
-process.on('SIGINT', () => shutdown('SIGINT'));
-process.on('SIGTERM', () => shutdown('SIGTERM'));
+ 

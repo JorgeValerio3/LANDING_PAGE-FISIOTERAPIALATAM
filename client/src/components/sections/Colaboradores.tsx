@@ -1,11 +1,12 @@
 import { FadeIn } from '../ui/FadeIn';
+import { useI18n } from '../../contexts/I18nContext';
+import { ColaboradoresData, ColaboradorLogo } from '../../types';
 
-export function Colaboradores() {
-    const colaboradores = [
-        { src: "/images/ufal.png", alt: "Logo UFAL", class: "h-24 md:h-28 object-contain" },
-        { src: "/images/ipapt.png", alt: "Logo IPAPT", class: "h-28 md:h-32 object-contain" },
-        { src: "/images/logo.svg", alt: "Logo Especializado", class: "h-20 md:h-24 object-contain brightness-0 hover:brightness-100 transition-all opacity-80 hover:opacity-100" } // Ajuste a SVG ya que puede tener estilos propios distintos a los PNG
-    ];
+export function Colaboradores({ data }: { data: ColaboradoresData }) {
+    const { t } = useI18n();
+    if (!data) return null;
+
+    const colaboradores = data.logos || [];
 
     return (
         <section className="py-24 bg-gray-50 border-t border-gray-100">
@@ -13,18 +14,18 @@ export function Colaboradores() {
 
                 <FadeIn direction="up">
                     <h2 className="text-3xl md:text-5xl font-bold text-ufaal-blue mb-4 tracking-tight">
-                        Colaboradores
+                        {t('colaboradores.titulo')}
                     </h2>
                     <div className="w-24 h-1 bg-ufaal-blue-light mx-auto rounded-full mb-16"></div>
                 </FadeIn>
 
-                <FadeIn delay={0.2} direction="up" className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 lg:gap-32">
-                    {colaboradores.map((colab, index) => (
+                <FadeIn delay={0.2} direction="up" className="flex flex-wrap items-center justify-center gap-12 md:gap-20 lg:gap-32">
+                    {colaboradores.map((colab: ColaboradorLogo, index: number) => (
                         <div key={index} className="flex items-center justify-center p-4 hover:-translate-y-2 transition-transform duration-300">
                             <img
-                                src={colab.src}
-                                alt={colab.alt}
-                                className={colab.class}
+                                src={colab.url}
+                                alt={colab.nombre}
+                                className="h-20 md:h-24 object-contain opacity-80 hover:opacity-100 transition-opacity"
                                 loading="lazy"
                             />
                         </div>

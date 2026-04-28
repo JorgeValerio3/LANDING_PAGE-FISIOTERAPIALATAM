@@ -6,33 +6,41 @@ interface OrganizacionFormProps {
 }
 
 export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
+    if (!data) return null;
+
+    const secciones = data.secciones || [];
+
     const handleChange = (field: string, value: any) => {
         onChange({ ...data, [field]: value });
     };
 
     const handleSectionChange = (sectionIndex: number, field: string, value: any) => {
-        const newSections = [...data.secciones];
+        const newSections = [...secciones];
         newSections[sectionIndex] = { ...newSections[sectionIndex], [field]: value };
         handleChange('secciones', newSections);
     };
 
     const handleMemberChange = (sectionIndex: number, memberIndex: number, field: string, value: string) => {
-        const newSections = [...data.secciones];
-        const newMembers = [...newSections[sectionIndex].members];
+        const newSections = [...secciones];
+        const newMembers = [...(newSections[sectionIndex].members || [])];
         newMembers[memberIndex] = { ...newMembers[memberIndex], [field]: value };
-        newSections[sectionIndex].members = newMembers;
+        newSections[sectionIndex] = { ...newSections[sectionIndex], members: newMembers };
         handleChange('secciones', newSections);
     };
 
     const addMember = (sectionIndex: number) => {
-        const newSections = [...data.secciones];
-        newSections[sectionIndex].members.push({ name: "", role: "", country: "" });
+        const newSections = [...secciones];
+        const members = [...(newSections[sectionIndex].members || [])];
+        members.push({ name: "", role: "", country: "" });
+        newSections[sectionIndex] = { ...newSections[sectionIndex], members };
         handleChange('secciones', newSections);
     };
 
     const removeMember = (sectionIndex: number, memberIndex: number) => {
-        const newSections = [...data.secciones];
-        newSections[sectionIndex].members.splice(memberIndex, 1);
+        const newSections = [...secciones];
+        const members = [...(newSections[sectionIndex].members || [])];
+        members.splice(memberIndex, 1);
+        newSections[sectionIndex] = { ...newSections[sectionIndex], members };
         handleChange('secciones', newSections);
     };
 
@@ -41,18 +49,18 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Título de la Sección</label>
-                    <input 
-                        type="text" 
-                        value={data.titulo} 
+                    <input
+                        type="text"
+                        value={data.titulo || ''}
                         onChange={(e) => handleChange('titulo', e.target.value)}
                         className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
                     />
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Archivo PDF Estatutos</label>
-                    <input 
-                        type="text" 
-                        value={data.estatutos_pdf} 
+                    <input
+                        type="text"
+                        value={data.estatutos_pdf || ''}
                         onChange={(e) => handleChange('estatutos_pdf', e.target.value)}
                         placeholder="/docs/archivo.pdf"
                         className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
@@ -63,8 +71,8 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
 
             <div>
                 <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Descripción</label>
-                <textarea 
-                    value={data.descripcion} 
+                <textarea
+                    value={data.descripcion || ''}
                     onChange={(e) => handleChange('descripcion', e.target.value)}
                     className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 h-24 focus:ring-2 focus:ring-ufaal-blue/30 outline-none"
                 />
@@ -72,39 +80,39 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
 
             <div className="border-t border-gray-100 pt-8">
                 <h3 className="text-lg font-bold text-ufaal-text mb-6">Bloques Organizativos</h3>
-                
+
                 <div className="space-y-8">
-                    {data.secciones.map((section: any, sectionIdx: number) => (
+                    {secciones.map((section: any, sectionIdx: number) => (
                         <div key={sectionIdx} className="bg-white border rounded-xl p-6 shadow-sm">
                             <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Nombre del Bloque</label>
-                            <input 
-                                type="text" 
-                                value={section.title} 
+                            <input
+                                type="text"
+                                value={section.title || ''}
                                 onChange={(e) => handleSectionChange(sectionIdx, 'title', e.target.value)}
                                 className="w-full sm:w-1/2 mb-6 border border-gray-200 rounded-lg p-3 bg-gray-50 font-bold"
                             />
 
                             <div className="space-y-4">
-                                {section.members.map((member: any, memberIdx: number) => (
+                                {(section.members || []).map((member: any, memberIdx: number) => (
                                     <div key={memberIdx} className="flex flex-col sm:flex-row gap-3 items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             placeholder="Nombre"
-                                            value={member.name} 
+                                            value={member.name || ''}
                                             onChange={(e) => handleMemberChange(sectionIdx, memberIdx, 'name', e.target.value)}
                                             className="flex-1 w-full border border-gray-200 rounded p-2 text-sm"
                                         />
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             placeholder="Cargo/Rol"
-                                            value={member.role} 
+                                            value={member.role || ''}
                                             onChange={(e) => handleMemberChange(sectionIdx, memberIdx, 'role', e.target.value)}
                                             className="flex-1 w-full border border-gray-200 rounded p-2 text-sm"
                                         />
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             placeholder="País (Opcional)"
-                                            value={member.country} 
+                                            value={member.country || ''}
                                             onChange={(e) => handleMemberChange(sectionIdx, memberIdx, 'country', e.target.value)}
                                             className="w-full sm:w-32 border border-gray-200 rounded p-2 text-sm"
                                         />

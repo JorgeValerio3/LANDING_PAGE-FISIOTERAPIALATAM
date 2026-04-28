@@ -1,14 +1,15 @@
 import { FadeIn } from '../ui/FadeIn';
 import { ShieldCheck, Mail, Send, ArrowRight, ClipboardCheck } from 'lucide-react';
 import { useState } from 'react';
+import { AfiliacionData } from '../../types';
 
-export function Afiliacion({ data }: { data: any }) {
+export function Afiliacion({ data }: { data: AfiliacionData }) {
     const [copied, setCopied] = useState(false);
 
     if (!data) return null;
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText('ufaal2020@gmail.com');
+        navigator.clipboard.writeText(data.email_contacto || 'ufaal2020@gmail.com');
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
     };
@@ -78,7 +79,7 @@ export function Afiliacion({ data }: { data: any }) {
 
                                         <div className="space-y-4">
                                             <a 
-                                                href="mailto:ufaal2020@gmail.com"
+                                                href={`mailto:${data.email_contacto || 'ufaal2020@gmail.com'}`}
                                                 className="flex items-center justify-between bg-white text-ufaal-blue p-4 rounded-xl font-bold hover:bg-gray-100 transition-all shadow-lg active:scale-95"
                                             >
                                                 <div className="flex items-center gap-3">
@@ -100,7 +101,7 @@ export function Afiliacion({ data }: { data: any }) {
                                                 ) : (
                                                     <>
                                                         <Mail className="w-4 h-4 opacity-70" />
-                                                        ufaal2020@gmail.com
+                                                        {data.email_contacto || 'ufaal2020@gmail.com'}
                                                     </>
                                                 )}
                                             </button>

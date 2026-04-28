@@ -1,0 +1,515 @@
+{
+  "navbar": {
+    "items": [
+      {
+        "label": "Quiénes Somos",
+        "href": "#/quienes-somos"
+      },
+      {
+        "label": "Historia",
+        "href": "#/historia"
+      },
+      {
+        "label": "Organización",
+        "href": "#/organizacion"
+      },
+      {
+        "label": "Países Miembros",
+        "href": "#/paises"
+      },
+      {
+        "label": "Formación",
+        "href": "#/formacion"
+      },
+      {
+        "label": "Investigación",
+        "href": "#/investigacion"
+      },
+      {
+        "label": "Noticias",
+        "href": "#/noticias"
+      },
+      {
+        "label": "Contacto",
+        "href": "#/contacto-directo"
+      },
+      {
+        "label": "Galería",
+        "href": "#/galeria"
+      }
+    ]
+  },
+  "hero": {
+    "subtitulo": "SUBTITULO ACTUALIZADO POR ADMIN",
+    "titulo_principal": "HELLO WORLD",
+    "descripcion": "Somos la red líder de profesionales en fisioterapia acuática de Latinoamérica.",
+    "video_id": "8zR4z8C5XjU",
+    "cta_primario": "Ver Sobre Nosotros",
+    "estadisticas": [
+      {
+        "valor": "+15",
+        "etiqueta": "Países Miembros"
+      },
+      {
+        "valor": "+500",
+        "etiqueta": "Profesionales"
+      },
+      {
+        "valor": "+50",
+        "etiqueta": "Investigaciones"
+      }
+    ],
+    "titulo": "UFAAL - Test_1774795225273"
+  },
+  "quienes_somos": {
+    "titulo": "Quienes Somos",
+    "descripcion": "La Unión de Fisioterapia Acuática de América Latina (UFAAL) es una organización que integra a profesionales, académicos e instituciones comprometidas con el desarrollo y la promoción de la fisioterapia acuática en la región latinoamericana.\n\nNuestro propósito es fomentar la colaboración científica, la formación profesional y el intercambio de conocimientos, impulsando el crecimiento de la fisioterapia acuática como herramienta terapéutica basada en evidencia.\n\nUFAAL trabaja para fortalecer la educación, la investigación y la práctica clínica en el medio acuático, promoviendo la integración regional hispano parlante y el avance de la rehabilitación física en beneficio de la salud y la calidad de vida de las personas.",
+    "filosofia": {
+      "titulo": "Filosofía Institucional",
+      "contenido": "La Unión de Fisioterapia Acuática de América Latina (UFAAL) sustenta su filosofía en el principio de que el agua constituye un medio terapéutico de alto valor científico y humano para la rehabilitación, la prevención y la optimización de la función física.\n\nNuestra visión filosófica se fundamenta en la integración del conocimiento científico, la práctica clínica basada en evidencia y la cooperación regional, promoviendo una fisioterapia acuática desarrollada bajo principios de excelencia profesional, ética, responsabilidad social y compromiso con la salud de las poblaciones.\n\nLa UFAAL concibe la diversidad cultural, social y sanitaria de América Latina como una fuente de enriquecimiento para el intercambio de conocimientos y el crecimiento de la disciplina, fomentando el diálogo académico, la innovación terapéutica y la formación continua de los profesionales de la rehabilitación.\n\nA través del trabajo colaborativo entre países, instituciones académicas y profesionales de la salud, la Unión impulsa el fortalecimiento de la fisioterapia acuática como un campo especializado de la fisioterapia contemporánea, orientado a mejorar la funcionalidad, la calidad de vida y el bienestar de las personas en toda la región latinoamericana.\n\nNuestra filosofía se expresa en el compromiso permanente con la excelencia científica, la práctica ética y el desarrollo sostenible de la fisioterapia acuática, consolidando una comunidad profesional que trabaja de manera integrada para avanzar en la rehabilitación y la salud en América Latina."
+    },
+    "mision": "Promover el desarrollo, fortalecimiento y posicionamiento de la fisioterapia acuática en América Latina, impulsando la educación continua, la investigación científica y la práctica profesional ética. La UFAAL fomenta la colaboración entre profesionales, instituciones y organizaciones de la región, respetando la diversidad cultural y contribuyendo al mejoramiento de la salud, la rehabilitación y la calidad de vida de las comunidades.",
+    "vision": "Ser una red latinoamericana de referencia internacional en fisioterapia acuática, reconocida por impulsar la formación especializada, la investigación científica y la práctica clínica basada en evidencia, promoviendo estándares de excelencia, responsabilidad social y compromiso bioético en el ámbito de la rehabilitación en el medio acuático.",
+    "valores": {
+      "titulo": "Nuestros Valores",
+      "items": [
+        {
+          "titulo": "Colaboración intercultural",
+          "descripcion": "Promovemos la cooperación entre profesionales, instituciones y países de América Latina, valorando la diversidad cultural y el intercambio de conocimientos.",
+          "icono": "Globe"
+        },
+        {
+          "titulo": "Excelencia académica y científica",
+          "descripcion": "Impulsamos la formación continua, la investigación y la actualización profesional para garantizar prácticas terapéuticas fundamentadas en evidencia científica.",
+          "icono": "TestTube"
+        },
+        {
+          "titulo": "Compromiso bioético",
+          "descripcion": "Actuamos con responsabilidad ética, respeto por los principios de la bioética y compromiso con el bienestar de los pacientes y las comunidades.",
+          "icono": "ShieldCheck"
+        },
+        {
+          "titulo": "Innovación terapéutica",
+          "descripcion": "Fomentamos el desarrollo de nuevas estrategias, metodologías y tecnologías aplicadas a la fisioterapia acuática para mejorar los resultados clínicos.",
+          "icono": "Lightbulb"
+        },
+        {
+          "titulo": "Respeto por la dignidad humana",
+          "descripcion": "Reconocemos el valor intrínseco de cada persona, promoviendo una atención centrada en el paciente, inclusiva y humanizada.",
+          "icono": "HandHeart"
+        },
+        {
+          "titulo": "Transparencia y responsabilidad profesional",
+          "descripcion": "Promovemos una gestión institucional clara, ética y responsable, basada en la confianza, la integridad y el compromiso profesional.",
+          "icono": "Users"
+        }
+      ]
+    },
+    "imagen_destacada": "./images/home.jpeg"
+  },
+  "historia": {
+    "titulo": "Nuestra Historia",
+    "subtitulo": "Unión de Fisioterapia Acuática de América Latina (UFAAL)",
+    "descripcion": [
+      "La Unión de Fisioterapia Acuática de América Latina (UFAAL) surge como una iniciativa regional destinada a fortalecer la integración, representación y desarrollo de la fisioterapia acuática en los países de América Latina, particularmente en la comunidad profesional hispanohablante.",
+      "El origen de este proceso se vincula con la creación de la International Organisation of Aquatic Physiotherapists (IOAPT), grupo de interés reconocido dentro de World Physiotherapy, cuyo objetivo es promover el avance de la fisioterapia acuática a nivel global.",
+      "Al conocer la formación de esta organización internacional, la fisioterapeuta chilena Gloria Aravena identificó una oportunidad histórica para que los profesionales de América Latina participaran activamente en este espacio de reconocimiento científico y profesional.",
+      "Motivada por esta visión, y con el apoyo del Colegio de Kinesiólogos de Chile, inició en el año 2020 un proceso de articulación regional orientado a convocar profesionales y representantes de distintos países de América Latina interesados en fortalecer la disciplina.",
+      "Posteriormente, en 2023, Gloria Aravena fue elegida Vicepresidenta de la IOAPT, consolidando la presencia de la región en el liderazgo internacional junto a líderes como Karen Morales (México) y Yara Humarán (Puerto Rico).",
+      "Hoy, UFAAL representa un espacio de encuentro y crecimiento colectivo, donde profesionales de distintos países se unen con un propósito común: avanzar juntos desde América Latina hacia el mundo, fortaleciendo la fisioterapia acuática como una disciplina científica, terapéutica y humana al servicio de la salud y la rehabilitación."
+    ],
+    "imagen": "./images/imagen_historia.jpg"
+  },
+  "organizacion": {
+    "titulo": "ÁREA DE GESTIÓN",
+    "descripcion": "Estructura funcional y equipos de trabajo",
+    "estatutos_pdf": "./docs_proyecto/ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
+    "secciones": [
+      {
+        "title": "Eje 1: Investigación Científica y Desarrollo",
+        "members": [
+          {
+            "name": "María Noel",
+            "role": "Coordinador"
+          },
+          {
+            "name": "EDGAR RICARDO ARIAS SIBILIA",
+            "role": "Miembro"
+          }
+        ]
+      },
+      {
+        "title": "Eje 2: Académico y de Formación",
+        "members": [
+          {
+            "name": "Lic. FABIANA Andrea M GIANNINI",
+            "role": "Coordinador"
+          },
+          {
+            "name": "Andrea Brenes",
+            "role": "Miembro"
+          },
+          {
+            "name": "Kesia Madeiros Silva",
+            "role": "Miembro"
+          },
+          {
+            "name": "Adriano Valeria",
+            "role": "Miembro"
+          },
+          {
+            "name": "Karen Morales Soler",
+            "role": "Miembro"
+          }
+        ]
+      },
+      {
+        "title": "Eje 3: Comunicación, Medios y Plataforma Web",
+        "members": [
+          {
+            "name": "Yara Humaran",
+            "role": "Líder"
+          },
+          {
+            "name": "EDGAR RICARDO ARIAS SIBILIA",
+            "role": "Coordinador página web"
+          },
+          {
+            "name": "María Noel",
+            "role": "Miembro"
+          },
+          {
+            "name": "Nohely Rodriguez",
+            "role": "Miembro"
+          },
+          {
+            "name": "Paola Guevara",
+            "role": "Miembro"
+          }
+        ]
+      }
+    ]
+  },
+  "paises": {
+    "titulo": "Miembros y Países",
+    "descripcion": "Nuestra Red Regional en Expansión",
+    "paises_lista": [
+      {
+        "id": "ar",
+        "nombre": "Argentina",
+        "latitud": -38.416097,
+        "longitud": -63.616672,
+        "representante": "Lic. FABIANA Andrea M GIANNINI",
+        "cargo": "Delegada Nacional",
+        "contacto": "fabianagiannini@gmail.com",
+        "descripcion": "• Integrante Comisión Directiva Asociación Argentina Hidroterapia\n• Representante por Argentina en la IOAPT\n• Lic. en Kinesiología y Fisiatría (UBA - Argentina)\n• Prof. Nacional de Educación Física\n• Técnica en Investigación Científica Deportiva\n• Docente Universitaria Fisioterapia, Fisiología y Biofísica en Universidad Nacional de La Matanza Argentina\n• Ayudante en Trabajos Prácticos de Técnicas Kinésicas 1, UBA (Universidad Nacional de Buenos Aires)\n• Coordinadora Académica de la “Diplomatura en Terapias Acuáticas para Kinesiólogos – Cohorte 2024 y 2026.\n• Docente en la Diplomatura Asociación Argentina Hidroterapia 2024 y 2026\n• Directora de Kinepraxis - Centro de Rehabilitación Acuática en Buenos Aires (Argentina)\n• Técnica en Reeducación de cadenas musculares miofasciales\n• Curso Certificado de dos niveles de Halliwick (Water specific therapy)\n• Certificado en Watsu: Nivel I y Nivel II\n• Curso Certificado de Bad Ragaz\n• Formación en Hidroterapia en métodos Aquafasciaterapia, Hidropilates\n• Certificado en Aquadinamic: Nivel I “Elemental”\n• Curso de evaluación funcional de natación aplicada a alumnos con discapacidad física (SNR)\n• Investigadora Científica Categoría V",
+        "imagen": "./images/Fabiana_giannini.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "bo",
+        "nombre": "Bolivia",
+        "latitud": -16.290154,
+        "longitud": -63.588653,
+        "representante": "Adriana Fuentes",
+        "cargo": "Delegada Nacional",
+        "contacto": "adri18.af@gmail.com",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "br",
+        "nombre": "Brasil",
+        "latitud": -14.235004,
+        "longitud": -51.92528,
+        "representante": "Kesia Medeiros Silva C.",
+        "cargo": "Delegada Nacional",
+        "contacto": "kesiamesc@bol.com.br",
+        "descripcion": "Fisioterapeuta , Prof Educação Física, Presidente da ABFA, CEO Aquatop e Fisiotop Pós Graduada en Ortopedia e Traumatologia , Especialista em Fisioterapia Aquática Palestrante Internacional, Experiência em Fisio  Aquática há 38 años",
+        "imagen": "./images/kesya_castro.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "cl",
+        "nombre": "Chile",
+        "latitud": -35.675147,
+        "longitud": -71.542969,
+        "representante": "Gloria Aravena O.",
+        "cargo": "Delegada Nacional",
+        "contacto": "garavena@hotmail.com",
+        "descripcion": "",
+        "imagen": "./images/Gloria_aravena.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "co",
+        "nombre": "Colombia",
+        "latitud": 4.570868,
+        "longitud": -74.297333,
+        "representante": "",
+        "cargo": "Delegado Nacional",
+        "contacto": "",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "cr",
+        "nombre": "Costa Rica",
+        "latitud": 9.748917,
+        "longitud": -83.753428,
+        "representante": "Andrea Brenes",
+        "cargo": "Delegada Nacional",
+        "contacto": "",
+        "descripcion": "Licenciada en Terapia Física de la Universidad Santa Paula, Costa Rica.\n\nMonography for Licentiate in Physical Therapy: \"AQUATIC THERAPY EFFECT ON TREATMENT FOR PATIENTS WITH PARKINSON\". University Santa Paula, Costa Rica. 2024.\n\nMaster in Health and Sports Science, Athletic division Máster in Sports. Universidad de Tsukuba, Japón. Graduation thesis: \"COMPARISON OF MUSCULAR ACTIVATION ON LAND AND IN WATER WITH ELECTROMYOGRAPHY\". University of Tsukuba, Japan. 2003.\n\nMáster en Ciencias de la Salud y Movimiento Humano Universidad Nacional de Costa Rica. Postgraduate Studies System National University, Costa Rica. Graduation work for a Master's degree professional modality: \"EFFECT OF WALKING IN THE SWIMMING POOL ON THE GAIT PATTERN AND QUALITY OF LIFE IN PATIENTS WITH PARKINSON'S DISEASE\". 2018.",
+        "imagen": "./images/brenes.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "ec",
+        "nombre": "Ecuador",
+        "latitud": -1.831239,
+        "longitud": -78.183406,
+        "representante": "",
+        "cargo": "Delegado Nacional",
+        "contacto": "",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "gt",
+        "nombre": "Guatemala",
+        "latitud": 15.783471,
+        "longitud": -90.230759,
+        "representante": "Samuel Adner",
+        "cargo": "Delegada Nacional",
+        "contacto": "",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "mx",
+        "nombre": "México",
+        "latitud": 23.634501,
+        "longitud": -102.552784,
+        "representante": "Karen Morales Soler",
+        "cargo": "Delegada Nacional",
+        "contacto": "in_fisiotheros@hotmail.com",
+        "descripcion": "Vicepresidenta de la International Organisation of Aquatic Physiotherapists (IOAPT). Especialista en Fisioterapia Acuática con amplia trayectoria en la integración regional.",
+        "imagen": "./images/karen_morales.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "py",
+        "nombre": "Paraguay",
+        "latitud": -23.442503,
+        "longitud": -58.443832,
+        "representante": "Jorge Arce",
+        "cargo": "Delegado Nacional",
+        "contacto": "",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "pe",
+        "nombre": "Perú",
+        "latitud": -9.189967,
+        "longitud": -75.015152,
+        "representante": "Nohely Rodríguez",
+        "cargo": "Delegada Nacional",
+        "contacto": "",
+        "descripcion": "Lic. en Terapia física y rehabilitación egresada de la universidad San Pedro, Chimbote\nformación en Equino terapia\nFormación en Fisioterapia acuática\nTerapia Manual",
+        "imagen": "./images/nohely_rodriguez.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "pr",
+        "nombre": "Puerto Rico",
+        "latitud": 18.220833,
+        "longitud": -66.590149,
+        "representante": "Yara Humarán",
+        "cargo": "Delegada Nacional",
+        "contacto": "yarahumaran@gmail.com",
+        "descripcion": "",
+        "imagen": "./images/yara_humaran.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "do",
+        "nombre": "República Dominicana",
+        "latitud": 18.735693,
+        "longitud": -70.162651,
+        "representante": "EDGAR RICARDO ARIAS SIBILIA",
+        "cargo": "Delegado Nacional",
+        "contacto": "edgar1967arias@gmail.com",
+        "descripcion": "Licenciado en Terapia de Rehabilitación con mención en Terapia Física, profesional orientado al servicio, la excelencia clínica y el desarrollo integral en el ámbito de la rehabilitación deportiva y funcional. Posee una sólida formación académica en la Universidad Católica Santo Domingo, donde fue reconocida con el Premio Cardenal Octavio Beras Rojas a la investigación en 2019, y cuenta con habilitación profesional mediante Exequátur No. 269-21. Su perfil se caracteriza por la combinación de conocimientos científicos, experiencia práctica y vocación docente.\n\nHa fortalecido su preparación mediante diplomados en fisioterapia y en habilitación pedagógica y docencia universitaria, además de certificaciones y cursos especializados en terapia acuática, métodos Bad Ragaz, watsu y Halliwick, kinesiología, medicina deportiva, nutrición, ciencia del deporte, vendaje neuromuscular, primeros auxilios, RCP y uso de DEA. También ha participado en seminarios nacionales e internacionales, incluido el Kinesio Taping International Research Simposio, consolidando una formación continua orientada a la rehabilitación integral y el rendimiento físico.\n\nCuenta con amplia experiencia en el área clínica y deportiva, desempeñando funciones de liderazgo como encargado del Departamento de Terapia Física en el Centro Nacional de Investigación de Ciencias Aplicadas al Deporte (CNICAD), del Ministerio de Deportes. Ha trabajado como fisioterapeuta en el Proyecto de Selecciones Nacionales de Voleibol (Reinas del Caribe), en la Selección Nacional de Pentatlón Moderno y en la Selección Nacional de Esgrima.\n\nAdemás, ha ejercido como maestro instructor deportivo en la Universidad Católica Santo Domingo, jefe de equipo de terapia física deportiva en Mirador VC y terapeuta en eventos internacionales, participando también como expositor en talleres especializados en salud y rendimiento deportivo.\n\nRedes sociales: @edgararias168, @fisiodep_rd\nEmail: edgar1967arias@gmail.com",
+        "imagen": "./images/edgard_ricardo.jpeg",
+        "galeria": []
+      },
+      {
+        "id": "uy",
+        "nombre": "Uruguay",
+        "latitud": -32.522779,
+        "longitud": -55.765835,
+        "representante": "María Noel",
+        "cargo": "Delegada Nacional",
+        "contacto": "noel.fisio@yahoo.com",
+        "descripcion": "",
+        "imagen": "",
+        "galeria": []
+      },
+      {
+        "id": "ve",
+        "nombre": "Venezuela",
+        "latitud": 6.42375,
+        "longitud": -66.58973,
+        "representante": "Paola Guevara",
+        "cargo": "Delegada Nacional",
+        "contacto": "Paoguevaram89@gmail.com",
+        "descripcion": "",
+        "imagen": "./images/Paola_Guevara.jpeg",
+        "galeria": []
+      }
+    ]
+  },
+  "actividades": {
+    "titulo": "Actividades y Eventos",
+    "descripcion": "Mantente al tanto de nuestros próximos congresos, talleres y seminarios.",
+    "items": []
+  },
+  "formacion": {
+    "titulo": "Área de Gestión: Información y Objetivos",
+    "descripcion": "Nuestros ejes de trabajo estratégico y sus metas",
+    "ejes": [
+      {
+        "id": "eje1",
+        "titulo": "Investigación Científica y Desarrollo",
+        "descripcion": "Equipo de investigación, evaluación y publicación de trabajos."
+      },
+      {
+        "id": "eje2",
+        "titulo": "Académico y de Formación",
+        "descripcion": "Crear el equipo docente y desarrollar programas de capacitación por niveles (Los programas de capacitación están a cargo de Kesia Madeiros Silva)."
+      },
+      {
+        "id": "eje3",
+        "titulo": "Comunicación, Medios y Plataforma Web",
+        "descripcion": "Desarrollo de medios de difusión y gestión de la página web."
+      }
+    ]
+  },
+  "investigacion": {
+    "titulo": "Área de Investigación",
+    "descripcion": "Descarga de documentos oficiales y publicaciones científicas.",
+    "estatutos_pdf": "./docs_proyecto/ESTATUTOS_UFAAL_Formato_Institucional_Editable.pdf",
+    "articulos": []
+  },
+  "galeria": {
+    "id": 1775708519261,
+    "url": "/uploads/files-1775708519219-989044916.png",
+    "titulo": "Prueba de Integración Automática QA",
+    "descripcion": "Validación de flujo de datos e imágenes desde el dashboard hasta el front-end.",
+    "categoria": "test"
+  },
+  "noticias": {
+    "titulo": "Últimas Noticias",
+    "descripcion": "Mantente informado sobre las novedades de la Fisioterapia Acuática en la región",
+    "articulos": []
+  },
+  "afiliacion": {
+    "titulo": "Alianzas Estratégicas",
+    "descripcion": "Consolidamos un ecosistema de excelencia regional. Actualmente gestionamos nuestra expansión a través de vínculos directos con líderes e instituciones del sector.",
+    "mensaje_expansion": "Estamos optimizando nuestros procesos institucionales para ofrecer una plataforma de membresía de estándar global. Buscamos organizaciones pioneras que deseen liderar la integración de la fisiatría y la acupuntura en Latinoamérica.",
+    "beneficios": [
+      "Reconocimiento Regional",
+      "Networking B2B",
+      "Propuesta de Valor",
+      "Optimización Clínica"
+    ],
+    "email_contacto": "ufaal2020@gmail.com"
+  },
+  "contacto": {
+    "titulo": "Contacto Directo",
+    "descripcion": "Estamos a su disposición para consultas institucionales.",
+    "email": "ufaal2020@gmail.com",
+    "telefono": "+1 (809) 303-9190",
+    "redes_sociales": {
+      "facebook": "#",
+      "instagram": "https://www.instagram.com/Ufaal.Latam",
+      "linkedin": "#"
+    }
+  },
+  "colaboradores": {
+    "titulo": "Nuestros Aliados y Colaboradores",
+    "logos": [
+      {
+        "nombre": "IOAPT",
+        "url": "./images/ioapt.png"
+      },
+      {
+        "nombre": "UFAAL",
+        "url": "./images/logo_sin_fondo.png"
+      },
+      {
+        "nombre": "World Physiotherapy",
+        "url": "./images/logo.svg"
+      }
+    ]
+  },
+  "footer": {
+    "descripcion": "La mayor red de profesionales de Fisioterapia Acuática en Latinoamérica. Comprometidos con el desarrollo académico y la excelencia terapéutica.",
+    "enlaces_rapidos": [
+      {
+        "titulo": "Quiénes Somos",
+        "url": "#/quienes-somos"
+      },
+      {
+        "titulo": "Historia",
+        "url": "#/historia"
+      },
+      {
+        "titulo": "Organización",
+        "url": "#/organizacion"
+      },
+      {
+        "titulo": "Países Miembros",
+        "url": "#/paises"
+      },
+      {
+        "titulo": "Formación",
+        "url": "#/formacion"
+      },
+      {
+        "titulo": "Investigación",
+        "url": "#/investigacion"
+      },
+      {
+        "titulo": "Sede Virtual",
+        "url": "#/sede-virtual"
+      }
+    ],
+    "recursos": [
+      {
+        "titulo": "Políticas de Privacidad",
+        "url": "#/privacidad"
+      },
+      {
+        "titulo": "Términos y Condiciones",
+        "url": "#/terminos"
+      },
+      {
+        "titulo": "Preguntas Frecuentes (FAQ)",
+        "url": "#/faq"
+      },
+      {
+        "titulo": "Soporte / Contacto",
+        "url": "#/contacto"
+      }
+    ],
+    "copyright_text": "Unión de Fisioterapia Acuática de América Latina (UFAAL). Todos los derechos reservados."
+  }
+}

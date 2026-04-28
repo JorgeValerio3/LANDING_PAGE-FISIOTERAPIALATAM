@@ -3,7 +3,71 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-ufaal-gray text-ufaal-text font-sans antialiased;
+  html, body {
+    @apply bg-ufaal-gray text-ufaal-text font-sans antialiased overflow-x-hidden w-full;
+    position: relative;
   }
+}
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .hero-bg-image {
+      object-position: 90% center !important;
+    }
+    .nav-container.bg-transparent {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+  }
+}
+
+/* ── Admin sidebar scrollbar ── */
+.admin-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+.admin-sidebar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.30);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.admin-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+.admin-sidebar::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Admin main content scrollbar ── */
+.admin-main-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.admin-main-scroll::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+.admin-main-scroll::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+}
+.admin-main-scroll::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+.admin-main-scroll::-webkit-scrollbar-thumb:active {
+  background: #475569;
+}
+
+/* ── Sidebar hover utility (Tailwind doesn't cover bg-white/8) ── */
+.hover\:bg-white\/8:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Modal text wrap — prevents long words/URLs from breaking layout ── */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Loader2, FileText } from 'lucide-react';
+import { SERVER_URL } from '../../api';
 
 interface FileUploadProps {
     currentFile: string;
@@ -20,13 +21,10 @@ export function FileUpload({ currentFile, onUploadSuccess, label = "Seleccionar 
         formData.append('files', file);
 
         try {
-            const token = localStorage.getItem('admin_token');
-            const res = await fetch('http://localhost:5000/api/admin/upload', {
+            const res = await fetch(`${SERVER_URL}/api/admin/upload`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
+                credentials: 'include',
+                body: formData,
             });
             const data = await res.json();
             if (res.ok && data.urls && data.urls.length > 0) {

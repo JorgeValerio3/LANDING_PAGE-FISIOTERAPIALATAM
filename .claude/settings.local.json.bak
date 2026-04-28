@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const db = require\\('./server/data/db.json'\\); console.log\\(JSON.stringify\\(db.contacto, null, 2\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const bcrypt=require\\('bcrypt'\\); bcrypt.hash\\('Edgar78',12\\).then\\(h=>console.log\\(h\\)\\)\")",
+      "Bash(node *)",
+      "Bash(git check-ignore *)",
+      "Bash(npm run *)",
+      "Bash(git rm *)",
+      "Bash(grep -E \"\\(^|/\\)api\\\\.\\(ts|tsx\\)$\")",
+      "Bash(xargs grep *)",
+      "Bash(xargs ls *)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(xargs wc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(mv server/.env.example server/.env.example.bak)",
+      "Bash(mv server/.env.example.bak server/.env.example)",
+      "Bash(mkdir -p ../tmp_backup)",
+      "Bash(mv .claude ../tmp_backup/)",
+      "Bash(mv server/.env.example ../tmp_backup/)",
+      "Bash(git rebase *)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(git commit *)",
+      "Bash(mv ../tmp_backup/.claude .)",
+      "Bash(mv ../tmp_backup/server/.env.example server/)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)"
+    ]
+  }
+}

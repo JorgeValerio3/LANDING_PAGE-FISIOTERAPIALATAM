@@ -1,0 +1,49 @@
+services:
+  # Servicio para el Backend (API)
+  - type: web
+    name: ufaal-api
+    runtime: node
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && node dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: MONGODB_COLLECTION
+        value: app_data
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_USER
+        value: admin_ufaal
+      - key: ADMIN_PASS
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://ufaal.org
+      - key: CORS_ORIGIN_2
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+  # Servicio para el Frontend (React + Vite)
+  - type: web
+    name: ufaal-client
+    runtime: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://ufaal-api.onrender.com/api
+    routingRules:
+      - route: /*
+        destination: /index.html
