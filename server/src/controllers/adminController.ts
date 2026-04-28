@@ -39,78 +39,79 @@ function getKeyTextField(section: string, data: any): string | null {
     return null;
 }
 
-// Propaga imágenes de países (imagen perfil + galería) de ES → otros langs sin sobreescribir texto traducido
-async function syncPaisesToAllLangs(esPaisesData: any): Promise<void> {
-    const esPaises: any[] = esPaisesData.paises_lista || [];
+// Propaga datos no traducibles (imágenes, IDs, coordenadas) a todos los idiomas
+async function syncMediaAcrossLangs(sectionKey: string, sourceData: any, sourceLang: string): Promise<void> {
     for (const lang of SUPPORTED_LANGS) {
-        if (lang === 'es') continue;
+        if (lang === sourceLang) continue;
         try {
             const { data: langData, source } = await readData(lang);
+            // Si el idioma no tiene datos en DB, no sincronizamos para evitar crear documentos incompletos
             if (source !== 'db_exact') continue;
 
-            const langPaises: any[] = langData.paises?.paises_lista || [];
-            const langPaisesMap = new Map(langPaises.map((p: any) => [p.id, p]));
+            const targetSection = langData[sectionKey];
+            if (!targetSection) {
+                // Si la sección no existe en el destino, la copiamos íntegra (útil para nuevos idiomas)
+                const updatedData = { ...langData, [sectionKey]: sourceData };
+                await writeData(updatedData, lang);
+                continue;
+            }
 
-            const mergedPaises = esPaises.map((esPais: any) => {
-                const existing = langPaisesMap.get(esPais.id);
-                if (existing) {
-                    return {
-                        ...existing,
-                        latitud: esPais.latitud,
-                        longitud: esPais.longitud,
-                        imagen: esPais.imagen,
-                        galeria: esPais.galeria,
-                    };
+            // Función recursiva para mezclar datos preservando textos traducidos
+            const mergeMedia = (src: any, tgt: any): any => {
+                if (Array.isArray(src)) {
+                    if (!Array.isArray(tgt)) return src;
+                    
+                    // Estrategia para listas: sincronizar por 'id' o 'iso'
+                    const srcMap = new Map();
+                    src.forEach((item, idx) => {
+                        const id = item.id || item.iso || `idx_${idx}`;
+                        srcMap.set(id, item);
+                    });
+
+                    const tgtMap = new Map();
+                    tgt.forEach((item, idx) => {
+                        const id = item.id || item.iso || `idx_${idx}`;
+                        tgtMap.set(id, item);
+                    });
+
+                    // Construimos la lista final basada en el orden del origen
+                    return src.map((srcItem, idx) => {
+                        const id = srcItem.id || srcItem.iso || `idx_${idx}`;
+                        const tgtItem = tgtMap.get(id);
+                        if (!tgtItem) return srcItem; // Elemento nuevo
+                        return mergeMedia(srcItem, tgtItem);
+                    });
                 }
-                return { ...esPais };
-            });
 
-            const updatedData = {
-                ...langData,
-                paises: { ...(langData.paises || {}), paises_lista: mergedPaises }
-            };
-            await writeData(updatedData, lang);
-            console.log(`QA Admin [syncPaises]: Países sincronizados → ${lang}`);
-        } catch (err) {
-            console.error(`QA Error [syncPaisesToAllLangs] lang=${lang}:`, err);
-        }
-    }
-}
-
-// Propaga URLs de imágenes de galería ES → otros langs sin sobreescribir traducciones existentes
-async function syncGaleriaToAllLangs(esGaleriaData: any): Promise<void> {
-    const esImages: any[] = esGaleriaData.imagenes || [];
-    for (const lang of SUPPORTED_LANGS) {
-        if (lang === 'es') continue;
-        try {
-            const { data: langData, source } = await readData(lang);
-            if (source !== 'db_exact') continue; // Solo sincroniza langs que ya existen
-
-            const langImages: any[] = langData.galeria?.imagenes || [];
-            const langImageMap = new Map(langImages.map((img: any) => [img.id, img]));
-
-            const mergedImages = esImages.map((esImg: any) => {
-                const existing = langImageMap.get(esImg.id);
-                if (existing) {
-                    // Preserva traducciones del idioma pero actualiza url y categoria desde ES
-                    return {
-                        ...esImg,
-                        titulo: existing.titulo || esImg.titulo,
-                        descripcion: existing.descripcion || esImg.descripcion,
-                        alt: existing.alt || esImg.alt,
-                    };
+                if (src && typeof src === 'object') {
+                    if (!tgt || typeof tgt !== 'object') return src;
+                    const result = { ...tgt };
+                    
+                    for (const key in src) {
+                        // Campos de texto que NO sincronizamos (estos se traducen)
+                        const textFields = ['titulo', 'descripcion', 'nombre', 'subtitulo', 'contenido', 'extracto', 'cargo', 'role', 'representante', 'etiqueta', 'cta_primario', 'cta_secundario', 'texto'];
+                        
+                        if (textFields.includes(key)) {
+                            // Preservamos el texto que ya tiene el destino, o usamos el del origen si es nuevo
+                            result[key] = tgt[key] !== undefined ? tgt[key] : src[key];
+                        } else {
+                            // Sincronizamos recursivamente (imágenes, coordenadas, flags, IDs, etc)
+                            result[key] = mergeMedia(src[key], tgt[key]);
+                        }
+                    }
+                    return result;
                 }
-                return { ...esImg };
-            });
 
-            const updatedData = {
-                ...langData,
-                galeria: { ...(langData.galeria || {}), imagenes: mergedImages }
+                return src; // Valores primitivos (URLs, números, etc) se sincronizan siempre
             };
+
+            const mergedSection = mergeMedia(sourceData, targetSection);
+            const updatedData = { ...langData, [sectionKey]: mergedSection };
+            
             await writeData(updatedData, lang);
-            console.log(`QA Admin [syncGaleria]: Galería sincronizada → ${lang} (${mergedImages.length} fotos)`);
+            console.log(`QA Admin [Sync]: Sección '${sectionKey}' sincronizada globalmente (${sourceLang} -> ${lang})`);
         } catch (err) {
-            console.error(`QA Error [syncGaleriaToAllLangs] lang=${lang}:`, err);
+            console.error(`QA Error [syncMediaAcrossLangs] section=${sectionKey} lang=${lang}:`, err);
         }
     }
 }
@@ -216,18 +217,11 @@ export const updateAdminContentSection = async (req: Request, res: Response): Pr
         const success = await writeData(updatedData, lang);
         
         if (success) {
-            if (lang === 'es') {
-                if (sectionKey === 'galeria') {
-                    syncGaleriaToAllLangs(sectionData).catch(err =>
-                        console.error('QA Error [syncGaleria background]:', err)
-                    );
-                }
-                if (sectionKey === 'paises') {
-                    syncPaisesToAllLangs(sectionData).catch(err =>
-                        console.error('QA Error [syncPaises background]:', err)
-                    );
-                }
-            }
+            // Sincronización global de multimedia para CUALQUIER idioma que se guarde
+            syncMediaAcrossLangs(sectionKey, sectionData, lang).catch(err =>
+                console.error(`QA Error [syncMedia background] section=${sectionKey}:`, err)
+            );
+
             res.status(200).json({
                 message: `Sección '${sectionKey}' actualizada correctamente (${lang})`,
                 section: sectionData

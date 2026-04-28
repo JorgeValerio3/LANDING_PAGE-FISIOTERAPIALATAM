@@ -9,7 +9,21 @@
       "Bash(npm run *)",
       "Bash(git rm *)",
       "Bash(grep -E \"\\(^|/\\)api\\\\.\\(ts|tsx\\)$\")",
-      "Bash(xargs grep *)"
+      "Bash(xargs grep *)",
+      "Bash(xargs ls *)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(xargs wc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(mv server/.env.example server/.env.example.bak)",
+      "Bash(mv server/.env.example.bak server/.env.example)",
+      "Bash(mkdir -p ../tmp_backup)",
+      "Bash(mv .claude ../tmp_backup/)",
+      "Bash(mv server/.env.example ../tmp_backup/)"
     ]
   }
 }

@@ -28,10 +28,21 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
         handleChange('secciones', newSections);
     };
 
+    const addSection = () => {
+        const id = Date.now();
+        handleChange('secciones', [...secciones, { id, title: "", members: [] }]);
+    };
+
+    const removeSection = (index: number) => {
+        const newSections = [...secciones];
+        newSections.splice(index, 1);
+        handleChange('secciones', newSections);
+    };
+
     const addMember = (sectionIndex: number) => {
         const newSections = [...secciones];
         const members = [...(newSections[sectionIndex].members || [])];
-        members.push({ name: "", role: "", country: "" });
+        members.push({ id: Date.now(), name: "", role: "", country: "" });
         newSections[sectionIndex] = { ...newSections[sectionIndex], members };
         handleChange('secciones', newSections);
     };
@@ -79,11 +90,27 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
             </div>
 
             <div className="border-t border-gray-100 pt-8">
-                <h3 className="text-lg font-bold text-ufaal-text mb-6">Bloques Organizativos</h3>
+                <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-lg font-bold text-ufaal-text">Bloques Organizativos</h3>
+                    <button 
+                        onClick={addSection}
+                        className="flex items-center gap-2 bg-ufaal-blue/10 text-ufaal-blue px-4 py-2 rounded-lg font-medium hover:bg-ufaal-blue/20 transition-colors"
+                    >
+                        <Plus className="w-4 h-4" /> Agregar Bloque
+                    </button>
+                </div>
 
                 <div className="space-y-8">
                     {secciones.map((section: any, sectionIdx: number) => (
-                        <div key={sectionIdx} className="bg-white border rounded-xl p-6 shadow-sm">
+                        <div key={section.id || sectionIdx} className="bg-white border rounded-xl p-6 shadow-sm relative">
+                            <button 
+                                onClick={() => removeSection(sectionIdx)}
+                                className="absolute top-4 right-4 text-red-500 hover:bg-red-50 p-2 rounded-lg"
+                                title="Eliminar bloque"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+
                             <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Nombre del Bloque</label>
                             <input
                                 type="text"
@@ -94,7 +121,7 @@ export function OrganizacionForm({ data, onChange }: OrganizacionFormProps) {
 
                             <div className="space-y-4">
                                 {(section.members || []).map((member: any, memberIdx: number) => (
-                                    <div key={memberIdx} className="flex flex-col sm:flex-row gap-3 items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                    <div key={member.id || memberIdx} className="flex flex-col sm:flex-row gap-3 items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
                                         <input
                                             type="text"
                                             placeholder="Nombre"

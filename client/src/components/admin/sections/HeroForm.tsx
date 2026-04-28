@@ -1,3 +1,5 @@
+import { ImageUpload } from '../ImageUpload';
+
 interface HeroFormProps {
     data: any;
     onChange: (data: any) => void;
@@ -49,17 +51,26 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Primario</label>
-                    <input type="text" value={data.cta_primario || ''} onChange={(e) => handleChange('cta_primario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                <div className="space-y-6">
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Primario</label>
+                        <input type="text" value={data.cta_primario || ''} onChange={(e) => handleChange('cta_primario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Secundario</label>
+                        <input type="text" value={data.cta_secundario || ''} onChange={(e) => handleChange('cta_secundario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">ID del Video YouTube (Ej: 8zR4z8C5XjU)</label>
+                        <input type="text" value={data.video_id || ''} onChange={(e) => handleChange('video_id', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    </div>
                 </div>
                 <div>
-                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">Texto Botón Secundario</label>
-                    <input type="text" value={data.cta_secundario || ''} onChange={(e) => handleChange('cta_secundario', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
-                </div>
-                <div>
-                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase">ID del Video YouTube (Ej: 8zR4z8C5XjU)</label>
-                    <input type="text" value={data.video_id || ''} onChange={(e) => handleChange('video_id', e.target.value)} className="w-full border border-gray-200 rounded-lg p-3 bg-gray-50 outline-none" />
+                    <ImageUpload
+                        label="Imagen Hero / Banner"
+                        currentImage={data.imagen}
+                        onUploadSuccess={(url) => handleChange('imagen', url)}
+                    />
                 </div>
             </div>
 
@@ -67,7 +78,7 @@ export function HeroForm({ data, onChange }: HeroFormProps) {
                 <h3 className="text-sm font-bold text-gray-700 mb-4">Estadísticas Principales</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {(data.estadisticas || []).map((stat: any, idx: number) => (
-                        <div key={idx} className="bg-gray-50 p-4 border border-gray-100 rounded-lg">
+                        <div key={stat.id || idx} className="bg-gray-50 p-4 border border-gray-100 rounded-lg">
                             <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Valor</label>
                             <input type="text" value={stat.valor || ''} onChange={(e) => handleStatChange(idx, 'valor', e.target.value)} className="w-full mb-3 border border-gray-200 rounded p-2 text-sm" />
                             

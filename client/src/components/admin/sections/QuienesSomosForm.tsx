@@ -30,7 +30,8 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
     };
 
     const addValorItem = () => {
-        const newItems = [...(data.valores?.items || []), { titulo: '', descripcion: '', icono: 'Heart' }];
+        const id = Date.now();
+        const newItems = [...(data.valores?.items || []), { id, titulo: '', descripcion: '', icono: 'Heart' }];
         handleValoresChange('items', newItems);
     };
 
@@ -137,7 +138,7 @@ export function QuienesSomosForm({ data, onChange }: QuienesSomosFormProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {(data.valores?.items || []).map((item: any, index: number) => (
-                        <div key={index} className="p-5 bg-white rounded-xl border border-gray-100 shadow-sm relative group">
+                        <div key={item.id || index} className="p-5 bg-white rounded-xl border border-gray-100 shadow-sm relative group">
                             <button
                                 onClick={() => removeValorItem(index)}
                                 className="absolute top-2 right-2 p-1.5 text-red-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all opacity-0 group-hover:opacity-100"
