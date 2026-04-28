@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SERVER_URL } from '../../api';
+import { SERVER_URL, getAdminToken } from '../../api';
 import { getUploadUrl } from '../../services/api';
 import { Loader2, Upload } from 'lucide-react';
 
@@ -31,18 +31,30 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
         formData.append('files', file); 
 
         try {
+            const token = getAdminToken();
+            const headers: HeadersInit = {};
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
             const res = await fetch(`${SERVER_URL}/api/admin/upload`, {
                 method: 'POST',
                 credentials: 'include',
+                headers,
                 body: formData,
             });
-            const data = await res.json();
+            let data: any;
+            try {
+                data = await res.json();
+            } catch {
+                alert(`Error del servidor (${res.status}): respuesta inesperada`);
+                setPreview(currentImage);
+                return;
+            }
             if (res.ok && data.urls && data.urls.length > 0) {
                 onUploadSuccess(data.urls[0]);
                 setPreview(data.urls[0]);
             } else {
-                alert('Error subiendo imagen: ' + (data.error || 'Desconocido'));
-                setPreview(currentImage); // revert
+                alert('Error subiendo imagen: ' + (data.error || `HTTP ${res.status}`));
+                setPreview(currentImage);
             }
         } catch (err) {
             console.error(err);
