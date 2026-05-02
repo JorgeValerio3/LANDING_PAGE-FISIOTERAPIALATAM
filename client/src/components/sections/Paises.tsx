@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Mail, ImageIcon, X } from 'lucide-react';
+import { Mail, ImageIcon, X, Play, Film } from 'lucide-react';
 import { getUploadUrl } from '../../services/api';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -22,7 +22,7 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
     const rawPaises = _data?.paises_lista;
     const paisesLista = useMemo(() => rawPaises || [], [rawPaises]);
     const [selectedCountry, setSelectedCountry] = useState<PaisData | null>(null);
-    const [fullscreenImg, setFullscreenImg] = useState<string | null>(null);
+    const [fullscreenMedia, setFullscreenMedia] = useState<string | null>(null);
 
     useEffect(() => {
         if (paisesLista.length > 0 && !selectedCountry) {
@@ -32,15 +32,20 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
 
     // Prevenir scroll cuando el modal está abierto
     useEffect(() => {
-        if (fullscreenImg) {
+        if (fullscreenMedia) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'unset';
         }
         return () => { document.body.style.overflow = 'unset'; };
-    }, [fullscreenImg]);
+    }, [fullscreenMedia]);
 
     if (!_data || paisesLista.length === 0 || !selectedCountry) return null;
+
+    const isVideo = (url: string) => {
+        if (!url) return false;
+        return url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) || url.includes('/video/upload/');
+    };
 
     return (
         <section id="paises" className="py-24 bg-white">
@@ -56,7 +61,7 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
                     </FadeIn>
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-12">
+                <div className="flex flex-col lg:flex-row gap-12 mb-16">
 
                     {/* Mapa Interactivo */}
                     <div className="w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-[500px] z-10">
@@ -136,13 +141,30 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
                                     <div className="flex flex-col md:flex-row gap-6 mb-8 items-start">
                                         <div className="relative shrink-0">
                                             {selectedCountry.imagen ? (
-                                                <img
-                                                    src={getUploadUrl(selectedCountry.imagen || '')}
-                                                    alt={selectedCountry.representante}
-                                                    className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white cursor-zoom-in hover:scale-105 transition-transform"
-                                                    loading="lazy"
-                                                    onClick={() => setFullscreenImg(getUploadUrl(selectedCountry.imagen || ''))}
-                                                />
+                                                <div className="relative cursor-zoom-in group/main" onClick={() => setFullscreenMedia(getUploadUrl(selectedCountry.imagen || ''))}>
+                                                    {isVideo(selectedCountry.imagen) ? (
+                                                        <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl border-4 border-white shadow-md relative z-10 bg-black overflow-hidden">
+                                                            <video 
+                                                                src={getUploadUrl(selectedCountry.imagen)} 
+                                                                className="w-full h-full object-cover"
+                                                                muted
+                                                                playsInline
+                                                                onMouseOver={e => e.currentTarget.play()}
+                                                                onMouseOut={e => e.currentTarget.pause()}
+                                                            />
+                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                                                                <Play className="w-8 h-8 text-white opacity-80" />
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <img
+                                                            src={getUploadUrl(selectedCountry.imagen || '')}
+                                                            alt={selectedCountry.representante}
+                                                            className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border-4 border-white shadow-md relative z-10 bg-white hover:scale-105 transition-transform"
+                                                            loading="lazy"
+                                                        />
+                                                    )}
+                                                </div>
                                             ) : (
                                                 <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl bg-gradient-to-br from-ufaal-blue to-ufaal-blue-light border-4 border-white shadow-md relative z-10 flex items-center justify-center text-white text-3xl font-bold uppercase tracking-widest">
                                                     {(selectedCountry.representante || '??')
@@ -183,52 +205,30 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
                                         </div>
                                     </div>
 
-                                    {/* Gallery of dynamic activities (Max 5) */}
-                                    <div className="mb-4">
-                                        <h5 className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">{t('paises.actividades_en')} {t(`paises_nombres.${selectedCountry.id}`) || selectedCountry.nombre}</h5>
-                                        <div className="grid grid-cols-5 gap-2">
-                                            {selectedCountry.galeria && selectedCountry.galeria.filter(Boolean).length > 0 ? (
-                                                selectedCountry.galeria.filter(Boolean).slice(0, 5).map((img: string, i: number) => (
+                                    {/* Switcher para móvil - Lista rápida de botones */}
+                                    <div className="mt-8 pt-6 border-t border-gray-200">
+                                        <p className="text-xs text-center text-gray-500 mb-4 font-medium uppercase tracking-widest">{t('paises.selecciona_pais')}</p>
+                                        <div className="flex flex-wrap gap-2 justify-center">
+                                            {paisesLista.map((c: PaisData) => (
+                                                <button
+                                                    key={c.id}
+                                                    onClick={() => setSelectedCountry(c)}
+                                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2
+                              ${selectedCountry.id === c.id
+                                                            ? 'bg-ufaal-blue text-white shadow-md'
+                                                            : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
+                                                >
                                                     <img
-                                                        key={i}
-                                                        src={getUploadUrl(img)}
-                                                        className="w-full h-16 md:h-20 object-cover rounded-lg shadow-sm hover:scale-105 transition-transform bg-gray-100 cursor-zoom-in"
-                                                        alt={`Actividad ${i + 1}`}
-                                                        onClick={() => setFullscreenImg(getUploadUrl(img))}
+                                                        src={`https://flagcdn.com/w40/${c.id}.png`}
+                                                        className="w-5 h-3.5 object-cover rounded-[1px] shadow-sm"
+                                                        alt=""
                                                     />
-                                                ))
-                                            ) : (
-                                                <div className="col-span-5 py-8 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center bg-gray-50/50">
-                                                    <ImageIcon className="w-6 h-6 text-gray-300 mb-2" />
-                                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{t('paises.sin_actividades')}</p>
-                                                </div>
-                                            )}
+                                                    {t(`paises_nombres.${c.id}`) || c.nombre}
+                                                </button>
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
 
-                                {/* Switcher para móvil - Lista rápida de botones */}
-                                <div className="mt-8 pt-6 border-t border-gray-200">
-                                    <p className="text-xs text-center text-gray-500 mb-4 font-medium uppercase tracking-widest">{t('paises.selecciona_pais')}</p>
-                                    <div className="flex flex-wrap gap-2 justify-center">
-                                        {paisesLista.map((c: PaisData) => (
-                                            <button
-                                                key={c.id}
-                                                onClick={() => setSelectedCountry(c)}
-                                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2
-                          ${selectedCountry.id === c.id
-                                                        ? 'bg-ufaal-blue text-white shadow-md'
-                                                        : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
-                                            >
-                                                <img
-                                                    src={`https://flagcdn.com/w40/${c.id}.png`}
-                                                    className="w-5 h-3.5 object-cover rounded-[1px] shadow-sm"
-                                                    alt=""
-                                                />
-                                                {t(`paises_nombres.${c.id}`) || c.nombre}
-                                            </button>
-                                        ))}
-                                    </div>
                                 </div>
 
                             </div>
@@ -236,30 +236,110 @@ export function Paises({ data: _data }: { data?: PaisesData }) {
                     </div>
 
                 </div>
+
+                {/* Galería de Actividades (Debajo del mapa) */}
+                <FadeIn delay={0.6} direction="up">
+                    <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-sm">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                            <div>
+                                <h3 className="text-2xl font-bold text-ufaal-blue mb-1">
+                                    {t('paises.actividades_en')} {t(`paises_nombres.${selectedCountry.id}`) || selectedCountry.nombre}
+                                </h3>
+                                <p className="text-sm text-gray-500">{t('paises.galeria_descripcion') || 'Explora los eventos y actividades destacadas de este país.'}</p>
+                            </div>
+                            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">
+                                <Film className="w-4 h-4 text-ufaal-blue-light" />
+                                <span className="text-xs font-bold text-ufaal-text uppercase tracking-wider">{t('paises.fotos_y_videos') || 'Fotos y Videos'}</span>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                            {selectedCountry.galeria && selectedCountry.galeria.filter(Boolean).length > 0 ? (
+                                selectedCountry.galeria.filter(Boolean).slice(0, 5).map((media: string, i: number) => (
+                                    <div 
+                                        key={i} 
+                                        className="relative aspect-square rounded-2xl overflow-hidden shadow-md group cursor-zoom-in bg-white border-4 border-white"
+                                        onClick={() => setFullscreenMedia(getUploadUrl(media))}
+                                    >
+                                        {isVideo(media) ? (
+                                            <>
+                                                <video 
+                                                    src={getUploadUrl(media)} 
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                    muted
+                                                    playsInline
+                                                    onMouseOver={e => e.currentTarget.play()}
+                                                    onMouseOut={e => {
+                                                        e.currentTarget.pause();
+                                                        e.currentTarget.currentTime = 0;
+                                                    }}
+                                                />
+                                                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                                                    <Play className="w-10 h-10 text-white drop-shadow-lg opacity-80" />
+                                                </div>
+                                                <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm p-1.5 rounded-lg">
+                                                    <Film className="w-3.5 h-3.5 text-white" />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <img
+                                                src={getUploadUrl(media)}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                alt={`Actividad ${i + 1}`}
+                                                loading="lazy"
+                                            />
+                                        )}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                            <p className="text-white text-[10px] font-bold uppercase tracking-widest">{t('paises.ver_mas') || 'Ver detalle'}</p>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="col-span-full py-16 border-2 border-dashed border-gray-200 rounded-3xl flex flex-col items-center justify-center bg-white">
+                                    <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                                        <ImageIcon className="w-8 h-8 text-gray-300" />
+                                    </div>
+                                    <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">{t('paises.sin_actividades')}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </FadeIn>
             </div>
 
             {/* Lightbox Modal */}
-            {fullscreenImg && (
+            {fullscreenMedia && (
                 <div 
                     className="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-300"
-                    onClick={() => setFullscreenImg(null)}
+                    onClick={() => setFullscreenMedia(null)}
                 >
                     <button 
                         className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors bg-white/10 p-3 rounded-full hover:bg-white/20 z-[10000]"
                         onClick={(e) => {
                             e.stopPropagation();
-                            setFullscreenImg(null);
+                            setFullscreenMedia(null);
                         }}
                     >
                         <X className="w-8 h-8" />
                     </button>
                     
-                    <img 
-                        src={fullscreenImg} 
-                        alt="Zoom" 
-                        className="max-w-full max-h-full object-contain rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 ring-4 ring-white/10"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    <div className="relative max-w-5xl w-full max-h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                        {isVideo(fullscreenMedia) ? (
+                            <video 
+                                src={fullscreenMedia} 
+                                className="max-w-full max-h-[85vh] rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 ring-4 ring-white/10"
+                                controls
+                                autoPlay
+                                playsInline
+                            />
+                        ) : (
+                            <img 
+                                src={fullscreenMedia} 
+                                alt="Zoom" 
+                                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 ring-4 ring-white/10"
+                            />
+                        )}
+                    </div>
                 </div>
             )}
         </section>

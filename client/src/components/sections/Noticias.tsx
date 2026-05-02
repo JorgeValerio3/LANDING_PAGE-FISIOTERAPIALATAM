@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon, User, FileText, Download, Paperclip, BookOpen } from 'lucide-react';
+import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon, User, FileText, Download, Paperclip, BookOpen, Play, Film } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../../contexts/I18nContext';
 import { NoticiasData, Articulo, ArchivoAdjunto } from '../../types';
-import { getUploadUrl } from '../../services/api';
+import { getUploadUrl, isVideo } from '../../services/api';
 
 export interface NewsItem {
     id: string | number;
@@ -95,8 +95,27 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                 onClick={() => setSelectedNews(item)}
                                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group h-full flex flex-col cursor-pointer"
                             >
-                                <div className="relative h-48 overflow-hidden">
-                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                <div className="relative h-48 overflow-hidden bg-black">
+                                    {isVideo(item.image) ? (
+                                        <div className="relative w-full h-full">
+                                            <video 
+                                                src={item.image} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                                                muted
+                                                playsInline
+                                                onMouseOver={e => e.currentTarget.play()}
+                                                onMouseOut={e => e.currentTarget.pause()}
+                                            />
+                                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <Play className="w-10 h-10 text-white/50 group-hover:text-white/80 transition-colors" />
+                                            </div>
+                                            <div className="absolute top-4 right-4 bg-black/50 p-1.5 rounded-lg z-20">
+                                                <Film className="w-4 h-4 text-white" />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                    )}
                                     <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-sm text-ufaal-blue font-bold px-3 py-1.5 rounded-md text-xs shadow-sm flex items-center gap-1.5">
                                         {item.typeIcon}
                                         {item.type}
@@ -176,15 +195,25 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                 <X className="w-5 h-5" />
                             </button>
 
-                            {/* Hero image */}
-                            <div className="relative h-48 sm:h-64 md:h-80 shrink-0">
-                                <img
-                                    src={selectedNews.image}
-                                    alt={selectedNews.title}
-                                    className="w-full h-full object-cover"
-                                    loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-8 md:p-10">
+                            {/* Hero image / video */}
+                            <div className="relative h-48 sm:h-64 md:h-80 shrink-0 bg-black">
+                                {isVideo(selectedNews.image) ? (
+                                    <video 
+                                        src={selectedNews.image} 
+                                        className="w-full h-full object-cover"
+                                        controls
+                                        autoPlay
+                                        playsInline
+                                    />
+                                ) : (
+                                    <img
+                                        src={selectedNews.image}
+                                        alt={selectedNews.title}
+                                        className="w-full h-full object-cover"
+                                        loading="lazy"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-8 md:p-10 pointer-events-none">
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
                                         <span className="bg-ufaal-blue text-white font-bold px-2.5 py-1 rounded-lg text-[10px] sm:text-xs shadow flex items-center gap-1.5 whitespace-nowrap">
                                             {selectedNews.typeIcon}
@@ -343,8 +372,24 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
                                             setSelectedNews(item);
                                         }}
                                     >
-                                        <div className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative h-40 sm:h-48 md:h-auto">
-                                            <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                        <div className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative h-40 sm:h-48 md:h-auto bg-black">
+                                            {isVideo(item.image) ? (
+                                                <div className="relative w-full h-full">
+                                                    <video 
+                                                        src={item.image} 
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                                                        muted
+                                                        playsInline
+                                                        onMouseOver={e => e.currentTarget.play()}
+                                                        onMouseOut={e => e.currentTarget.pause()}
+                                                    />
+                                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                        <Play className="w-8 h-8 text-white/50 group-hover:text-white/80 transition-colors" />
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                                            )}
                                             <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-sm text-ufaal-blue font-bold px-2 py-1 rounded-md text-[10px] shadow-sm flex items-center gap-1">
                                                 {item.typeIcon}
                                                 {item.type}

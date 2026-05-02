@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { Activity, MapPin, Users, Calendar, X, LinkIcon, Paperclip, FileText, Download, ChevronRight } from 'lucide-react';
+import { Activity, MapPin, Users, Calendar, X, LinkIcon, Paperclip, FileText, Download, ChevronRight, Play } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../../contexts/I18nContext';
-import { getUploadUrl } from '../../services/api';
+import { getUploadUrl, isVideo } from '../../services/api';
 import { ActividadesData, ActividadItem, ArchivoAdjunto } from '../../types';
 
 const ESTADO_STYLES: Record<string, { bg: string; text: string; dot: string }> = {
@@ -43,18 +43,38 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {data.items.map((item, index) => {
                         const estadoStyle = ESTADO_STYLES[item.estado?.toLowerCase() ?? ''] ?? ESTADO_STYLES['programada'];
+                        const mediaUrl = getUploadUrl(item.imagen || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800");
+                        
                         return (
                             <FadeIn key={item.id} delay={index * 0.1} direction="up">
                                 <div
                                     onClick={() => setSelected(item)}
                                     className="bg-ufaal-gray rounded-3xl overflow-hidden border border-gray-100 group hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer"
                                 >
-                                    <div className="relative h-64 overflow-hidden">
-                                        <img
-                                            src={getUploadUrl(item.imagen || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800")}
-                                            alt={item.titulo}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        />
+                                    <div className="relative h-64 overflow-hidden bg-black">
+                                        {isVideo(mediaUrl) ? (
+                                            <video 
+                                                src={mediaUrl} 
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                                                muted
+                                                playsInline
+                                                onMouseOver={e => e.currentTarget.play()}
+                                                onMouseOut={e => e.currentTarget.pause()}
+                                            />
+                                        ) : (
+                                            <img
+                                                src={mediaUrl}
+                                                alt={item.titulo}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            />
+                                        )}
+                                        
+                                        {isVideo(mediaUrl) && (
+                                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <Play className="w-12 h-12 text-white/50 group-hover:text-white/80 transition-colors" />
+                                            </div>
+                                        )}
+
                                         <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
                                             <span className="text-ufaal-blue text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                                                 <Activity className="w-3 h-3" />
@@ -133,13 +153,23 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                 <X className="w-5 h-5" />
                             </button>
 
-                            <div className="relative h-60 sm:h-80 shrink-0">
-                                <img
-                                    src={getUploadUrl(selected.imagen || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800")}
-                                    alt={selected.titulo}
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-10">
+                            <div className="relative h-60 sm:h-80 shrink-0 bg-black">
+                                {isVideo(getUploadUrl(selected.imagen || '')) ? (
+                                    <video 
+                                        src={getUploadUrl(selected.imagen || '')} 
+                                        className="w-full h-full object-cover"
+                                        controls
+                                        autoPlay
+                                        playsInline
+                                    />
+                                ) : (
+                                    <img
+                                        src={getUploadUrl(selected.imagen || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800")}
+                                        alt={selected.titulo}
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
                                     <div className="flex flex-wrap items-center gap-2 mb-3">
                                         <span className="bg-ufaal-blue text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow flex items-center gap-1.5">
                                             <Activity className="w-3 h-3" />

@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import fs from 'fs';
-
 import contactRoutes from './routes/contactRoutes';
 import adminRoutes from './routes/adminRoutes';
 import dataRoutes from './routes/dataRoutes';
@@ -63,7 +62,7 @@ const loginLimiter = rateLimit({
 
 app.use('/api/', apiLimiter);
 app.use('/api/admin/login', loginLimiter);
-app.use(express.json({ limit: '50mb' })); 
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // QA: Servir archivos estáticos (Imágenes y Descargas)
@@ -95,4 +94,4 @@ app.get('/api/health', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
 });
- 
+

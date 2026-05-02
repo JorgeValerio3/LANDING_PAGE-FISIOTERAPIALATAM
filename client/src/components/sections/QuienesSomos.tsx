@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { FadeIn } from '../ui/FadeIn';
-import { Target, Eye, Heart, Globe, TestTube, Users, ShieldCheck, Lightbulb, HandHeart } from 'lucide-react';
+import { Target, Eye, Heart, Globe, TestTube, Users, ShieldCheck, Lightbulb, HandHeart, X, Play } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { QuienesSomosData } from '../../types';
+import { getUploadUrl, isVideo } from '../../services/api';
 
 const iconMap: Record<string, React.ReactNode> = {
     Globe: <Globe className="w-6 h-6 text-ufaal-blue" />,
@@ -14,6 +16,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function QuienesSomos({ data: _data }: { data?: QuienesSomosData }) {
     const { t } = useI18n();
+    const [lightbox, setLightbox] = useState<string | null>(null);
     if (!_data) return null;
 
     return (
@@ -137,6 +140,73 @@ export function QuienesSomos({ data: _data }: { data?: QuienesSomosData }) {
                 )}
 
             </div>
+
+            {/* Imagen / Video Destacado (configurable desde el admin) */}
+            {_data.imagen_destacada && (
+                <FadeIn direction="up" delay={0.4}>
+                    <div className="max-w-7xl mx-auto px-6 pb-16">
+                        <div
+                            className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer group"
+                            onClick={() => setLightbox(getUploadUrl(_data.imagen_destacada))}
+                        >
+                            {isVideo(_data.imagen_destacada) ? (
+                                <>
+                                    <video
+                                        src={getUploadUrl(_data.imagen_destacada)}
+                                        className="w-full max-h-[60vh] object-cover group-hover:scale-105 transition-transform duration-700"
+                                        muted
+                                        playsInline
+                                        onMouseOver={e => e.currentTarget.play()}
+                                        onMouseOut={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
+                                    />
+                                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                                        <Play className="w-16 h-16 text-white drop-shadow-lg" />
+                                    </div>
+                                </>
+                            ) : (
+                                <img
+                                    src={getUploadUrl(_data.imagen_destacada)}
+                                    alt="Imagen institucional"
+                                    className="w-full max-h-[60vh] object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                    </div>
+                </FadeIn>
+            )}
+
+            {/* Lightbox para imagen_destacada */}
+            {lightbox && (
+                <div
+                    className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4"
+                    onClick={() => setLightbox(null)}
+                >
+                    <button
+                        className="absolute top-5 right-5 text-white/60 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-10"
+                        onClick={e => { e.stopPropagation(); setLightbox(null); }}
+                    >
+                        <X className="w-7 h-7" />
+                    </button>
+                    <div onClick={e => e.stopPropagation()}>
+                        {isVideo(lightbox) ? (
+                            <video
+                                src={lightbox}
+                                className="max-w-full max-h-[88vh] rounded-xl shadow-2xl"
+                                controls
+                                autoPlay
+                                playsInline
+                            />
+                        ) : (
+                            <img
+                                src={lightbox}
+                                alt="Imagen institucional"
+                                className="max-w-full max-h-[88vh] object-contain rounded-xl shadow-2xl"
+                            />
+                        )}
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

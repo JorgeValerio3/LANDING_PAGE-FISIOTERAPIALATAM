@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SERVER_URL, getAdminToken } from '../../api';
 import { getUploadUrl } from '../../services/api';
-import { Loader2, Upload } from 'lucide-react';
+import { Loader2, Upload, Film } from 'lucide-react';
 
 interface ImageUploadProps {
     currentImage: string;
@@ -9,17 +9,27 @@ interface ImageUploadProps {
     label?: string;
 }
 
-export function ImageUpload({ currentImage, onUploadSuccess, label = "Seleccionar Imagen" }: ImageUploadProps) {
+export function ImageUpload({ currentImage, onUploadSuccess, label = "Seleccionar Imagen/Video" }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState(currentImage);
+    const [localFileType, setLocalFileType] = useState<string>(''); // MIME type del archivo seleccionado localmente
 
     useEffect(() => {
         setPreview(currentImage);
+        setLocalFileType(''); // Limpiar tipo local al cambiar la imagen desde el padre
     }, [currentImage]);
+
+    const isVideo = (url: string) => {
+        if (!url) return false;
+        return url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) || url.includes('/video/upload/');
+    };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
         const file = e.target.files[0];
+
+        // Guardar MIME type para preview correcto antes de que suba a Cloudinary
+        setLocalFileType(file.type);
 
         // Mostrar preview local
         const objectUrl = URL.createObjectURL(file);
@@ -28,7 +38,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
         // Subir al servidor
         setUploading(true);
         const formData = new FormData();
-        formData.append('files', file); 
+        formData.append('files', file);
 
         try {
             const token = getAdminToken();
@@ -58,7 +68,7 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
             }
         } catch (err) {
             console.error(err);
-            alert('Error de conexión al subir imagen');
+            alert('Error de conexión al subir archivo');
             setPreview(currentImage);
         } finally {
             setUploading(false);
@@ -70,21 +80,37 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
     return (
         <div className="border shadow-sm rounded-xl p-4 bg-white relative">
             <label className="block text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">{label}</label>
-            
+
             {preview ? (
                 <div className="relative rounded-lg overflow-hidden group">
-                    <img 
-                        src={displayUrl} 
-                        alt="Preview" 
-                        className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition-opacity" 
-                    />
-                    
+                    {isVideo(displayUrl) || localFileType.startsWith('video/') ? (
+                        <div className="w-full h-48 bg-black flex items-center justify-center relative">
+                            <video
+                                src={displayUrl}
+                                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                                muted
+                                playsInline
+                                onMouseOver={e => e.currentTarget.play()}
+                                onMouseOut={e => e.currentTarget.pause()}
+                            />
+                            <div className="absolute top-2 right-2 bg-black/50 p-1 rounded-md">
+                                <Film className="w-4 h-4 text-white" />
+                            </div>
+                        </div>
+                    ) : (
+                        <img
+                            src={displayUrl}
+                            alt="Preview"
+                            className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                        />
+                    )}
+
                     <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                         <span className="bg-white text-gray-800 px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center gap-2">
                             {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                            Cambiar Imagen
+                            Cambiar Archivo
                         </span>
-                        <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} disabled={uploading} />
+                        <input type="file" className="hidden" accept="image/*,video/*" onChange={handleFileChange} disabled={uploading} />
                     </label>
                 </div>
             ) : (
@@ -92,10 +118,15 @@ export function ImageUpload({ currentImage, onUploadSuccess, label = "Selecciona
                     {uploading ? (
                         <Loader2 className="w-8 h-8 text-ufaal-blue animate-spin mb-2" />
                     ) : (
-                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                        <div className="flex flex-col items-center">
+                            <div className="flex gap-2 mb-2">
+                                <Upload className="w-8 h-8 text-gray-400" />
+                                <Film className="w-8 h-8 text-gray-400" />
+                            </div>
+                        </div>
                     )}
-                    <span className="text-sm text-gray-500 font-medium">Click para subir foto</span>
-                    <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} disabled={uploading} />
+                    <span className="text-sm text-gray-500 font-medium text-center px-4">Click para subir foto o video</span>
+                    <input type="file" className="hidden" accept="image/*,video/*" onChange={handleFileChange} disabled={uploading} />
                 </label>
             )}
         </div>

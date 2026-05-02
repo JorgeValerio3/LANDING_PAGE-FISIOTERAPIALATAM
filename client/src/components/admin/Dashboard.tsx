@@ -38,6 +38,7 @@ export function Dashboard() {
     const [errorMsg, setErrorMsg] = useState('');
     const [fetchError, setFetchError] = useState<string | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [baseGaleria, setBaseGaleria] = useState<any>(null);
 
     const sections = useMemo(() => [
         { id: 'avisos',        label: 'Avisos',           icon: Bell },
@@ -76,6 +77,19 @@ export function Dashboard() {
     useEffect(() => {
         fetchContent(activeLang);
     }, [activeLang, fetchContent]);
+
+    useEffect(() => {
+        if (activeLang !== 'es' && activeTab === 'galeria') {
+            fetchClient('/admin/content?lang=es')
+                .then((raw: any) => {
+                    const { _meta, ...data } = raw;
+                    setBaseGaleria(data.galeria ?? null);
+                })
+                .catch(() => setBaseGaleria(null));
+        } else {
+            setBaseGaleria(null);
+        }
+    }, [activeLang, activeTab]);
 
     const handleLangChange = (lang: string) => {
         if (lang === activeLang) return;
@@ -430,7 +444,7 @@ export function Dashboard() {
                                 {activeTab === 'actividades'   && <ActividadesForm   data={currentSectionData} onChange={(d: any) => handleSectionChange('actividades', d)} />}
                                 {activeTab === 'formacion'     && <FormacionForm     data={currentSectionData} onChange={(d: any) => handleSectionChange('formacion', d)} />}
                                 {activeTab === 'investigacion' && <InvestigacionForm data={currentSectionData} onChange={(d: any) => handleSectionChange('investigacion', d)} />}
-                                {activeTab === 'galeria'       && <GaleriaForm       data={currentSectionData} onChange={(d: any) => handleSectionChange('galeria', d)} />}
+                                {activeTab === 'galeria'       && <GaleriaForm       data={currentSectionData} onChange={(d: any) => handleSectionChange('galeria', d)} baseImages={activeLang !== 'es' ? baseGaleria?.imagenes : undefined} />}
                                 {activeTab === 'noticias'      && <NoticiasForm      data={currentSectionData} onChange={(d: any) => handleSectionChange('noticias', d)} />}
                                 {activeTab === 'afiliacion'    && <AfiliacionForm    data={currentSectionData} onChange={(d: any) => handleSectionChange('afiliacion', d)} />}
                                 {activeTab === 'contacto'      && <ContactoForm      data={currentSectionData} onChange={(d: any) => handleSectionChange('contacto', d)} />}

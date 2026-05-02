@@ -8,15 +8,16 @@ import multer from 'multer';
 const ALLOWED_MIMES = new Set([
     'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
     'image/heic', 'image/heif',
+    'video/mp4', 'video/webm', 'video/ogg', 'video/quicktime',
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]);
-const ALLOWED_EXT = /\.(jpeg|jpg|png|gif|webp|heic|heif|pdf|doc|docx)$/i;
+const ALLOWED_EXT = /\.(jpeg|jpg|png|gif|webp|heic|heif|mp4|webm|ogg|mov|pdf|doc|docx)$/i;
 
 const upload = multer({
     storage: cloudinaryStorage,
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: 50 * 1024 * 1024 }, // Aumentado a 50MB para videos
     fileFilter: (req, file, cb) => {
         const mimeOk = ALLOWED_MIMES.has(file.mimetype);
         const extOk = ALLOWED_EXT.test(file.originalname);

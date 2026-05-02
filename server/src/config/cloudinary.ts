@@ -13,15 +13,18 @@ cloudinary.config({
 
 // Configuración del almacenamiento para Multer
 const IMAGE_MIMES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+const VIDEO_MIMES = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 
 export const cloudinaryStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
     const isImage = IMAGE_MIMES.includes(file.mimetype);
+    const isVideo = VIDEO_MIMES.includes(file.mimetype);
+    
     return {
       folder: 'ufaal_uploads',
       ...(isImage && { format: 'webp' }),
-      resource_type: isImage ? 'image' : 'raw',
+      resource_type: (isImage || isVideo) ? (isImage ? 'image' : 'video') : 'raw',
       public_id: `${Date.now()}-${file.originalname.split('.')[0]}`,
     };
   },

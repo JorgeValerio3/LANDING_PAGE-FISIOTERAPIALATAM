@@ -24,6 +24,15 @@ export const getUploadUrl = (path: string) => {
 };
 
 /**
+ * Detecta si una URL corresponde a un archivo de video
+ */
+export const isVideo = (url: string) => {
+    if (!url) return false;
+    // Soporte para extensiones comunes y URLs de Cloudinary con /video/
+    return url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) || url.includes('/video/upload/');
+};
+
+/**
  * @deprecated Use useData() hook from DataContext instead of getContent()
  */
 export const getContent = () => {

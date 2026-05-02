@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { FadeIn } from '../ui/FadeIn';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Tag } from 'lucide-react';
-import { getUploadUrl } from '../../services/api';
+import { X, Tag, Play, Film } from 'lucide-react';
+import { getUploadUrl, isVideo } from '../../services/api';
 import { useI18n } from '../../contexts/I18nContext';
 import { GaleriaData, GaleriaImagen } from '../../types';
 
@@ -61,20 +61,40 @@ export function Galeria({ data: _data }: { data?: GaleriaData }) {
                         <FadeIn key={img.src + index} delay={0.1 + (index * 0.05)} direction="up" className="break-inside-avoid">
                             <div
                                 onClick={() => setSelectedImage(img)}
-                                className="group relative overflow-hidden rounded-2xl shadow-sm border border-gray-100 cursor-pointer"
+                                className="group relative overflow-hidden rounded-2xl shadow-sm border border-gray-100 cursor-pointer bg-black"
                             >
                                 <div className="absolute inset-0 bg-ufaal-blue/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-                                    <span className="text-white text-sm font-semibold bg-ufaal-blue px-6 py-2.5 rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
-                                        {t('galeria.ver_imagen')}
+                                    <span className="text-white text-sm font-semibold bg-ufaal-blue px-6 py-2.5 rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg flex items-center gap-2">
+                                        {isVideo(img.src) ? <Play className="w-4 h-4" /> : null}
+                                        {isVideo(img.src) ? t('galeria.ver_video') || 'Reproducir Video' : t('galeria.ver_imagen')}
                                     </span>
                                 </div>
-                                <img
-                                    src={img.src}
-                                    alt={img.alt}
-                                    className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${img.type === 'tall' ? 'h-96' : img.type === 'wide' ? 'h-64' : 'h-72'
-                                        }`}
-                                    loading="lazy"
-                                />
+                                {isVideo(img.src) ? (
+                                    <div className="relative">
+                                        <video 
+                                            src={img.src} 
+                                            className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 ${img.type === 'tall' ? 'h-96' : img.type === 'wide' ? 'h-64' : 'h-72'}`}
+                                            muted
+                                            playsInline
+                                            onMouseOver={e => e.currentTarget.play()}
+                                            onMouseOut={e => {
+                                                e.currentTarget.pause();
+                                                e.currentTarget.currentTime = 0;
+                                            }}
+                                        />
+                                        <div className="absolute top-4 right-4 bg-black/50 p-1.5 rounded-lg z-20">
+                                            <Film className="w-4 h-4 text-white" />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <img
+                                        src={img.src}
+                                        alt={img.alt}
+                                        className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${img.type === 'tall' ? 'h-96' : img.type === 'wide' ? 'h-64' : 'h-72'
+                                            }`}
+                                        loading="lazy"
+                                    />
+                                )}
                             </div>
                         </FadeIn>
                     ))}
@@ -116,12 +136,22 @@ export function Galeria({ data: _data }: { data?: GaleriaData }) {
                             transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
                             className="relative z-10 flex flex-col items-center max-w-5xl w-full"
                         >
-                            <img
-                                src={selectedImage.src.replace('&w=800', '').replace('&w=600', '').replace('&w=500', '')}
-                                alt={selectedImage.alt}
-                                className="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl"
-                                loading="lazy"
-                            />
+                            {isVideo(selectedImage.src) ? (
+                                <video 
+                                    src={selectedImage.src.replace('&w=800', '').replace('&w=600', '').replace('&w=500', '')} 
+                                    className="max-w-full max-h-[75vh] rounded-xl shadow-2xl"
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                />
+                            ) : (
+                                <img
+                                    src={selectedImage.src.replace('&w=800', '').replace('&w=600', '').replace('&w=500', '')}
+                                    alt={selectedImage.alt}
+                                    className="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl"
+                                    loading="lazy"
+                                />
+                            )}
 
                             {/* Caption — título, categoría, descripción */}
                             {(selectedImage.titulo || selectedImage.descripcion || selectedImage.categoria) && (
