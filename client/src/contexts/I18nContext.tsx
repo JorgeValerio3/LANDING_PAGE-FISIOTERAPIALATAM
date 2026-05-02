@@ -40,14 +40,18 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const loadTranslations = useCallback(async (lang: Language) => {
     setIsI18nLoading(true);
     try {
+      // Intentamos cargar el archivo JSON. Vite maneja esto y suele ponerlo en .default
       const data = await import(`../locales/${lang}.json`);
-      setBaseTranslations(data.default);
+      const translations = data.default || data;
+      
+      console.log(`[I18n] Cargadas traducciones para ${lang}`, Object.keys(translations).length, "claves");
+      setBaseTranslations(translations);
       document.documentElement.lang = lang;
     } catch (error) {
       console.error(`QA Warning [I18n]: Error al cargar ${lang}.json.`, error);
       if (lang !== 'es') {
         const fallbackData = await import(`../locales/es.json`);
-        setBaseTranslations(fallbackData.default);
+        setBaseTranslations(fallbackData.default || fallbackData);
       }
     } finally {
       setIsI18nLoading(false);
@@ -64,11 +68,11 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [loadTranslations]);
 
   useEffect(() => {
-    if (dbData && Object.keys(baseTranslations).length > 0) {
+    if (dbData && baseTranslations && Object.keys(baseTranslations).length > 0) {
       // Prioridad: DB > Archivo Local para datos, pero mantenemos estructura
       const merged = deepMerge(baseTranslations, dbData);
       setMergedTranslations(merged);
-    } else {
+    } else if (baseTranslations) {
       setMergedTranslations(baseTranslations);
     }
   }, [baseTranslations, dbData]);
@@ -91,10 +95,12 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const keys = key.split('.');
     
     // Función interna para navegar objetos de forma segura
-    const getValue = (obj: any) => {
+    const getValue = (obj: any, pathKeys: string[]) => {
       let current = obj;
-      for (const k of keys) {
-        if (current && typeof current === 'object' && k in current) {
+      if (!current || typeof current !== 'object') return undefined;
+      
+      for (const k of pathKeys) {
+        if (current && typeof current === 'object' && current !== null && k in current) {
           current = current[k];
         } else {
           return undefined;
@@ -104,26 +110,29 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     // Intento 1: Merged (DB + Local)
-    const result = getValue(mergedTranslations);
+    const result = getValue(mergedTranslations, keys);
 
     // Validación: ¿Es renderizable o es un Array de textos (Historia)?
     const isPrimitive = typeof result === 'string' || typeof result === 'number';
-    const isTextArray = Array.isArray(result) && result.every(i => typeof i === 'string');
+    const isTextArray = Array.isArray(result) && result.length > 0 && result.every(i => typeof i === 'string');
     
     if (isPrimitive || isTextArray) return result;
 
     // Intento 2: Fallback directo a baseTranslations (Local JSON original)
     // Esto repara las claves técnicas que aparecían por colisiones de arrays
-    const baseResult = getValue(baseTranslations);
+    const baseResult = getValue(baseTranslations, keys);
     
     const isBasePrimitive = typeof baseResult === 'string' || typeof baseResult === 'number';
-    const isBaseTextArray = Array.isArray(baseResult) && baseResult.every(i => typeof i === 'string');
+    const isBaseTextArray = Array.isArray(baseResult) && baseResult.length > 0 && baseResult.every(i => typeof i === 'string');
 
     if (isBasePrimitive || isBaseTextArray) return baseResult;
 
-    // Si aún así no hay nada, mostramos vacío si está cargando, o la key como último recurso
+    // Si aún así no hay nada, mostramos vacío si está cargando, o undefined como último recurso
+    // para que los componentes puedan usar sus propios fallbacks (|| 'Default')
     const loading = isI18nLoading || isDataLoading;
-    return loading ? '' : key;
+    if (loading) return '';
+
+    return undefined;
   }, [mergedTranslations, baseTranslations, isI18nLoading, isDataLoading]);
 
   const globalLoading = isI18nLoading || isDataLoading;
