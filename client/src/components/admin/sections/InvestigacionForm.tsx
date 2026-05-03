@@ -23,7 +23,7 @@ export function InvestigacionForm({ data, onChange }: InvestigacionFormProps) {
 
     const addArticulo = () => {
         const id = Date.now();
-        const newArticulos = [...articulos, { id, titulo: "", autores: "", fecha: "", revista: "", doi: "", pdf_url: "", imagen: "" }];
+        const newArticulos = [...articulos, { id, titulo: "", autores: "", fecha: "", revista: "", doi: "", pdf_url: "", imagen: "", url_externa: "" }];
         handleChange('articulos', newArticulos);
     };
 
@@ -83,10 +83,16 @@ export function InvestigacionForm({ data, onChange }: InvestigacionFormProps) {
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Fecha</label>
                                                 <input type="text" value={articulo.fecha || ''} onChange={(e) => handleArticuloChange(idx, 'fecha', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
                                             </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div className="flex-1">
                                                 <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">DOI (Opcional)</label>
-                                                <input type="text" value={articulo.doi || ''} onChange={(e) => handleArticuloChange(idx, 'doi', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                                <input type="text" value={articulo.doi || ''} onChange={(e) => handleArticuloChange(idx, 'doi', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" placeholder="Ej. 10.1001/jama.2023.1234" />
                                             </div>
+                                            <div className="flex-1">
+                                                <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Enlace Externo (Opcional)</label>
+                                                <input type="text" value={articulo.url_externa || ''} onChange={(e) => handleArticuloChange(idx, 'url_externa', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" placeholder="https://..." />
+                                            </div>
+                                        </div>
                                         </div>
                                         <div>
                                             <FileUpload 

@@ -112,9 +112,20 @@ export function Formacion({ data: _data }: { data?: FormacionData }) {
                                                 
                                                 <div className="pt-4 border-t border-gray-200 flex items-center justify-between">
                                                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Requisitos: {nivel.requisitos}</span>
-                                                    <button className="text-ufaal-blue p-2 bg-white rounded-full shadow-sm hover:bg-ufaal-blue hover:text-white transition-all">
-                                                        <ChevronRight className="w-4 h-4" />
-                                                    </button>
+                                                    {nivel.enlace ? (
+                                                        <a 
+                                                            href={nivel.enlace.startsWith('http') ? nivel.enlace : `https://${nivel.enlace}`} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer"
+                                                            className="text-ufaal-blue p-2 bg-white rounded-full shadow-sm hover:bg-ufaal-blue hover:text-white transition-all"
+                                                        >
+                                                            <ChevronRight className="w-4 h-4" />
+                                                        </a>
+                                                    ) : (
+                                                        <button className="text-gray-300 p-2 bg-white rounded-full shadow-sm cursor-not-allowed">
+                                                            <ChevronRight className="w-4 h-4" />
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>

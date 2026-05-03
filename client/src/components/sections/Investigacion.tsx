@@ -134,15 +134,15 @@ export function Investigacion({ data: _data }: { data?: InvestigacionData }) {
                                                 {art.autores}
                                             </p>
                                             <div className="mt-auto pt-4 flex items-center justify-between">
-                                                {art.pdf_url ? (
+                                                {(art.pdf_url || art.url_externa) ? (
                                                     <button 
-                                                        onClick={() => handleDownloadPDF(art.pdf_url)}
+                                                        onClick={() => handleDownloadPDF(art.pdf_url || art.url_externa)}
                                                         className="text-ufaal-blue text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:translate-x-1 transition-transform"
                                                     >
                                                         Leer Artículo <ArrowRight className="w-3 h-3" />
                                                     </button>
                                                 ) : (
-                                                    <span className="text-gray-400 text-[10px] uppercase font-bold">Sin PDF disponible</span>
+                                                    <span className="text-gray-400 text-[10px] uppercase font-bold">Sin PDF/Enlace disponible</span>
                                                 )}
                                                 {art.doi && (
                                                     <a href={`https://doi.org/${art.doi}`} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-ufaal-blue transition-colors">

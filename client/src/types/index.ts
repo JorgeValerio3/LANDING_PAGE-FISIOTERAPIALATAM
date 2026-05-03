@@ -78,6 +78,7 @@ export interface NivelFormacion {
     requisitos: string;
     icono: string;
     imagen?: string;
+    enlace?: string;
 }
 
 export interface FormacionData {

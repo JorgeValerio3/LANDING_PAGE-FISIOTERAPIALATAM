@@ -22,7 +22,7 @@ export function FormacionForm({ data, onChange }: FormacionFormProps) {
 
     const addNivel = () => {
         const id = "nuevo_" + Date.now();
-        const newNiveles = [...niveles, { id, titulo: "", descripcion: "", duracion: "", requisitos: "", icono: "book", imagen: "" }];
+        const newNiveles = [...niveles, { id, titulo: "", descripcion: "", duracion: "", requisitos: "", icono: "book", imagen: "", enlace: "" }];
         handleChange('niveles', newNiveles);
     };
 
@@ -72,7 +72,7 @@ export function FormacionForm({ data, onChange }: FormacionFormProps) {
                                     <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Título del Nivel</label>
                                     <input type="text" value={nivel.titulo || ''} onChange={(e) => handleNivelChange(idx, 'titulo', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm font-bold" />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="flex-1">
                                         <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Duración</label>
                                         <input type="text" value={nivel.duracion || ''} onChange={(e) => handleNivelChange(idx, 'duracion', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
@@ -80,6 +80,10 @@ export function FormacionForm({ data, onChange }: FormacionFormProps) {
                                     <div className="flex-1">
                                         <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Requisitos</label>
                                         <input type="text" value={nivel.requisitos || ''} onChange={(e) => handleNivelChange(idx, 'requisitos', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="block text-[10px] font-bold text-gray-400 mb-1 uppercase">Enlace de Registro/Información</label>
+                                        <input type="text" value={nivel.enlace || ''} onChange={(e) => handleNivelChange(idx, 'enlace', e.target.value)} className="w-full border border-gray-200 rounded p-2 text-sm" placeholder="https://..." />
                                     </div>
                                 </div>
                                 <div>
