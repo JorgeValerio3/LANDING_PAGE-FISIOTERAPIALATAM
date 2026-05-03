@@ -2,7 +2,7 @@ import { FadeIn } from '../ui/FadeIn';
 import { FileText, Download, ShieldCheck, ExternalLink, Calendar, ArrowRight, Play } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { InvestigacionData } from '../../types';
-import { getUploadUrl, isVideo } from '../../services/api';
+import { getUploadUrl, isVideo, formatExternalUrl } from '../../services/api';
 
 export function Investigacion({ data: _data }: { data?: InvestigacionData }) {
     const { t } = useI18n();
@@ -14,9 +14,10 @@ export function Investigacion({ data: _data }: { data?: InvestigacionData }) {
         }
     };
 
-    const handleDownloadPDF = (url?: string) => {
+    const handleDownloadPDF = (url?: string, isExternal = false) => {
         if (url) {
-            window.open(url.startsWith('http') || url.startsWith('/') ? url : `/${url}`, '_blank', 'noopener,noreferrer');
+            const finalUrl = isExternal ? formatExternalUrl(url) : getUploadUrl(url);
+            window.open(finalUrl, '_blank', 'noopener,noreferrer');
         }
     };
 
@@ -136,7 +137,10 @@ export function Investigacion({ data: _data }: { data?: InvestigacionData }) {
                                             <div className="mt-auto pt-4 flex items-center justify-between">
                                                 {(art.pdf_url || art.url_externa) ? (
                                                     <button 
-                                                        onClick={() => handleDownloadPDF(art.pdf_url || art.url_externa)}
+                                                        onClick={() => {
+                                                            if (art.pdf_url) handleDownloadPDF(art.pdf_url, false);
+                                                            else if (art.url_externa) handleDownloadPDF(art.url_externa, true);
+                                                        }}
                                                         className="text-ufaal-blue text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:translate-x-1 transition-transform"
                                                     >
                                                         Leer Artículo <ArrowRight className="w-3 h-3" />

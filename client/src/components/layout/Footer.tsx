@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Linkedin, Globe, Mail } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { FooterData, ContactoData } from '../../types';
+import { formatExternalUrl } from '../../services/api';
 
 export function Footer({ data: _data, contactData }: { data?: FooterData, contactData?: ContactoData }) {
     const { t } = useI18n();
@@ -83,21 +84,21 @@ export function Footer({ data: _data, contactData }: { data?: FooterData, contac
                             <h4 className="text-white font-bold mb-6 text-lg">{t('footer.siguenos')}</h4>
                             <div className="flex gap-3">
                                 {socialLinks.facebook && socialLinks.facebook !== "#" && (
-                                    <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" 
+                                    <a href={formatExternalUrl(socialLinks.facebook)} target="_blank" rel="noopener noreferrer" 
                                        className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-gray-400 hover:text-white transition-all border border-white/5 active:scale-95"
                                        title="Facebook">
                                         <Facebook className="w-5 h-5" />
                                     </a>
                                 )}
                                 {socialLinks.instagram && socialLinks.instagram !== "#" && (
-                                    <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" 
+                                    <a href={formatExternalUrl(socialLinks.instagram)} target="_blank" rel="noopener noreferrer" 
                                        className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-gray-400 hover:text-white transition-all border border-white/5 active:scale-95"
                                        title="Instagram">
                                         <Instagram className="w-5 h-5" />
                                     </a>
                                 )}
                                 {socialLinks.linkedin && socialLinks.linkedin !== "#" && (
-                                    <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" 
+                                    <a href={formatExternalUrl(socialLinks.linkedin)} target="_blank" rel="noopener noreferrer" 
                                        className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-gray-400 hover:text-white transition-all border border-white/5 active:scale-95"
                                        title="LinkedIn">
                                         <Linkedin className="w-5 h-5" />

@@ -144,7 +144,7 @@ export function QuienesSomos({ data: _data }: { data?: QuienesSomosData }) {
             {/* Imagen / Video Destacado (configurable desde el admin) */}
             {_data.imagen_destacada && (
                 <FadeIn direction="up" delay={0.4}>
-                    <div className="max-w-7xl mx-auto px-6 pb-16">
+                    <div className="max-w-7xl mx-auto px-6 pt-16 pb-16">
                         <div
                             className="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer group"
                             onClick={() => setLightbox(getUploadUrl(_data.imagen_destacada))}

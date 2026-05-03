@@ -39,3 +39,13 @@ export const getContent = () => {
     console.warn('QA Warning: getContent() is deprecated. Data flow should come from DataProvider.');
     return {};
 };
+
+/**
+ * Asegura que una URL externa tenga el protocolo http/https
+ */
+export const formatExternalUrl = (url: string) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    if (url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('#') || url.startsWith('/')) return url;
+    return `https://${url}`;
+};

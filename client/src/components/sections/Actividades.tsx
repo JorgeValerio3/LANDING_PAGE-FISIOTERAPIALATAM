@@ -3,7 +3,7 @@ import { FadeIn } from '../ui/FadeIn';
 import { Activity, MapPin, Users, Calendar, X, LinkIcon, Paperclip, FileText, Download, ChevronRight, Play } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../../contexts/I18nContext';
-import { getUploadUrl, isVideo } from '../../services/api';
+import { getUploadUrl, isVideo, formatExternalUrl } from '../../services/api';
 import { ActividadesData, ActividadItem, ArchivoAdjunto } from '../../types';
 
 const ESTADO_STYLES: Record<string, { bg: string; text: string; dot: string }> = {
@@ -266,7 +266,7 @@ export function Actividades({ data }: { data?: ActividadesData }) {
                                     {selected.url_registro && (
                                         <div className="pt-2">
                                             <a
-                                                href={selected.url_registro}
+                                                href={formatExternalUrl(selected.url_registro)}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="inline-flex items-center gap-2 bg-ufaal-blue text-white px-6 py-3 rounded-xl hover:bg-ufaal-blue-light transition-colors font-semibold text-sm shadow-lg shadow-ufaal-blue/20"

@@ -4,7 +4,7 @@ import { ArrowRight, Bell, Calendar, X, ChevronRight, LinkIcon, User, FileText, 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../../contexts/I18nContext';
 import { NoticiasData, Articulo, ArchivoAdjunto } from '../../types';
-import { getUploadUrl, isVideo } from '../../services/api';
+import { getUploadUrl, isVideo, formatExternalUrl } from '../../services/api';
 
 export interface NewsItem {
     id: string | number;
@@ -57,7 +57,7 @@ export function Noticias({ data: _data }: { data?: NoticiasData }) {
         excerpt: item.extracto,
         contenido: item.contenido,
         image: getUploadUrl(item.imagen || "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800"),
-        link: item.url_externa || item.enlace,
+        link: formatExternalUrl(item.url_externa || item.enlace || ''),
         archivos_adjuntos: item.archivos_adjuntos || [],
     }));
 

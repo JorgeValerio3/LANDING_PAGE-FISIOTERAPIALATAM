@@ -2,7 +2,7 @@ import { FadeIn } from '../ui/FadeIn';
 import { BookOpen, Laptop, Landmark, Award, Clock, ChevronRight, Play } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { FormacionData } from '../../types';
-import { getUploadUrl, isVideo } from '../../services/api';
+import { getUploadUrl, isVideo, formatExternalUrl } from '../../services/api';
 
 export function Formacion({ data: _data }: { data?: FormacionData }) {
     const { t } = useI18n();
@@ -114,7 +114,7 @@ export function Formacion({ data: _data }: { data?: FormacionData }) {
                                                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Requisitos: {nivel.requisitos}</span>
                                                     {nivel.enlace ? (
                                                         <a 
-                                                            href={nivel.enlace.startsWith('http') ? nivel.enlace : `https://${nivel.enlace}`} 
+                                                            href={formatExternalUrl(nivel.enlace)} 
                                                             target="_blank" 
                                                             rel="noopener noreferrer"
                                                             className="text-ufaal-blue p-2 bg-white rounded-full shadow-sm hover:bg-ufaal-blue hover:text-white transition-all"
